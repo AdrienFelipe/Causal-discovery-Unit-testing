@@ -1,0 +1,35 @@
+from random import random
+
+
+class EventInterface:
+    TYPE_NOISE = 'noise'
+    TYPE_CAUSE = 'cause'
+
+    LABEL_NOISE = 'N'
+    LABEL_CAUSE = 'E'
+
+    type = 'undefined'
+    mode = 'undefined'
+    probability = 1
+    position = 0
+
+    def __init__(self, value_type: str, mode: str, position: int):
+        self.type = value_type
+        self.mode = mode
+        self.position = position
+
+    def get_type(self) -> str:
+        return self.mode
+
+    def generate(self) -> float:
+        pass
+
+    def get_probability(self) -> float:
+        return self.probability
+
+    def get_label(self) -> str:
+        label = self.LABEL_CAUSE if self.type is self.TYPE_CAUSE else self.LABEL_NOISE
+        return label + (str(self.position) if self.position is not 0 else '')
+
+    def draw(self) -> bool:
+        return random() < self.probability
