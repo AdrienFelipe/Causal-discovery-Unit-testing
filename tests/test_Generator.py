@@ -1,9 +1,11 @@
 import random
 import unittest
+from typing import Callable
 
 import pandas as pd
 
 from Generator import Generator
+from events.History import History
 
 
 class MyTestCase(unittest.TestCase):
@@ -11,7 +13,8 @@ class MyTestCase(unittest.TestCase):
     @staticmethod
     def test_discrete_instant_action():
         random.seed(1)
-        cause_function = lambda causes: 1 if causes[0][0] == 1 else 0
+        cause_function: Callable[[History], float] = lambda history: \
+            1 if history.get_event(0) == 1 else 0
 
         dataset = Generator(cause_function) \
             .add_noise_discrete() \
@@ -24,7 +27,8 @@ class MyTestCase(unittest.TestCase):
     @staticmethod
     def test_continuous_random():
         random.seed(10)
-        cause_function = lambda causes: 2 * causes[0][0]
+        cause_function: Callable[[History], float] = lambda history: \
+            2 * history.get_event(0)
 
         dataset = Generator(cause_function) \
             .add_noise_continuous() \
@@ -37,8 +41,8 @@ class MyTestCase(unittest.TestCase):
     @staticmethod
     def test_log_like():
         random.seed(14)
-        cause_function = lambda causes:\
-            1 if len(causes) > 1 and causes[1][0] == 1 else None
+        cause_function: Callable[[History], float] = lambda history: \
+            1 if history.get_event(0, time=1) == 1 else None
 
         dataset = Generator(cause_function, ordered=True) \
             .add_noise_discrete() \
@@ -52,8 +56,8 @@ class MyTestCase(unittest.TestCase):
         for seed in range(20):
             random.seed(seed)
 
-            cause_function = lambda causes: \
-                1 if len(causes) > 1 and causes[1][0] == 1 else None
+            cause_function: Callable[[History], float] = lambda history: \
+                1 if history.get_event(0, time=1) == 1 else None
 
             dataset = Generator(cause_function, ordered=True) \
                 .add_noise_discrete(0.3) \

@@ -10,6 +10,7 @@ import pandas as pd
 from events.Continuous import Continuous
 from events.Discrete import Discrete
 from events.EventInterface import EventInterface
+from events.History import History
 
 
 class Generator:
@@ -20,22 +21,23 @@ class Generator:
         self.__noises = []
         self.__cause_function = cause_function
         self.__ordered = ordered
+        self.history = History()
 
     def generate(self, samples: int = 3) -> pd.DataFrame:
         data = pd.DataFrame()
+        self.history.start(size=len(self.get_causes()))
 
         events = self.get_noises() + self.get_causes()
         weights = [event.probability for event in events]
         default_sample = {event.get_label(): self.EMPTY_VALUE for event in events}
         default_sample['X'] = self.EMPTY_VALUE
-        cause_values = deque()
 
         for _ in range(samples):
             sample = default_sample.copy()
-            cause_values.appendleft([None] * len(self.__causes))
+            self.history.add_time()
 
             if self.__ordered:
-                result = self.__cause_function(cause_values)
+                result = self.__cause_function(self.history)
                 if result is not None:
                     sample['X'] = result
 
@@ -43,7 +45,7 @@ class Generator:
                     event = random.choices(events, weights)[0]
                     sample[event.get_label()] = value = event.generate()
                     if event.type is EventInterface.TYPE_CAUSE:
-                        cause_values[0][event.position] = value
+                        self.history.set_event(event.position, value)
 
                 data = data.append(sample, ignore_index=True)
                 continue
@@ -53,9 +55,9 @@ class Generator:
                 label = event.get_label()
                 sample[label] = value = event.generate()
                 if event.type is EventInterface.TYPE_CAUSE:
-                    cause_values[0][event.position] = value
+                    self.history.set_event(event.position, value)
 
-            sample['X'] = self.__cause_function(cause_values)
+            sample['X'] = self.__cause_function(self.history)
             data = data.append(sample, ignore_index=True)
 
         return data
