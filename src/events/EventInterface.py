@@ -13,9 +13,11 @@ class EventInterface:
     probability = 1
     position = 0
 
-    def __init__(self, value_type: str, mode: str, position: int):
-        self.type = value_type
+    def __init__(self, mode: str):
         self.mode = mode
+
+    def setup(self, value_type: str, position: int):
+        self.type = value_type
         self.position = position
 
     def get_type(self) -> str:

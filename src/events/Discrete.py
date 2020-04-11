@@ -6,8 +6,8 @@ from events.EventInterface import EventInterface
 class Discrete(EventInterface):
     type = 'discrete'
 
-    def __init__(self, probability: float, value_type: str, position: int):
-        super(Discrete, self).__init__(value_type, self.mode, position)
+    def __init__(self, probability: float):
+        super(Discrete, self).__init__(self.mode)
         self.probability = probability
 
     def generate(self) -> int:
