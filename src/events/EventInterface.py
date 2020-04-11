@@ -4,9 +4,11 @@ from random import random
 class EventInterface:
     TYPE_NOISE = 'noise'
     TYPE_CAUSE = 'cause'
+    TYPE_TIME = 'timestamps'
 
     LABEL_NOISE = 'N'
     LABEL_CAUSE = 'E'
+    LABEL_TIME = 'T'
 
     type = 'undefined'
     mode = 'undefined'

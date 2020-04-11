@@ -82,6 +82,21 @@ class MyTestCase(unittest.TestCase):
         expected = pd.DataFrame({'E': [1, 2, 3], 'N': [-1.5, -1, -0.5], 'X': [1, 0, -1]})
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
+    @staticmethod
+    def test_with_time():
+        cause_function: Callable[[History], float] = lambda history: \
+            np.sin(history.get_time() / 60 / 5 * np.pi / 2)
+
+        dataset = Generator(cause_function) \
+            .set_time('2018-05-13 20:15', step='5m') \
+            .generate(5)
+
+        expected = pd.DataFrame({
+            'T': [1526235600, 1526235900, 1526236200, 1526236500, 1526236800],
+            'X': [0, 1, 0, -1, 0]
+        })
+        pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
+
     def test_search(self):
         for seed in range(20):
             random.seed(seed)

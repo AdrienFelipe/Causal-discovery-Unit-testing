@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import random
+import time
 from typing import Callable
 from typing import List
 from typing import Union
@@ -12,6 +13,7 @@ from events.Discrete import Discrete
 from events.EventInterface import EventInterface
 from events.History import History
 from events.Linear import Linear
+from events.Time import Time
 
 
 class Generator:
@@ -20,6 +22,7 @@ class Generator:
     def __init__(self, cause_function: Callable[[History], float], ordered: bool = False):
         self.__causes = []
         self.__noises = []
+        self.__time = None
         self.__cause_function = cause_function
         self.__ordered = ordered
         self.history = History()
@@ -35,7 +38,10 @@ class Generator:
 
         for _ in range(samples):
             sample = default_sample.copy()
-            self.history.add_sample()
+            timestamp = self.__next_timestamp()
+            self.history.add_sample(timestamp)
+            if self.get_time() is not None:
+                sample['T'] = timestamp
 
             if self.__ordered:
                 result = self.process_causes()
@@ -75,6 +81,12 @@ class Generator:
     def get_causes(self) -> List[EventInterface]:
         return self.__causes
 
+    def get_time(self) -> Union[Time, None]:
+        return self.__time
+
+    def __next_timestamp(self) -> float:
+        return time.time() if self.get_time() is None else self.get_time().generate()
+
     @staticmethod
     def __add_position(values: List[EventInterface]) -> int:
         count = len(values)
@@ -101,11 +113,11 @@ class Generator:
     def add_noise_continuous(self, min_value: int = 0, max_value: int = 10) -> Generator:
         return self.__add_noise(Continuous(min_value, max_value))
 
-    def add_noise_discrete(self, probability: float = 0.3) -> Generator:
-        return self.__add_noise(Discrete(probability))
-
     def add_cause_continuous(self, min_value: int = 0, max_value: int = 10) -> Generator:
         return self.__add_cause(Continuous(min_value, max_value))
+
+    def add_noise_discrete(self, probability: float = 0.3) -> Generator:
+        return self.__add_noise(Discrete(probability))
 
     def add_cause_discrete(self, probability: float = 0.3) -> Generator:
         return self.__add_cause(Discrete(probability))
@@ -115,3 +127,7 @@ class Generator:
 
     def add_cause_linear(self, start: float = 0, step: float = 1) -> Generator:
         return self.__add_cause(Linear(start, step))
+
+    def set_time(self, start_date: str = None, step: str = '1m') -> Generator:
+        self.__time = Time(start_date, step)
+        return self
