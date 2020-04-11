@@ -27,5 +27,5 @@ class History:
         except:
             return null_value
 
-    def get_time(self, time:int=0)->float:
+    def get_timestamp(self, time: int = 0) -> float:
         return self.timestamps[time]

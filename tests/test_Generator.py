@@ -9,7 +9,7 @@ from Generator import Generator
 from events.History import History
 
 
-class MyTestCase(unittest.TestCase):
+class GeneratorTest(unittest.TestCase):
 
     @staticmethod
     def test_discrete_instant_action():
@@ -85,7 +85,7 @@ class MyTestCase(unittest.TestCase):
     @staticmethod
     def test_with_time():
         cause_function: Callable[[History], float] = lambda history: \
-            np.sin(history.get_time() / 60 / 5 * np.pi / 2)
+            np.sin(history.get_timestamp() / 60 / 5 * np.pi / 2)
 
         dataset = Generator(cause_function) \
             .set_time('2018-05-13 20:15', step='5m') \

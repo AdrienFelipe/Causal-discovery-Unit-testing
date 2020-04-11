@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49d02c69-e595-4e6d-a306-a12b6670544f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Untitled.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Untitled.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/events/EventInterface.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/EventInterface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/events/History.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/History.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_Generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_Generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/events/Time.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/events/Time.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,7 +44,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.pytest for test_Generator.MyTestCase.test_with_time">
+  <component name="RunManager" selected="Python tests.pytest in tests">
     <configuration name="pytest for test_Generator.MyTestCase" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="tfm" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -129,8 +127,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.pytest for test_Generator.MyTestCase.test_with_time" />
         <item itemvalue="Python tests.pytest in tests" />
+        <item itemvalue="Python tests.pytest for test_Generator.MyTestCase.test_with_time" />
         <item itemvalue="Python tests.pytest for test_Generator.MyTestCase" />
         <item itemvalue="Python tests.pytest for test_Generator.MyTestCase.test_discrete_instant_action" />
         <item itemvalue="Python tests.pytest for test_Generator.MyTestCase.test_pattern_search" />
@@ -153,7 +151,7 @@
       <workItem from="1586504493192" duration="1475000" />
       <workItem from="1586512302520" duration="4460000" />
       <workItem from="1586591442345" duration="4582000" />
-      <workItem from="1586605881118" duration="1220000" />
+      <workItem from="1586605881118" duration="3810000" />
     </task>
     <servers />
   </component>
@@ -188,7 +186,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tests/test_Generator.py</url>
-          <line>95</line>
+          <line>93</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -213,10 +211,10 @@
     <SUITE FILE_PATH="coverage/tfm$pytest_for_test_Generator_MyTestCase_test_continuous_random.coverage" NAME="pytest for test_Generator.MyTestCase.test_continuous_random Coverage Results" MODIFIED="1586512514295" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/tfm$pytest_for_test_Generator_MyTestCase_test_pattern_search.coverage" NAME="pytest for test_Generator.MyTestCase.test_pattern_search Coverage Results" MODIFIED="1586594895112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/tfm$pytest_for_test_Generator_MyTestCase.coverage" NAME="pytest for test_Generator.MyTestCase Coverage Results" MODIFIED="1586596007029" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/tfm$pytest_in_tests.coverage" NAME="pytest in tests Coverage Results" MODIFIED="1586605941808" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/tfm$pytest_in_tests.coverage" NAME="pytest in tests Coverage Results" MODIFIED="1586607259671" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/tfm$pytest_for_test_Generator_MyTestCase_test_log_like.coverage" NAME="pytest for test_Generator.MyTestCase.test_log_like Coverage Results" MODIFIED="1586512630493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/tfm$pytest_for_test_Generator_MyTestCase_test_continuous_ordered.coverage" NAME="pytest for test_Generator.MyTestCase.test_continuous_ordered Coverage Results" MODIFIED="1586520218948" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/tfm$pytest_for_test_Generator_MyTestCase_test_with_time.coverage" NAME="pytest for test_Generator.MyTestCase.test_with_time Coverage Results" MODIFIED="1586606911436" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/tfm$pytest_for_test_Generator_MyTestCase_test_with_time.coverage" NAME="pytest for test_Generator.MyTestCase.test_with_time Coverage Results" MODIFIED="1586607250239" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/tfm$pytest_for_test_Generator_MyTestCase_test_something.coverage" NAME="pytest for test_Generator.MyTestCase.test_something Coverage Results" MODIFIED="1586112101359" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/tfm$pytest_for_test_Generator_MyTestCase_test_search.coverage" NAME="pytest for test_Generator.MyTestCase.test_search Coverage Results" MODIFIED="1586270949407" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/tfm$pytest_for_test_Generator_MyTestCase_test_discrete_instant_action.coverage" NAME="pytest for test_Generator.MyTestCase.test_discrete_instant_action Coverage Results" MODIFIED="1586596001306" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />

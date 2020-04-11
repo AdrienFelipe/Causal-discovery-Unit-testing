@@ -128,6 +128,6 @@ class Generator:
     def add_cause_linear(self, start: float = 0, step: float = 1) -> Generator:
         return self.__add_cause(Linear(start, step))
 
-    def set_time(self, start_date: str = None, step: str = '1m') -> Generator:
-        self.__time = Time(start_date, step)
+    def set_time(self, start_date: str = None, step: str = '1m', precision: str = None) -> Generator:
+        self.__time = Time(start_date, step, precision)
         return self
