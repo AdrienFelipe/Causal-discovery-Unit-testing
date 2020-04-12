@@ -15,16 +15,18 @@ class Time(EventInterface):
 
     def __init__(self, start_date: str = None, step: str = None, precision: str = None):
         super(Time, self).__init__(self.mode)
-        self.date = datetime.fromisoformat(start_date) if start_date is not None else datetime.now()
+        self.count = 0
+        self.start_date = datetime.fromisoformat(start_date) if start_date is not None else datetime.now()
         self.step = self.__parse_duration(step)
         self.precision = self.__parse_duration(precision) if precision is not None else None
 
     def generate(self) -> float:
-        self.date += self.step
+        date = self.start_date + self.step * self.count
+        self.count += 1
         if self.precision is not None:
             seconds = uniform(-self.precision.total_seconds(), self.precision.total_seconds())
-            self.date += timedelta(seconds=seconds)
-        return self.date.timestamp()
+            date += timedelta(seconds=seconds)
+        return date.timestamp()
 
     def __parse_duration(self, duration: str) -> timedelta:
         """

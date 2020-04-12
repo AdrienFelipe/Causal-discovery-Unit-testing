@@ -41,7 +41,7 @@ class Generator:
             timestamp = self.__next_timestamp()
             self.history.add_sample(timestamp)
             if self.get_time() is not None:
-                sample['T'] = timestamp
+                sample[EventInterface.LABEL_TIME] = timestamp
 
             if self.__ordered:
                 result = self.process_causes()

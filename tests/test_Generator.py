@@ -92,8 +92,8 @@ class GeneratorTest(unittest.TestCase):
             .generate(5)
 
         expected = pd.DataFrame({
-            'T': [1526235600, 1526235900, 1526236200, 1526236500, 1526236800],
-            'X': [0, 1, 0, -1, 0]
+            'T': [1526235300, 1526235600, 1526235900, 1526236200, 1526236500],
+            'X': [-1, 0, 1, 0, -1]
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 

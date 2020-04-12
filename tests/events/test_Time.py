@@ -6,6 +6,29 @@ from events.Time import Time
 
 
 class TimeTest(unittest.TestCase):
+    def test_step(self):
+        start_timestamp = 1582153200
+        step = 60 * 60
+        time_event = Time('2020-02-20', step='1h')
+        for count in range(24):
+            timestamp = time_event.generate()
+            expected = start_timestamp + step * count
+            self.assertEqual(expected, timestamp)
+
+    def test_step_with_precision(self):
+        random.seed(1)
+
+        start_timestamp = 1582153200
+        step = 60 * 60 * 5
+        precision = 600 + 20 * 60
+        time_event = Time('2020-02-20', step='5h', precision='20m600s')
+        for count in range(30):
+            timestamp = time_event.generate()
+            expected_low = start_timestamp + step * count - precision
+            expected_high = start_timestamp + step * count + precision
+            self.assertGreaterEqual(timestamp, expected_low)
+            self.assertLess(timestamp, expected_high)
+
     def test_precision(self):
         random.seed(1)
 
