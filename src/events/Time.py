@@ -14,7 +14,7 @@ class Time(EventInterface):
     type = 'time'
 
     def __init__(self, start_date: str = None, step: str = None, precision: str = None):
-        super(Time, self).__init__(self.mode)
+        super().__init__(self.mode)
         self.count = 0
         self.start_date = datetime.fromisoformat(start_date) if start_date is not None else datetime.now()
         self.step = self.__parse_duration(step)

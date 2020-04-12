@@ -7,7 +7,7 @@ class Continuous(EventInterface):
     mode = 'continuous'
 
     def __init__(self, min_value: float, max_value: float):
-        super(Continuous, self).__init__(self.mode)
+        super().__init__(self.mode)
         self.__min_value = min_value
         self.__max_value = max_value
 

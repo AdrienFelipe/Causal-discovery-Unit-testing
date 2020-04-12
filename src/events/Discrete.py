@@ -7,7 +7,7 @@ class Discrete(EventInterface):
     type = 'discrete'
 
     def __init__(self, probability: float):
-        super(Discrete, self).__init__(self.mode)
+        super().__init__(self.mode)
         self.probability = probability
 
     def generate(self) -> int:
