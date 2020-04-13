@@ -33,7 +33,7 @@ class Generator:
 
         events = self.get_noises() + self.get_causes()
         weights = [event.probability for event in events]
-        default_sample = {event.get_label(): self.EMPTY_VALUE for event in events}
+        default_sample = {event.label: self.EMPTY_VALUE for event in events}
         default_sample['X'] = self.EMPTY_VALUE
 
         for _ in range(samples):
@@ -50,7 +50,7 @@ class Generator:
 
                 else:
                     event = random.choices(events, weights)[0]
-                    sample[event.get_label()] = value = event.generate()
+                    sample[event.label] = value = event.generate()
                     if event.type is EventInterface.TYPE_CAUSE:
                         self.history.set_event(event.position, value)
 
@@ -59,7 +59,7 @@ class Generator:
 
             # Generate values.
             for event in events:
-                label = event.get_label()
+                label = event.label
                 sample[label] = value = event.generate()
                 if event.type is EventInterface.TYPE_CAUSE:
                     self.history.set_event(event.position, value)
@@ -87,25 +87,14 @@ class Generator:
     def __next_timestamp(self) -> float:
         return time.time() if self.get_time() is None else self.get_time().generate()
 
-    @staticmethod
-    def __add_position(values: List[EventInterface]) -> int:
-        count = len(values)
-        if count == 0:
-            return 0
-        if count == 1:
-            values[0].position = 1
-        return count + 1
-
     def __add_noise(self, event: EventInterface) -> Generator:
-        position = self.__add_position(self.__noises)
-        event.setup(EventInterface.TYPE_NOISE, position)
+        event.setup(EventInterface.TYPE_NOISE, self.__noises)
         self.__noises.append(event)
 
         return self
 
     def __add_cause(self, event: EventInterface) -> Generator:
-        position = self.__add_position(self.__causes)
-        event.setup(EventInterface.TYPE_CAUSE, position)
+        event.setup(EventInterface.TYPE_CAUSE, self.__causes)
         self.__causes.append(event)
 
         return self

@@ -43,7 +43,7 @@ class GeneratorTest(unittest.TestCase):
     def test_discrete_ordered():
         random.seed(14)
         cause_function: Callable[[History], float] = lambda history: \
-            1 if history.get_event(0, time=1) == 1 else None
+            1 if history.get_event(0, delay=1) == 1 else None
 
         dataset = Generator(cause_function, ordered=True) \
             .add_noise_discrete() \
@@ -57,7 +57,7 @@ class GeneratorTest(unittest.TestCase):
     def test_continuous_ordered():
         random.seed(14)
         cause_function: Callable[[History], float] = lambda history: \
-            2 * history.get_event(0, time=1) + 3
+            2 * history.get_event(0, delay=1) + 3
 
         dataset = Generator(cause_function, ordered=True) \
             .add_noise_continuous() \
@@ -97,12 +97,29 @@ class GeneratorTest(unittest.TestCase):
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
+    def test_multiple(self):
+        self.skipTest('wip')
+        cause_function: Callable[[History], float] = lambda history: \
+            history.get_event(0) + history.get_event(1)
+
+        dataset = Generator(cause_function) \
+            .add_noise_continuous() \
+            .add_cause_continuous() \
+            .add_cause_continuous() \
+            .generate()
+
+        expected = pd.DataFrame({
+            'T': [1526235300, 1526235600, 1526235900, 1526236200, 1526236500],
+            'X': [-1, 0, 1, 0, -1]
+        })
+        pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
+
     def test_search(self):
         for seed in range(20):
             random.seed(seed)
 
             cause_function: Callable[[History], float] = lambda history: \
-                1 if history.get_event(0, time=1) == 1 else None
+                1 if history.get_event(0, delay=1) == 1 else None
 
             dataset = Generator(cause_function, ordered=True) \
                 .add_noise_discrete(0.3) \

@@ -11,7 +11,7 @@ class Time(EventInterface):
         r'^((?P<days>[\.\d]+?)d)?((?P<hours>[\.\d]+?)h)?((?P<minutes>[\.\d]+?)m)?((?P<seconds>[\.\d]+?)s)?$'
     )
 
-    type = 'time'
+    type = 'delay'
 
     def __init__(self, start_date: str = None, step: str = None, precision: str = None):
         super().__init__(self.mode)
