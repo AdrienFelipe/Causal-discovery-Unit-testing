@@ -18,6 +18,7 @@ class EventInterface:
         TYPE_NOISE: LABEL_NOISE,
         TYPE_CAUSE: LABEL_CAUSE,
         TYPE_TIME: LABEL_TIME,
+        TYPE_EFFECT: LABEL_EFFECT,
     }
 
     type = 'undefined'

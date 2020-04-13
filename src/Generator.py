@@ -10,6 +10,7 @@ import pandas as pd
 
 from events.Continuous import Continuous
 from events.Discrete import Discrete
+from events.Effect import Effect
 from events.EventInterface import EventInterface
 from events.History import History
 from events.Linear import Linear
@@ -19,22 +20,21 @@ from events.Time import Time
 class Generator:
     EMPTY_VALUE = 0
 
-    def __init__(self, cause_function: Callable[[History], float], ordered: bool = False):
+    def __init__(self, ordered: bool = False):
         self.__causes = []
         self.__noises = []
         self.__time = None
-        self.__cause_function = cause_function
+        self.__effects = []
         self.__ordered = ordered
         self.history = History()
 
     def generate(self, samples: int = 3) -> pd.DataFrame:
         data = pd.DataFrame()
-        self.history.start(size=len(self.get_causes()))
+        self.history.start(events_count=len(self.__causes), effects_count=len(self.__effects))
 
         events = self.get_noises() + self.get_causes()
         weights = [event.probability for event in events]
-        default_sample = {event.label: self.EMPTY_VALUE for event in events}
-        default_sample[EventInterface.LABEL_EFFECT] = self.EMPTY_VALUE
+        default_sample = {event.label: self.EMPTY_VALUE for event in events + self.get_effects()}
 
         for _ in range(samples):
             sample = default_sample.copy()
@@ -44,11 +44,14 @@ class Generator:
                 sample[EventInterface.LABEL_TIME] = timestamp
 
             if self.__ordered:
-                result = self.process_causes()
-                if result is not None:
-                    sample[EventInterface.LABEL_EFFECT] = result
+                result = None
+                for effect in self.get_effects():
+                    result = effect.generate()
+                    if result is not None:
+                        sample[EventInterface.LABEL_EFFECT] = result
+                        break
 
-                else:
+                if result is None:
                     event = random.choices(events, weights)[0]
                     sample[event.label] = value = event.generate()
                     if event.type is EventInterface.TYPE_CAUSE:
@@ -64,7 +67,9 @@ class Generator:
                 if event.type is EventInterface.TYPE_CAUSE:
                     self.history.set_event(event.position, value)
 
-            sample[EventInterface.LABEL_EFFECT] = self.__cause_function(self.history)
+            for effect in self.get_effects():
+                sample[effect.label] = value = effect.generate()
+                self.history.set_effect(effect.position, value)
             data = data.append(sample, ignore_index=True)
 
             # Remove shadow events from dataset.
@@ -75,7 +80,7 @@ class Generator:
 
     def process_causes(self) -> Union[float, None]:
         try:
-            return self.__cause_function(self.history)
+            return self.__effects[0](self.history)
         except:
             return None
 
@@ -84,6 +89,9 @@ class Generator:
 
     def get_causes(self) -> List[EventInterface]:
         return self.__causes
+
+    def get_effects(self) -> List[EventInterface]:
+        return self.__effects
 
     def get_time(self) -> Union[Time, None]:
         return self.__time
@@ -94,13 +102,17 @@ class Generator:
     def __add_noise(self, event: EventInterface) -> Generator:
         event.setup(EventInterface.TYPE_NOISE, self.__noises)
         self.__noises.append(event)
-
         return self
 
     def __add_cause(self, event: EventInterface) -> Generator:
         event.setup(EventInterface.TYPE_CAUSE, self.__causes)
         self.__causes.append(event)
+        return self
 
+    def add_effect(self, effect_function: Callable[[History], float]) -> Generator:
+        event = Effect(effect_function, self.history)
+        event.setup(EventInterface.TYPE_EFFECT, self.__effects)
+        self.__effects.append(event)
         return self
 
     def add_noise_continuous(self, min_value: int = 0, max_value: int = 10, **kwargs) -> Generator:
