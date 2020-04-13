@@ -8,11 +8,11 @@ from typing import Union
 
 import pandas as pd
 
+from History import History
 from events.Continuous import Continuous
 from events.Discrete import Discrete
 from events.Effect import Effect
 from events.EventInterface import EventInterface
-from events.History import History
 from events.Linear import Linear
 from events.Time import Time
 
@@ -55,24 +55,19 @@ class Generator:
                     event = random.choices(events, weights)[0]
                     sample[event.label] = value = event.generate()
                     if event.type is EventInterface.TYPE_CAUSE:
-                        self.history.set_event(event.position, value)
+                        self.history.set_event(event, value)
 
                 data = data.append(sample, ignore_index=True)
                 continue
 
             # Generate values.
-            for event in events:
-                label = event.label
-                sample[label] = value = event.generate()
-                if event.type is EventInterface.TYPE_CAUSE:
-                    self.history.set_event(event.position, value)
-
-            for effect in self.get_effects():
-                sample[effect.label] = value = effect.generate()
-                self.history.set_effect(effect.position, value)
+            for event in events + self.get_effects():
+                sample[event.label] = value = event.generate()
+                if event.type in (EventInterface.TYPE_CAUSE, EventInterface.TYPE_EFFECT):
+                    self.history.set_event(event, value)
             data = data.append(sample, ignore_index=True)
 
-            # Remove shadow events from dataset.
+            # Remove shadow causes from dataset.
             columns = [event.label for event in events if event.shadow]
             data = data.drop(columns, axis=1)
 

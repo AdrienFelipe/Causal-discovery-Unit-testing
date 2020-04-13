@@ -3,8 +3,8 @@ from __future__ import annotations
 from typing import Callable
 from typing import Union
 
+from History import History
 from events.EventInterface import EventInterface
-from events.History import History
 
 
 class Effect(EventInterface):

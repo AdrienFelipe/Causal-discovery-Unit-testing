@@ -10,9 +10,9 @@ class EventInterface:
     TYPE_EFFECT = 'effect'
 
     LABEL_NOISE = 'N'
-    LABEL_CAUSE = 'E'
+    LABEL_CAUSE = 'C'
     LABEL_TIME = 'T'
-    LABEL_EFFECT = 'X'
+    LABEL_EFFECT = 'E'
 
     LABEL_MAPPING = {
         TYPE_NOISE: LABEL_NOISE,
