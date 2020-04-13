@@ -120,7 +120,29 @@ class GeneratorTest(unittest.TestCase):
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
-    def test_search(self):
+    @staticmethod
+    def test_with_shadow():
+        random.seed(2)
+
+        dataset = Generator(lambda history: 1) \
+            .add_noise_discrete(shadow=True) \
+            .add_noise_discrete() \
+            .add_cause_discrete(shadow=False) \
+            .add_cause_discrete(shadow=True) \
+            .add_cause_continuous(shadow=True) \
+            .add_cause_continuous() \
+            .generate().round(0)
+
+        expected = pd.DataFrame({
+            EventInterface.LABEL_CAUSE + '1': [0, 0, 1],
+            EventInterface.LABEL_CAUSE + '4': [7, 2, 5],
+            EventInterface.LABEL_NOISE + '2': [1, 0, 0],
+            EventInterface.LABEL_EFFECT: [1, 1, 1],
+        })
+        pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
+
+    @staticmethod
+    def test_search():
         for seed in range(20):
             random.seed(seed)
 

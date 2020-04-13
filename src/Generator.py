@@ -34,19 +34,19 @@ class Generator:
         events = self.get_noises() + self.get_causes()
         weights = [event.probability for event in events]
         default_sample = {event.label: self.EMPTY_VALUE for event in events}
-        default_sample['X'] = self.EMPTY_VALUE
+        default_sample[EventInterface.LABEL_EFFECT] = self.EMPTY_VALUE
 
         for _ in range(samples):
             sample = default_sample.copy()
             timestamp = self.__next_timestamp()
             self.history.add_sample(timestamp)
-            if self.get_time() is not None:
+            if self.get_time() is not None and not self.get_time().shadow:
                 sample[EventInterface.LABEL_TIME] = timestamp
 
             if self.__ordered:
                 result = self.process_causes()
                 if result is not None:
-                    sample['X'] = result
+                    sample[EventInterface.LABEL_EFFECT] = result
 
                 else:
                     event = random.choices(events, weights)[0]
@@ -64,8 +64,12 @@ class Generator:
                 if event.type is EventInterface.TYPE_CAUSE:
                     self.history.set_event(event.position, value)
 
-            sample['X'] = self.__cause_function(self.history)
+            sample[EventInterface.LABEL_EFFECT] = self.__cause_function(self.history)
             data = data.append(sample, ignore_index=True)
+
+            # Remove shadow events from dataset.
+            columns = [event.label for event in events if event.shadow]
+            data = data.drop(columns, axis=1)
 
         return data
 
