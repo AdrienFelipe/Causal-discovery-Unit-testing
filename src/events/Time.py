@@ -11,10 +11,8 @@ class Time(EventInterface):
         r'^((?P<days>[\.\d]+?)d)?((?P<hours>[\.\d]+?)h)?((?P<minutes>[\.\d]+?)m)?((?P<seconds>[\.\d]+?)s)?$'
     )
 
-    type = 'delay'
-
-    def __init__(self, start_date: str = None, step: str = None, precision: str = None):
-        super().__init__(self.mode)
+    def __init__(self, start_date: str = None, step: str = None, precision: str = None, **kwargs):
+        super().__init__(**kwargs)
         self.count = 0
         self.start_date = datetime.fromisoformat(start_date) if start_date is not None else datetime.now()
         self.step = self.__parse_duration(step)

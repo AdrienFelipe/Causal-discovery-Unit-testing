@@ -99,24 +99,24 @@ class Generator:
 
         return self
 
-    def add_noise_continuous(self, min_value: int = 0, max_value: int = 10) -> Generator:
-        return self.__add_noise(Continuous(min_value, max_value))
+    def add_noise_continuous(self, min_value: int = 0, max_value: int = 10, **kwargs) -> Generator:
+        return self.__add_noise(Continuous(min_value, max_value, **kwargs))
 
-    def add_cause_continuous(self, min_value: int = 0, max_value: int = 10) -> Generator:
-        return self.__add_cause(Continuous(min_value, max_value))
+    def add_cause_continuous(self, min_value: int = 0, max_value: int = 10, **kwargs) -> Generator:
+        return self.__add_cause(Continuous(min_value, max_value, **kwargs))
 
-    def add_noise_discrete(self, probability: float = 0.3) -> Generator:
-        return self.__add_noise(Discrete(probability))
+    def add_noise_discrete(self, probability: float = 0.3, **kwargs) -> Generator:
+        return self.__add_noise(Discrete(probability, **kwargs))
 
-    def add_cause_discrete(self, probability: float = 0.3) -> Generator:
-        return self.__add_cause(Discrete(probability))
+    def add_cause_discrete(self, probability: float = 0.3, **kwargs) -> Generator:
+        return self.__add_cause(Discrete(probability, **kwargs))
 
-    def add_noise_linear(self, start: float = 0, step: float = 1) -> Generator:
-        return self.__add_noise(Linear(start, step))
+    def add_noise_linear(self, start: float = 0, step: float = 1, **kwargs) -> Generator:
+        return self.__add_noise(Linear(start, step, **kwargs))
 
-    def add_cause_linear(self, start: float = 0, step: float = 1) -> Generator:
-        return self.__add_cause(Linear(start, step))
+    def add_cause_linear(self, start: float = 0, step: float = 1, **kwargs) -> Generator:
+        return self.__add_cause(Linear(start, step, **kwargs))
 
-    def set_time(self, start_date: str = None, step: str = '1m', precision: str = None) -> Generator:
-        self.__time = Time(start_date, step, precision)
+    def set_time(self, start_date: str = None, step: str = '1m', precision: str = None, **kwargs) -> Generator:
+        self.__time = Time(start_date, step, precision, **kwargs)
         return self

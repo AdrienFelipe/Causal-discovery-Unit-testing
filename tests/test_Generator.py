@@ -94,7 +94,7 @@ class GeneratorTest(unittest.TestCase):
 
         expected = pd.DataFrame({
             EventInterface.LABEL_TIME: [1526235300, 1526235600, 1526235900, 1526236200, 1526236500],
-            EventInterface.LABEL_RESULT: [-1, 0, 1, 0, -1]
+            EventInterface.LABEL_EFFECT: [-1, 0, 1, 0, -1]
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
@@ -116,7 +116,7 @@ class GeneratorTest(unittest.TestCase):
             EventInterface.LABEL_CAUSE + '2': [0, 1, 1],
             EventInterface.LABEL_CAUSE + '3': [0, 1, 1],
             EventInterface.LABEL_NOISE: [1, 1, 0],
-            EventInterface.LABEL_RESULT: [1, 3, 2],
+            EventInterface.LABEL_EFFECT: [1, 3, 2],
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 

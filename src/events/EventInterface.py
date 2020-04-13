@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from random import random
 from typing import List
 
 
@@ -8,11 +7,12 @@ class EventInterface:
     TYPE_NOISE = 'noise'
     TYPE_CAUSE = 'cause'
     TYPE_TIME = 'time'
+    TYPE_EFFECT = 'effect'
 
     LABEL_NOISE = 'N'
     LABEL_CAUSE = 'E'
     LABEL_TIME = 'T'
-    LABEL_RESULT = 'X'
+    LABEL_EFFECT = 'X'
 
     LABEL_MAPPING = {
         TYPE_NOISE: LABEL_NOISE,
@@ -22,12 +22,11 @@ class EventInterface:
 
     type = 'undefined'
     label = 'undefined'
-    mode = 'undefined'
     probability = 1
     position = 0
 
-    def __init__(self, mode: str):
-        self.mode = mode
+    def __init__(self, shadow: bool = False, **kwargs):
+        self.shadow = shadow
 
     def setup(self, value_type: str, events: List[EventInterface]):
         self.type = value_type
@@ -41,14 +40,5 @@ class EventInterface:
         if self.position == 1:
             events[0].label += str(self.position)
 
-    def get_type(self) -> str:
-        return self.mode
-
     def generate(self) -> float:
         pass
-
-    def get_probability(self) -> float:
-        return self.probability
-
-    def draw(self) -> bool:
-        return random() < self.probability

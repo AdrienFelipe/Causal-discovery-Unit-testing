@@ -2,10 +2,9 @@ from events.EventInterface import EventInterface
 
 
 class Linear(EventInterface):
-    type = 'linear'
 
-    def __init__(self, start: float, step: float):
-        super(Linear, self).__init__(self.mode)
+    def __init__(self, start: float, step: float, **kwargs):
+        super().__init__(**kwargs)
         self.value = start
         self.step = step
 

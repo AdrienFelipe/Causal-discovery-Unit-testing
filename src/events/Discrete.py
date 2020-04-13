@@ -4,10 +4,9 @@ from events.EventInterface import EventInterface
 
 
 class Discrete(EventInterface):
-    type = 'discrete'
 
-    def __init__(self, probability: float):
-        super().__init__(self.mode)
+    def __init__(self, probability: float, **kwargs):
+        super().__init__(**kwargs)
         self.probability = probability
 
     def generate(self) -> int:
