@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 
 from Generator import Generator
+from events.EventInterface import EventInterface
 from events.History import History
 
 
@@ -92,25 +93,30 @@ class GeneratorTest(unittest.TestCase):
             .generate(5)
 
         expected = pd.DataFrame({
-            'T': [1526235300, 1526235600, 1526235900, 1526236200, 1526236500],
-            'X': [-1, 0, 1, 0, -1]
+            EventInterface.LABEL_TIME: [1526235300, 1526235600, 1526235900, 1526236200, 1526236500],
+            EventInterface.LABEL_RESULT: [-1, 0, 1, 0, -1]
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
-    def test_multiple(self):
-        self.skipTest('wip')
+    @staticmethod
+    def test_multiple():
+        random.seed(2)
         cause_function: Callable[[History], float] = lambda history: \
-            history.get_event(0) + history.get_event(1)
+            history.get_event(0) + history.get_event(1) + history.get_event(2)
 
         dataset = Generator(cause_function) \
-            .add_noise_continuous() \
-            .add_cause_continuous() \
-            .add_cause_continuous() \
+            .add_noise_discrete() \
+            .add_cause_discrete(0.3) \
+            .add_cause_discrete(0.5) \
+            .add_cause_discrete(0.9) \
             .generate()
 
         expected = pd.DataFrame({
-            'T': [1526235300, 1526235600, 1526235900, 1526236200, 1526236500],
-            'X': [-1, 0, 1, 0, -1]
+            EventInterface.LABEL_CAUSE + '1': [1, 1, 0],
+            EventInterface.LABEL_CAUSE + '2': [0, 1, 1],
+            EventInterface.LABEL_CAUSE + '3': [0, 1, 1],
+            EventInterface.LABEL_NOISE: [1, 1, 0],
+            EventInterface.LABEL_RESULT: [1, 3, 2],
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
@@ -119,12 +125,15 @@ class GeneratorTest(unittest.TestCase):
             random.seed(seed)
 
             cause_function: Callable[[History], float] = lambda history: \
-                1 if history.get_event(0, delay=1) == 1 else None
+                history.get_event(0) + history.get_event(1) + history.get_event(2)
 
-            dataset = Generator(cause_function, ordered=True) \
-                .add_noise_discrete(0.3) \
+            dataset = Generator(cause_function) \
+                .add_noise_discrete() \
                 .add_cause_discrete(0.3) \
-                .generate(4)
+                .add_cause_discrete(0.5) \
+                .add_cause_discrete(0.9) \
+                .generate()
+
             d = 3
 
 

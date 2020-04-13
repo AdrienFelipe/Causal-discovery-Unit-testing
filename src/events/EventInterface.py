@@ -7,11 +7,12 @@ from typing import List
 class EventInterface:
     TYPE_NOISE = 'noise'
     TYPE_CAUSE = 'cause'
-    TYPE_TIME = 'timestamps'
+    TYPE_TIME = 'time'
 
     LABEL_NOISE = 'N'
     LABEL_CAUSE = 'E'
     LABEL_TIME = 'T'
+    LABEL_RESULT = 'X'
 
     LABEL_MAPPING = {
         TYPE_NOISE: LABEL_NOISE,
