@@ -16,7 +16,7 @@ class GeneratorTest(unittest.TestCase):
     def test_discrete_instant_action():
         random.seed(1)
         effect_function: Callable[[History], float] = lambda history: \
-            1 if history.get_cause(0) == 1 else 0
+            1 if history.get_cause(1) == 1 else 0
 
         dataset = Generator() \
             .add_effect(effect_function) \
@@ -31,7 +31,7 @@ class GeneratorTest(unittest.TestCase):
     def test_continuous_random_samples():
         random.seed(10)
         effect_function: Callable[[History], float] = lambda history: \
-            2 * history.get_cause(0)
+            2 * history.get_cause()
 
         dataset = Generator() \
             .add_effect(effect_function) \
@@ -46,7 +46,7 @@ class GeneratorTest(unittest.TestCase):
     def test_discrete_ordered():
         random.seed(14)
         effect_function: Callable[[History], float] = lambda history: \
-            1 if history.get_cause(0, delay=1) == 1 else None
+            1 if history.get_cause(delay=1) == 1 else None
 
         dataset = Generator(ordered=True) \
             .add_effect(effect_function) \
@@ -61,7 +61,7 @@ class GeneratorTest(unittest.TestCase):
     def test_continuous_ordered():
         random.seed(14)
         effect_function: Callable[[History], float] = lambda history: \
-            2 * history.get_cause(0, delay=1) + 3
+            2 * history.get_cause(1, delay=1) + 3
 
         dataset = Generator(ordered=True) \
             .add_effect(effect_function) \
@@ -76,7 +76,7 @@ class GeneratorTest(unittest.TestCase):
     @staticmethod
     def test_pattern_search():
         effect_function: Callable[[History], float] = lambda history: \
-            np.sin(history.get_cause(0) * np.pi / 2)
+            np.sin(history.get_cause() * np.pi / 2)
 
         dataset = Generator() \
             .add_effect(effect_function) \
@@ -108,7 +108,7 @@ class GeneratorTest(unittest.TestCase):
     def test_multiple():
         random.seed(2)
         effect_function: Callable[[History], float] = lambda history: \
-            history.get_cause(0) + history.get_cause(1) + history.get_cause(2)
+            history.get_cause(1) + history.get_cause(2) + history.get_cause(3)
 
         dataset = Generator() \
             .add_effect(effect_function) \
@@ -165,6 +165,37 @@ class GeneratorTest(unittest.TestCase):
             EventInterface.LABEL_EFFECT + '2': [21, 19, 3],
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
+
+    def test_sales_dataset(self):
+        random.seed(3)
+
+        def effect1(history: History) -> float:
+            day = history.get_datetime().weekday()
+            ratios = [20, 20, 15, 10, 0, -30, -50]
+            return history.get_cause(1) * (1 + ratios[day] / 100)
+
+        def effect2(history: History) -> float:
+            week = history.get_datetime().isocalendar()[1]
+            ratio = week - history.get_datetime(-1).isocalendar()[1]
+            return history.get_effect(1) * (1 + ratio / 20)
+
+        def effect3(history: History) -> float:
+            value = history.get_effect(2)
+            if history.get_cause(2, delay=1):
+                value *= 1.5
+            elif history.get_cause(2, delay=2):
+                value *= 3
+            elif history.get_cause(2, delay=3):
+                value *= 1.2
+            return value
+
+        dataset = Generator() \
+            .set_time('2020-02-20', step='1d') \
+            .add_cause_continuous(250, 300) \
+            .add_effect(effect1) \
+            .add_effect(effect2) \
+            .add_effect(effect3) \
+            .generate(20)
 
     @staticmethod
     def test_search():
