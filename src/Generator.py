@@ -14,7 +14,9 @@ from events.Discrete import Discrete
 from events.Effect import Effect
 from events.EventInterface import EventInterface
 from events.Linear import Linear
+from Relation import Relation
 from events.Time import Time
+from factory.RelationFactory import RelationFactory
 
 
 class Generator:
@@ -85,7 +87,7 @@ class Generator:
     def get_causes(self) -> List[EventInterface]:
         return self.__causes
 
-    def get_effects(self) -> List[EventInterface]:
+    def get_effects(self) -> List[Effect]:
         return self.__effects
 
     def get_time(self) -> Union[Time, None]:
@@ -131,3 +133,8 @@ class Generator:
     def set_time(self, start_date: str = None, step: str = '1m', precision: str = None, **kwargs) -> Generator:
         self.__time = Time(start_date, step, precision, **kwargs)
         return self
+
+    def build_relations(self) -> List[Relation]:
+        relations = RelationFactory.build_relations(self.get_effects())
+
+        return relations

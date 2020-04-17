@@ -5,6 +5,8 @@ from events.EventInterface import EventInterface
 
 
 class History:
+    DEFAULT_POSITION = 1
+    DEFAULT_DELAY = 0
 
     def __init__(self):
         self.causes = deque()
@@ -29,22 +31,22 @@ class History:
         item = self.effects[0] if event.type is EventInterface.TYPE_EFFECT else self.causes[0]
         item[event.position] = value
 
-    def get_cause(self, position: int = 1, delay: int = 0, null_value=None):
+    def get_cause(self, position: int = DEFAULT_POSITION, delay: int = DEFAULT_DELAY, null_value=None):
         try:
-            value = self.causes[delay][position - 1]
+            value = self.causes[delay][position - self.DEFAULT_POSITION]
             return value if value is not None else null_value
         except:
             return null_value
 
-    def get_effect(self, position: int = 1, delay: int = 0, null_value=None):
+    def get_effect(self, position: int = DEFAULT_POSITION, delay: int = DEFAULT_DELAY, null_value=None):
         try:
-            value = self.effects[delay][position - 1]
+            value = self.effects[delay][position - self.DEFAULT_POSITION]
             return value if value is not None else null_value
         except:
             return null_value
 
-    def get_timestamp(self, delay: int = 0) -> float:
+    def get_timestamp(self, delay: int = DEFAULT_DELAY) -> float:
         return self.timestamps[delay]
 
-    def get_datetime(self, delay: int = 0) -> datetime:
+    def get_datetime(self, delay: int = DEFAULT_DELAY) -> datetime:
         return datetime.fromtimestamp(self.get_timestamp(delay))
