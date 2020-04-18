@@ -5,10 +5,14 @@ from events.EventInterface import EventInterface
 
 class Continuous(EventInterface):
 
-    def __init__(self, min_value: float, max_value: float, **kwargs):
+    def __init__(self, min: float, max: float, round: int = None, **kwargs):
         super().__init__(**kwargs)
-        self.__min_value = min_value
-        self.__max_value = max_value
+        self.__min = min
+        self.__max = max
+        self.__round = round
 
     def generate(self) -> float:
-        return uniform(self.__min_value, self.__max_value)
+        value = uniform(self.__min, self.__max)
+        if self.__round is not None:
+            value = round(value, self.__round)
+        return value

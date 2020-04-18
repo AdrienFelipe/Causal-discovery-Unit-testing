@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import random
 import time
 from typing import Callable
 from typing import List
@@ -21,58 +20,54 @@ from relation.RelationPlot import RelationPlot
 
 
 class Generator:
-    EMPTY_VALUE = 0
+    EMPTY_VALUE = None
 
-    def __init__(self, ordered: bool = False):
+    def __init__(self, sequential: bool = False):
         self.__causes = []
         self.__noises = []
         self.__time = None
         self.__effects = []
         self.__events = []
-        self.__ordered = ordered
+        self.__sequential = sequential
         self.history = History()
 
     def generate(self, samples: int = 3) -> pd.DataFrame:
         data = pd.DataFrame()
         self.history.start(events_count=len(self.__events))
-
-        events = self.get_noises() + self.get_causes()
-        weights = [event.probability for event in events]
         default_sample = {event.label: self.EMPTY_VALUE for event in self.get_events()}
 
-        for _ in range(samples):
+        events = self.get_events()
+        position = 0
+
+        while len(data) < samples:
             sample = default_sample.copy()
             timestamp = self.__next_timestamp()
             self.history.add_sample(timestamp)
             if self.get_time() is not None and not self.get_time().shadow:
                 sample[EventInterface.LABEL_TIME] = timestamp
 
-            if self.__ordered:
-                result = None
-                for effect in self.get_effects():
-                    result = effect.generate()
-                    if result is not None:
-                        sample[effect.label] = result
-                        break
+            if self.__sequential:
+                # Process only one event at a time.
+                events = [self.get_events()[position]]
+                position = (position + 1) % len(self.__events)
 
-                if result is None:
-                    event = random.choices(events, weights)[0]
-                    sample[event.label] = value = event.generate()
-                    if event.type is EventInterface.TYPE_CAUSE:
-                        self.history.set_event(event, value)
+            for event in events:
+                # Allow event to be executed regarding its probability,
+                if not event.draw():
+                    continue
 
+                value = event.generate()
+                if value is not None:
+                    self.history.set_event(event, value)
+                    sample[event.label] = value
+
+            # Only add sample if it is not empty.
+            if not all(value is None for value in sample.values()):
                 data = data.append(sample, ignore_index=True)
-                continue
 
-            # Generate values.
-            for event in self.get_events():
-                sample[event.label] = value = event.generate()
-                self.history.set_event(event, value)
-            data = data.append(sample, ignore_index=True)
-
-            # Remove shadow causes from dataset.
-            columns = [event.label for event in events if event.shadow]
-            data = data.drop(columns, axis=1)
+        # Remove shadow causes from dataset.
+        columns = [event.label for event in events if event.shadow]
+        data = data.drop(columns, axis=1)
 
         return data
 
@@ -125,11 +120,11 @@ class Generator:
     def add_cause_continuous(self, min_value: int = 0, max_value: int = 10, **kwargs) -> Generator:
         return self.__add_cause(Continuous(min_value, max_value, **kwargs))
 
-    def add_noise_discrete(self, probability: float = 0.3, **kwargs) -> Generator:
-        return self.__add_noise(Discrete(probability, **kwargs))
+    def add_noise_discrete(self, weight: float = 0.5, **kwargs) -> Generator:
+        return self.__add_noise(Discrete(weight, **kwargs))
 
-    def add_cause_discrete(self, probability: float = 0.3, **kwargs) -> Generator:
-        return self.__add_cause(Discrete(probability, **kwargs))
+    def add_cause_discrete(self, weight: float = 0.5, **kwargs) -> Generator:
+        return self.__add_cause(Discrete(weight, **kwargs))
 
     def add_noise_linear(self, start: float = 0, step: float = 1, **kwargs) -> Generator:
         return self.__add_noise(Linear(start, step, **kwargs))

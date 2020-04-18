@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from random import random
 from typing import List
 
 
@@ -23,10 +24,10 @@ class EventInterface:
 
     type = 'undefined'
     label = 'undefined'
-    probability = 1
     position = 0
 
-    def __init__(self, shadow: bool = False, **kwargs):
+    def __init__(self, probability: float = 1, shadow: bool = False, **kwargs):
+        self.probability = probability
         self.shadow = shadow
 
     def setup(self, value_type: str, events: List[EventInterface]):
@@ -40,6 +41,9 @@ class EventInterface:
             self.label += str(self.position + 1)
         if self.position == 1:
             events[0].label += str(self.position)
+
+    def draw(self) -> bool:
+        return random() < self.probability
 
     def generate(self) -> float:
         pass

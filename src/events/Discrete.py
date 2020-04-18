@@ -5,11 +5,11 @@ from events.EventInterface import EventInterface
 
 class Discrete(EventInterface):
 
-    def __init__(self, probability: float, **kwargs):
+    def __init__(self, weight: float, **kwargs):
         super().__init__(**kwargs)
-        self.probability = probability
+        self.weight = weight
 
     def generate(self) -> int:
         population = [0, 1]
-        weights = [1 - self.probability, self.probability]
+        weights = [1 - self.weight, self.weight]
         return choices(population, weights)[0]
