@@ -23,8 +23,7 @@ class Generator:
     EMPTY_VALUE = None
 
     def __init__(self, sequential: bool = False):
-        self.__time = None
-        self.__events = []
+        self.__events = [Time(shadow=True)]
         self.__sequential = sequential
         self.history = History()
 
@@ -34,19 +33,16 @@ class Generator:
         default_sample = {event.label: self.EMPTY_VALUE for event in self.get_events()}
 
         events = self.get_events()
-        position = 0
+        position = 1
 
         while len(data) < samples:
             sample = default_sample.copy()
-            timestamp = self.__next_timestamp()
-            self.history.add_sample(timestamp)
-            if self.get_time() is not None and not self.get_time().shadow:
-                sample[EventInterface.LABEL_TIME] = timestamp
+            self.history.add_sample()
 
             if self.__sequential:
-                # Process only one event at a time.
-                events = [self.get_events()[position]]
-                position = (position + 1) % len(self.__events)
+                # Process only one event at a time, but always process time.
+                events = [self.get_events()[0], self.get_events()[position]]
+                position = position % (len(self.__events) - 1) + 1
 
             for event in events:
                 # Allow event to be executed regarding its probability,
@@ -59,8 +55,10 @@ class Generator:
                     sample[event.label] = value
 
             # Only add sample if it is not empty.
-            if not all(value is None for value in sample.values()):
+            if not all(value is None for value in list(sample.values())[1:]):
                 data = data.append(sample, ignore_index=True)
+            else:
+                self.history.pop_sample()
 
         # Remove shadow causes from dataset.
         columns = [event.label for event in events if event.shadow]
@@ -94,9 +92,6 @@ class Generator:
 
     def get_time(self) -> Union[Time, None]:
         return self.__time
-
-    def __next_timestamp(self) -> float:
-        return time.time() if self.get_time() is None else self.get_time().generate()
 
     def build_relations(self) -> List[Relation]:
         events = [event for event in self.get_events() if isinstance(event, Effect)]

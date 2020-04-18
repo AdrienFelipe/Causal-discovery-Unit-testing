@@ -18,7 +18,7 @@ class Time(EventInterface):
         super().__init__(**kwargs)
         self.count = 0
         self.start_date = datetime.fromisoformat(start_date) if start_date is not None else datetime.now()
-        self.step = self.__parse_duration(step)
+        self.step = self.__parse_duration(step) if step is not None else timedelta()
         self.precision = self.__parse_duration(precision) if precision is not None else None
 
     def generate(self) -> float:
