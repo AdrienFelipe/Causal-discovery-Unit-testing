@@ -19,9 +19,9 @@ class GeneratorTest(unittest.TestCase):
             1 if history.get_event(1) == 1 else 0
 
         dataset = Generator() \
-            .add_cause_discrete() \
+            .add_discrete() \
             .add_function(effect_function) \
-            .add_noise_discrete() \
+            .add_discrete() \
             .generate()
 
         expected = pd.DataFrame({'E1': [1, 1, 0], 'E2': [1, 1, 0], 'E3': [0, 0, 0]})
@@ -34,8 +34,8 @@ class GeneratorTest(unittest.TestCase):
             2 * history.get_event(2)
 
         dataset = Generator() \
-            .add_noise_continuous() \
-            .add_cause_continuous() \
+            .add_continuous() \
+            .add_continuous() \
             .add_function(effect_function) \
             .generate().astype(int)
 
@@ -49,8 +49,8 @@ class GeneratorTest(unittest.TestCase):
             1 if history.get_event(2, delay=1) == 1 else None
 
         dataset = Generator(sequential=True) \
-            .add_noise_discrete(weight=0.5) \
-            .add_cause_discrete(weight=0.5) \
+            .add_discrete(weight=0.5) \
+            .add_discrete(weight=0.5) \
             .add_function(effect_function) \
             .generate(4)
 
@@ -68,9 +68,9 @@ class GeneratorTest(unittest.TestCase):
             2 * history.get_event(1, delay=1) + 3
 
         dataset = Generator(sequential=True) \
-            .add_cause_continuous(probability=0.5, round=0) \
+            .add_continuous(probability=0.5, round=0) \
             .add_function(effect_function) \
-            .add_noise_continuous(5, 9, probability=0.5, round=0) \
+            .add_continuous(5, 9, probability=0.5, round=0) \
             .generate(5)
 
         expected = pd.DataFrame({
@@ -86,9 +86,9 @@ class GeneratorTest(unittest.TestCase):
             np.sin(history.get_event() * np.pi / 2)
 
         dataset = Generator() \
-            .add_cause_linear() \
+            .add_linear() \
             .add_function(effect_function) \
-            .add_noise_linear(start=-2, step=0.5) \
+            .add_linear(start=-2, step=0.5) \
             .generate() \
             .round(1)
 
@@ -106,7 +106,7 @@ class GeneratorTest(unittest.TestCase):
             .generate(5)
 
         expected = pd.DataFrame({
-            EventInterface.LABEL_EFFECT: [-1, 0, 1, 0, -1],
+            EventInterface.LABEL_EVENT + '1': [-1, 0, 1, 0, -1],
             EventInterface.LABEL_TIME: [1526235300, 1526235600, 1526235900, 1526236200, 1526236500],
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
@@ -118,19 +118,19 @@ class GeneratorTest(unittest.TestCase):
             history.get_event(1) + history.get_event(2) + history.get_event(3)
 
         dataset = Generator() \
-            .add_cause_discrete(0.3) \
-            .add_cause_discrete(0.5) \
-            .add_cause_discrete(0.9) \
+            .add_discrete(0.3) \
+            .add_discrete(0.5) \
+            .add_discrete(0.9) \
             .add_function(effect_function) \
-            .add_noise_discrete() \
+            .add_discrete() \
             .generate()
 
         expected = pd.DataFrame({
-            EventInterface.LABEL_CAUSE + '1': [1, 1, 1],
-            EventInterface.LABEL_CAUSE + '2': [0, 0, 1],
-            EventInterface.LABEL_CAUSE + '3': [1, 1, 1],
-            EventInterface.LABEL_EFFECT + '4': [2, 2, 3],
-            EventInterface.LABEL_NOISE + '5': [0, 1, 0],
+            EventInterface.LABEL_EVENT + '1': [1, 1, 1],
+            EventInterface.LABEL_EVENT + '2': [0, 0, 1],
+            EventInterface.LABEL_EVENT + '3': [1, 1, 1],
+            EventInterface.LABEL_EVENT + '4': [2, 2, 3],
+            EventInterface.LABEL_EVENT + '5': [0, 1, 0],
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
@@ -140,19 +140,19 @@ class GeneratorTest(unittest.TestCase):
 
         dataset = Generator() \
             .add_function(lambda history: 1) \
-            .add_noise_discrete(shadow=True) \
-            .add_noise_discrete() \
-            .add_cause_discrete(shadow=False) \
-            .add_cause_discrete(shadow=True) \
-            .add_cause_continuous(shadow=True) \
-            .add_cause_continuous() \
+            .add_discrete(shadow=True) \
+            .add_discrete() \
+            .add_discrete(shadow=False) \
+            .add_discrete(shadow=True) \
+            .add_continuous(shadow=True) \
+            .add_continuous() \
             .generate().round(0)
 
         expected = pd.DataFrame({
-            EventInterface.LABEL_EFFECT + '1': [1, 1, 1],
-            EventInterface.LABEL_NOISE + '3': [1, 1, 0],
-            EventInterface.LABEL_CAUSE + '4': [1, 0, 1],
-            EventInterface.LABEL_CAUSE + '7': [4, 9, 7],
+            EventInterface.LABEL_EVENT + '1': [1, 1, 1],
+            EventInterface.LABEL_EVENT + '3': [1, 1, 0],
+            EventInterface.LABEL_EVENT + '4': [1, 0, 1],
+            EventInterface.LABEL_EVENT + '7': [4, 9, 7],
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
@@ -161,15 +161,15 @@ class GeneratorTest(unittest.TestCase):
         random.seed(2)
 
         dataset = Generator() \
-            .add_cause_continuous() \
+            .add_continuous() \
             .add_function(lambda history: round(history.get_event()) * 2) \
             .add_function(lambda history: history.get_event(2) + 1) \
             .generate().round(0)
 
         expected = pd.DataFrame({
-            EventInterface.LABEL_CAUSE + '1': [9, 7, 6],
-            EventInterface.LABEL_EFFECT + '2': [18, 14, 12],
-            EventInterface.LABEL_EFFECT + '3': [19, 15, 13],
+            EventInterface.LABEL_EVENT + '1': [9, 7, 6],
+            EventInterface.LABEL_EVENT + '2': [18, 14, 12],
+            EventInterface.LABEL_EVENT + '3': [19, 15, 13],
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
@@ -198,7 +198,7 @@ class GeneratorTest(unittest.TestCase):
 
         dataset = Generator() \
             .set_time('2020-02-20', step='1d') \
-            .add_cause_continuous(250, 300) \
+            .add_continuous(250, 300) \
             .add_function(effect1) \
             .add_function(effect2) \
             .add_function(effect3) \
@@ -213,8 +213,8 @@ class GeneratorTest(unittest.TestCase):
                 1 if history.get_event(2, delay=1) == 1 else None
 
             dataset = Generator(sequential=True) \
-                .add_noise_discrete(weight=0.5) \
-                .add_cause_discrete(weight=0.5) \
+                .add_discrete(weight=0.5) \
+                .add_discrete(weight=0.5) \
                 .add_function(effect_function) \
                 .generate(4)
 

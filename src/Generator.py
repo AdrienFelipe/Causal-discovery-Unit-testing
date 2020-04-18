@@ -71,44 +71,32 @@ class Generator:
     def get_events(self) -> List[EventInterface]:
         return self.__events
 
-    def get_time(self) -> Union[Time, None]:
-        return self.__time
-
-    def __next_timestamp(self) -> float:
-        return time.time() if self.get_time() is None else self.get_time().generate()
-
     def __add_event(self, event: EventInterface) -> Generator:
-        event.setup(EventInterface.TYPE_NOISE, self.__events)
+        event.setup(self.__events)
         self.__events.append(event)
         return self
 
-    def add_function(self, effect_function: Callable[[History], float], **kwargs) -> Generator:
-        event = Effect(effect_function, self.history, **kwargs)
-        event.setup(EventInterface.TYPE_EFFECT, self.__events)
-        self.__events.append(event)
-        return self
+    def add_function(self, event_function: Callable[[History], float], **kwargs) -> Generator:
+        return self.__add_event(Effect(event_function, self.history, **kwargs))
 
-    def add_noise_continuous(self, min_value: int = 0, max_value: int = 10, **kwargs) -> Generator:
-        return self.__add_event(Continuous(min_value, max_value, **kwargs))
+    def add_continuous(self, min: int = 0, max: int = 10, **kwargs) -> Generator:
+        return self.__add_event(Continuous(min, max, **kwargs))
 
-    def add_cause_continuous(self, min_value: int = 0, max_value: int = 10, **kwargs) -> Generator:
-        return self.__add_event(Continuous(min_value, max_value, **kwargs))
-
-    def add_noise_discrete(self, weight: float = 0.5, **kwargs) -> Generator:
+    def add_discrete(self, weight: float = 0.5, **kwargs) -> Generator:
         return self.__add_event(Discrete(weight, **kwargs))
 
-    def add_cause_discrete(self, weight: float = 0.5, **kwargs) -> Generator:
-        return self.__add_event(Discrete(weight, **kwargs))
-
-    def add_noise_linear(self, start: float = 0, step: float = 1, **kwargs) -> Generator:
-        return self.__add_event(Linear(start, step, **kwargs))
-
-    def add_cause_linear(self, start: float = 0, step: float = 1, **kwargs) -> Generator:
+    def add_linear(self, start: float = 0, step: float = 1, **kwargs) -> Generator:
         return self.__add_event(Linear(start, step, **kwargs))
 
     def set_time(self, start_date: str = None, step: str = '1m', precision: str = None, **kwargs) -> Generator:
         self.__time = Time(start_date, step, precision, **kwargs)
         return self
+
+    def get_time(self) -> Union[Time, None]:
+        return self.__time
+
+    def __next_timestamp(self) -> float:
+        return time.time() if self.get_time() is None else self.get_time().generate()
 
     def build_relations(self) -> List[Relation]:
         events = [event for event in self.get_events() if isinstance(event, Effect)]

@@ -7,6 +7,9 @@ from events.EventInterface import EventInterface
 
 
 class Time(EventInterface):
+
+    type = EventInterface.TYPE_TIME
+
     __REGEX = re.compile(
         r'^((?P<days>[.\d]+?)d)?((?P<hours>[.\d]+?)h)?((?P<minutes>[.\d]+?)m)?((?P<seconds>[.\d]+?)s)?$'
     )
