@@ -14,9 +14,10 @@ from events.Discrete import Discrete
 from events.Effect import Effect
 from events.EventInterface import EventInterface
 from events.Linear import Linear
-from Relation import Relation
+from relation.Relation import Relation
 from events.Time import Time
-from factory.RelationFactory import RelationFactory
+from relation.RelationFactory import RelationFactory
+from relation.RelationPlot import RelationPlot
 
 
 class Generator:
@@ -106,8 +107,8 @@ class Generator:
         self.__causes.append(event)
         return self
 
-    def add_effect(self, effect_function: Callable[[History], float]) -> Generator:
-        event = Effect(effect_function, self.history)
+    def add_effect(self, effect_function: Callable[[History], float], **kwargs) -> Generator:
+        event = Effect(effect_function, self.history, **kwargs)
         event.setup(EventInterface.TYPE_EFFECT, self.__effects)
         self.__effects.append(event)
         return self
@@ -135,6 +136,8 @@ class Generator:
         return self
 
     def build_relations(self) -> List[Relation]:
-        relations = RelationFactory.build_relations(self.get_effects())
+        return RelationFactory.build_relations(self.get_effects())
 
-        return relations
+    def plot_relations(self):
+        RelationPlot.show(self.get_effects(), self.build_relations())
+

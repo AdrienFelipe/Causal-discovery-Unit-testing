@@ -4,7 +4,7 @@ from typing import List
 
 from Generator import Generator
 from History import History
-from Relation import Relation
+from relation.Relation import Relation
 
 
 class RelationFactoryTest(unittest.TestCase):
@@ -85,6 +85,38 @@ class RelationFactoryTest(unittest.TestCase):
             self.assertEqual(expected[key].target, relation.target, 'Incorrect target')
             self.assertEqual(expected[key].delay, relation.delay, 'Incorrect delay')
 
+    def test_fuck_sake(self):
+        import networkx as nx
+
+        def effect1(history: History) -> float:
+            return 4
+
+        def effect2(history: History) -> float:
+            return history.get_effect(position=1)
+
+        def effect3(history: History) -> float:
+            if history.get_effect(1, delay=1):
+                value += 500
+            if history.get_effect(1, delay=2):
+                value += 400
+            if history.get_effect(2, delay=3):
+                value += 200
+
+            return value
+
+        generator = Generator() \
+            .add_effect(effect1) \
+            .add_effect(effect2) \
+            .add_effect(effect3)
+
+        relations = generator.build_relations()
+
+        G = nx.DiGraph()
+
+        for relation in relations:
+            source = generator.get_effects()[relation.source - 1]
+            target = generator.get_effects()[relation.target - 1]
+            G.add_edges_from([(source.label, target.label)], weight=relation.delay)
 
 if __name__ == '__main__':
     unittest.main()

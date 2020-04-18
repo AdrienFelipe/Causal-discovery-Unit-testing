@@ -43,3 +43,6 @@ class EventInterface:
 
     def generate(self) -> float:
         pass
+
+    def __hash__(self):
+        return self.position
