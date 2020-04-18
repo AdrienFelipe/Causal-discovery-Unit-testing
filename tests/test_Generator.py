@@ -20,11 +20,11 @@ class GeneratorTest(unittest.TestCase):
 
         dataset = Generator() \
             .add_cause_discrete() \
-            .add_effect(effect_function) \
+            .add_function(effect_function) \
             .add_noise_discrete() \
             .generate()
 
-        expected = pd.DataFrame({'C1': [1, 1, 0], 'E2': [1, 1, 0], 'N3': [0, 0, 0]})
+        expected = pd.DataFrame({'E1': [1, 1, 0], 'E2': [1, 1, 0], 'E3': [0, 0, 0]})
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
     @staticmethod
@@ -36,10 +36,10 @@ class GeneratorTest(unittest.TestCase):
         dataset = Generator() \
             .add_noise_continuous() \
             .add_cause_continuous() \
-            .add_effect(effect_function) \
+            .add_function(effect_function) \
             .generate().astype(int)
 
-        expected = pd.DataFrame({'C2': [2, 5, 0], 'E3': [4, 10, 0], 'N1': [4, 6, 9]})
+        expected = pd.DataFrame({'E1': [4, 6, 9], 'E2': [2, 5, 0], 'E3': [4, 10, 0]})
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
     @staticmethod
@@ -51,13 +51,13 @@ class GeneratorTest(unittest.TestCase):
         dataset = Generator(sequential=True) \
             .add_noise_discrete(weight=0.5) \
             .add_cause_discrete(weight=0.5) \
-            .add_effect(effect_function) \
+            .add_function(effect_function) \
             .generate(4)
 
         expected = pd.DataFrame({
-            'C2': [None, 0, None, 1],
+            'E1': [0, None, 1, None],
+            'E2': [None, 0, None, 1],
             'E3': [None, None, None, None],
-            'N1': [0, None, 1, None]
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
@@ -69,14 +69,14 @@ class GeneratorTest(unittest.TestCase):
 
         dataset = Generator(sequential=True) \
             .add_cause_continuous(probability=0.5, round=0) \
-            .add_effect(effect_function) \
+            .add_function(effect_function) \
             .add_noise_continuous(5, 9, probability=0.5, round=0) \
             .generate(5)
 
         expected = pd.DataFrame({
-            'C1': [None, 5, None, 7, None],
+            'E1': [None, 5, None, 7, None],
             'E2': [None, None, 13, None, 17],
-            'N3': [6, None, None, None, None],
+            'E3': [6, None, None, None, None],
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
@@ -87,12 +87,12 @@ class GeneratorTest(unittest.TestCase):
 
         dataset = Generator() \
             .add_cause_linear() \
-            .add_effect(effect_function) \
+            .add_function(effect_function) \
             .add_noise_linear(start=-2, step=0.5) \
             .generate() \
             .round(1)
 
-        expected = pd.DataFrame({'C1': [1, 2, 3], 'E2': [1, 0, -1], 'N3': [-1.5, -1, -0.5]})
+        expected = pd.DataFrame({'E1': [1, 2, 3], 'E2': [1, 0, -1], 'E3': [-1.5, -1, -0.5]})
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
     @staticmethod
@@ -101,7 +101,7 @@ class GeneratorTest(unittest.TestCase):
             np.sin(history.get_timestamp() / 60 / 5 * np.pi / 2)
 
         dataset = Generator() \
-            .add_effect(effect_function) \
+            .add_function(effect_function) \
             .set_time('2018-05-13 20:15', step='5m') \
             .generate(5)
 
@@ -121,7 +121,7 @@ class GeneratorTest(unittest.TestCase):
             .add_cause_discrete(0.3) \
             .add_cause_discrete(0.5) \
             .add_cause_discrete(0.9) \
-            .add_effect(effect_function) \
+            .add_function(effect_function) \
             .add_noise_discrete() \
             .generate()
 
@@ -139,7 +139,7 @@ class GeneratorTest(unittest.TestCase):
         random.seed(2)
 
         dataset = Generator() \
-            .add_effect(lambda history: 1) \
+            .add_function(lambda history: 1) \
             .add_noise_discrete(shadow=True) \
             .add_noise_discrete() \
             .add_cause_discrete(shadow=False) \
@@ -149,10 +149,10 @@ class GeneratorTest(unittest.TestCase):
             .generate().round(0)
 
         expected = pd.DataFrame({
-            EventInterface.LABEL_CAUSE + '4': [1, 0, 1],
-            EventInterface.LABEL_CAUSE + '7': [4, 9, 7],
             EventInterface.LABEL_EFFECT + '1': [1, 1, 1],
             EventInterface.LABEL_NOISE + '3': [1, 1, 0],
+            EventInterface.LABEL_CAUSE + '4': [1, 0, 1],
+            EventInterface.LABEL_CAUSE + '7': [4, 9, 7],
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
@@ -162,8 +162,8 @@ class GeneratorTest(unittest.TestCase):
 
         dataset = Generator() \
             .add_cause_continuous() \
-            .add_effect(lambda history: round(history.get_event()) * 2) \
-            .add_effect(lambda history: history.get_event(2) + 1) \
+            .add_function(lambda history: round(history.get_event()) * 2) \
+            .add_function(lambda history: history.get_event(2) + 1) \
             .generate().round(0)
 
         expected = pd.DataFrame({
@@ -199,9 +199,9 @@ class GeneratorTest(unittest.TestCase):
         dataset = Generator() \
             .set_time('2020-02-20', step='1d') \
             .add_cause_continuous(250, 300) \
-            .add_effect(effect1) \
-            .add_effect(effect2) \
-            .add_effect(effect3) \
+            .add_function(effect1) \
+            .add_function(effect2) \
+            .add_function(effect3) \
             .generate(20)
 
     @staticmethod
@@ -215,7 +215,7 @@ class GeneratorTest(unittest.TestCase):
             dataset = Generator(sequential=True) \
                 .add_noise_discrete(weight=0.5) \
                 .add_cause_discrete(weight=0.5) \
-                .add_effect(effect_function) \
+                .add_function(effect_function) \
                 .generate(4)
 
             d = 3

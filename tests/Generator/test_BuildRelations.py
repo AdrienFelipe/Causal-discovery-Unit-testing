@@ -13,7 +13,7 @@ class RelationFactoryTest(unittest.TestCase):
             return history.get_event()
 
         relations = Generator() \
-            .add_effect(effect_function) \
+            .add_function(effect_function) \
             .build_relations()
 
         expected = [
@@ -38,7 +38,7 @@ class RelationFactoryTest(unittest.TestCase):
             return value
 
         relations = Generator() \
-            .add_effect(effect_function) \
+            .add_function(effect_function) \
             .build_relations()
 
         expected = [
@@ -63,9 +63,9 @@ class RelationFactoryTest(unittest.TestCase):
             return h
 
         relations = Generator() \
-            .add_effect(effect_function1) \
-            .add_effect(effect_function2) \
-            .add_effect(effect_function3) \
+            .add_function(effect_function1) \
+            .add_function(effect_function2) \
+            .add_function(effect_function3) \
             .build_relations()
 
         expected = [
@@ -105,17 +105,17 @@ class RelationFactoryTest(unittest.TestCase):
             return value
 
         generator = Generator() \
-            .add_effect(effect1) \
-            .add_effect(effect2) \
-            .add_effect(effect3)
+            .add_function(effect1) \
+            .add_function(effect2) \
+            .add_function(effect3)
 
         relations = generator.build_relations()
 
         G = nx.DiGraph()
 
         for relation in relations:
-            source = generator.get_effects()[relation.source - 1]
-            target = generator.get_effects()[relation.target - 1]
+            source = generator.get_events()[relation.source - 1]
+            target = generator.get_events()[relation.target - 1]
             G.add_edges_from([(source.label, target.label)], weight=relation.delay)
 
 if __name__ == '__main__':

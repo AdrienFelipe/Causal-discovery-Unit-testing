@@ -10,8 +10,8 @@ class EventInterface:
     TYPE_TIME = 'time'
     TYPE_EFFECT = 'effect'
 
-    LABEL_NOISE = 'N'
-    LABEL_CAUSE = 'C'
+    LABEL_NOISE = 'E'
+    LABEL_CAUSE = 'E'
     LABEL_TIME = 'T'
     LABEL_EFFECT = 'E'
 
