@@ -10,7 +10,7 @@ from relation.Relation import Relation
 class RelationFactoryTest(unittest.TestCase):
     def test_simple_relation_function(self):
         def effect_function(history: History) -> float:
-            return history.get_effect()
+            return history.get_event()
 
         relations = Generator() \
             .add_effect(effect_function) \
@@ -24,16 +24,16 @@ class RelationFactoryTest(unittest.TestCase):
 
     def test_function_combinations(self):
         def effect_function(history: History) -> float:
-            value = history.get_effect()
-            if history.get_effect(201, delay=200):
+            value = history.get_event()
+            if history.get_event(201, delay=200):
                 value *= 1.5
-            elif history.get_effect(position=301, delay=300, null_value=None):
+            elif history.get_event(position=301, delay=300, null_value=None):
                 value *= 3
-            elif history.get_effect(delay=500):
+            elif history.get_event(delay=500):
                 value *= 3
-            elif history.get_effect(delay=600, position=601):
+            elif history.get_event(delay=600, position=601):
                 value *= 3
-            value = history.get_effect(401) + 4
+            value = history.get_event(401) + 4
 
             return value
 
@@ -54,10 +54,10 @@ class RelationFactoryTest(unittest.TestCase):
 
     def test_function_short_variable(self):
         def effect_function1(h: History) -> float:
-            return h.get_effect()
+            return h.get_event()
 
         def effect_function2(var) -> float:
-            return var.get_effect(10, delay=20)
+            return var.get_event(10, delay=20)
 
         def effect_function3(h) -> float:
             return h
@@ -92,14 +92,14 @@ class RelationFactoryTest(unittest.TestCase):
             return 4
 
         def effect2(history: History) -> float:
-            return history.get_effect(position=1)
+            return history.get_event(position=1)
 
         def effect3(history: History) -> float:
-            if history.get_effect(1, delay=1):
+            if history.get_event(1, delay=1):
                 value += 500
-            if history.get_effect(1, delay=2):
+            if history.get_event(1, delay=2):
                 value += 400
-            if history.get_effect(2, delay=3):
+            if history.get_event(2, delay=3):
                 value += 200
 
             return value

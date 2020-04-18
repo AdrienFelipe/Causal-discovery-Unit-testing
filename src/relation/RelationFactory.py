@@ -8,7 +8,7 @@ from events.Effect import Effect
 
 
 class RelationFactory:
-    __METHOD_NAME = 'get_effect'
+    __METHOD_NAME = 'get_event'
     __ARG_POSITION = 'position'
     __ARG_DELAY = 'delay'
 

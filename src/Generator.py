@@ -14,8 +14,8 @@ from events.Discrete import Discrete
 from events.Effect import Effect
 from events.EventInterface import EventInterface
 from events.Linear import Linear
-from relation.Relation import Relation
 from events.Time import Time
+from relation.Relation import Relation
 from relation.RelationFactory import RelationFactory
 from relation.RelationPlot import RelationPlot
 
@@ -34,15 +34,11 @@ class Generator:
 
     def generate(self, samples: int = 3) -> pd.DataFrame:
         data = pd.DataFrame()
-        self.history.start(
-            causes_count=len(self.__causes),
-            effects_count=len(self.__effects),
-            events_count=len(self.__events),
-        )
+        self.history.start(events_count=len(self.__events))
 
         events = self.get_noises() + self.get_causes()
         weights = [event.probability for event in events]
-        default_sample = {event.label: self.EMPTY_VALUE for event in events + self.get_effects()}
+        default_sample = {event.label: self.EMPTY_VALUE for event in self.get_events()}
 
         for _ in range(samples):
             sample = default_sample.copy()
@@ -150,4 +146,3 @@ class Generator:
 
     def plot_relations(self):
         RelationPlot.show(self.get_effects(), self.build_relations())
-
