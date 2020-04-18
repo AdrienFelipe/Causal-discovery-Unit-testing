@@ -11,36 +11,40 @@ class History:
     def __init__(self):
         self.causes = deque()
         self.effects = deque()
+        self.events = deque()
         self.timestamps = deque()
-        self.events_size = 0
+        self.causes_size = 0
         self.effects_size = 0
+        self.events_size = 0
 
-    def start(self, events_count: int, effects_count: int):
+    def start(self, causes_count: int, effects_count: int, events_count:int):
         self.causes.clear()
         self.effects.clear()
+        self.events.clear()
         self.timestamps.clear()
-        self.events_size = events_count
+        self.causes_size = causes_count
         self.effects_size = effects_count
+        self.events_size = events_count
 
     def add_sample(self, timestamp: float):
-        self.causes.appendleft([None] * self.events_size)
+        self.causes.appendleft([None] * self.causes_size)
         self.effects.appendleft([None] * self.effects_size)
+        self.events.appendleft([None] * self.events_size)
         self.timestamps.appendleft(timestamp)
 
     def set_event(self, event: EventInterface, value: float):
-        item = self.effects[0] if event.type is EventInterface.TYPE_EFFECT else self.causes[0]
-        item[event.position] = value
+        self.events[0][event.position] = value
 
     def get_cause(self, position: int = DEFAULT_POSITION, delay: int = DEFAULT_DELAY, null_value=None):
         try:
-            value = self.causes[delay][position - self.DEFAULT_POSITION]
+            value = self.events[delay][position - self.DEFAULT_POSITION]
             return value if value is not None else null_value
         except:
             return null_value
 
     def get_effect(self, position: int = DEFAULT_POSITION, delay: int = DEFAULT_DELAY, null_value=None):
         try:
-            value = self.effects[delay][position - self.DEFAULT_POSITION]
+            value = self.events[delay][position - self.DEFAULT_POSITION]
             return value if value is not None else null_value
         except:
             return null_value

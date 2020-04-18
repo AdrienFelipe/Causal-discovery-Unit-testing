@@ -28,12 +28,17 @@ class Generator:
         self.__noises = []
         self.__time = None
         self.__effects = []
+        self.__events = []
         self.__ordered = ordered
         self.history = History()
 
     def generate(self, samples: int = 3) -> pd.DataFrame:
         data = pd.DataFrame()
-        self.history.start(events_count=len(self.__causes), effects_count=len(self.__effects))
+        self.history.start(
+            causes_count=len(self.__causes),
+            effects_count=len(self.__effects),
+            events_count=len(self.__events),
+        )
 
         events = self.get_noises() + self.get_causes()
         weights = [event.probability for event in events]
@@ -51,7 +56,7 @@ class Generator:
                 for effect in self.get_effects():
                     result = effect.generate()
                     if result is not None:
-                        sample[EventInterface.LABEL_EFFECT] = result
+                        sample[effect.label] = result
                         break
 
                 if result is None:
@@ -64,10 +69,9 @@ class Generator:
                 continue
 
             # Generate values.
-            for event in events + self.get_effects():
+            for event in self.get_events():
                 sample[event.label] = value = event.generate()
-                if event.type in (EventInterface.TYPE_CAUSE, EventInterface.TYPE_EFFECT):
-                    self.history.set_event(event, value)
+                self.history.set_event(event, value)
             data = data.append(sample, ignore_index=True)
 
             # Remove shadow causes from dataset.
@@ -91,6 +95,9 @@ class Generator:
     def get_effects(self) -> List[Effect]:
         return self.__effects
 
+    def get_events(self) -> List[EventInterface]:
+        return self.__events
+
     def get_time(self) -> Union[Time, None]:
         return self.__time
 
@@ -98,19 +105,22 @@ class Generator:
         return time.time() if self.get_time() is None else self.get_time().generate()
 
     def __add_noise(self, event: EventInterface) -> Generator:
-        event.setup(EventInterface.TYPE_NOISE, self.__noises)
+        event.setup(EventInterface.TYPE_NOISE, self.__events)
         self.__noises.append(event)
+        self.__events.append(event)
         return self
 
     def __add_cause(self, event: EventInterface) -> Generator:
-        event.setup(EventInterface.TYPE_CAUSE, self.__causes)
+        event.setup(EventInterface.TYPE_CAUSE, self.__events)
         self.__causes.append(event)
+        self.__events.append(event)
         return self
 
     def add_effect(self, effect_function: Callable[[History], float], **kwargs) -> Generator:
         event = Effect(effect_function, self.history, **kwargs)
-        event.setup(EventInterface.TYPE_EFFECT, self.__effects)
+        event.setup(EventInterface.TYPE_EFFECT, self.__events)
         self.__effects.append(event)
+        self.__events.append(event)
         return self
 
     def add_noise_continuous(self, min_value: int = 0, max_value: int = 10, **kwargs) -> Generator:
