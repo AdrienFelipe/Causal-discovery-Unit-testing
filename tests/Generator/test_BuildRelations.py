@@ -75,6 +75,43 @@ class RelationFactoryTest(unittest.TestCase):
 
         self.assertEqualRelation(expected, relations)
 
+    def test_lambda(self):
+        function1: Callable[[History], float] = lambda history: \
+            1 if history.get_event(0) == 1 else 0
+
+        function2 = lambda h: max([1, 4]) if h.get_event() == 1 else 0
+
+        relations = Generator() \
+            .add_function(function1) \
+            .add_function(function2) \
+            .build_relations()
+
+        expected = [
+            Relation(History.DEFAULT_POSITION, 0, History.DEFAULT_DELAY),
+            Relation(History.DEFAULT_POSITION + 1, History.DEFAULT_POSITION, History.DEFAULT_DELAY),
+        ]
+
+        self.assertEqualRelation(expected, relations)
+
+    def test_with_time(self):
+        function1: Callable[[History], float] = lambda history: \
+            1 if history.get_datetime() == 1 else history.get_event()
+
+        def function2(h: History) -> float: return h.get_timestamp()
+
+        relations = Generator() \
+            .add_function(function1) \
+            .add_function(function2) \
+            .add_function(lambda v: v.get_datetime(delay=2)) \
+            .build_relations()
+
+        expected = [
+            Relation(History.DEFAULT_POSITION, 0, History.DEFAULT_DELAY),
+            Relation(History.DEFAULT_POSITION + 1, History.DEFAULT_POSITION, History.DEFAULT_DELAY),
+        ]
+
+        self.assertEqualRelation(expected, relations)
+
     def test_different_event_types(self):
         self.skipTest('Group al events first')
 
@@ -85,38 +122,6 @@ class RelationFactoryTest(unittest.TestCase):
             self.assertEqual(expected[key].target, relation.target, 'Incorrect target')
             self.assertEqual(expected[key].delay, relation.delay, 'Incorrect delay')
 
-    def test_fuck_sake(self):
-        import networkx as nx
-
-        def effect1(history: History) -> float:
-            return 4
-
-        def effect2(history: History) -> float:
-            return history.get_event(position=1)
-
-        def effect3(history: History) -> float:
-            if history.get_event(1, delay=1):
-                value += 500
-            if history.get_event(1, delay=2):
-                value += 400
-            if history.get_event(2, delay=3):
-                value += 200
-
-            return value
-
-        generator = Generator() \
-            .add_function(effect1) \
-            .add_function(effect2) \
-            .add_function(effect3)
-
-        relations = generator.build_relations()
-
-        G = nx.DiGraph()
-
-        for relation in relations:
-            source = generator.get_events()[relation.source - 1]
-            target = generator.get_events()[relation.target - 1]
-            G.add_edges_from([(source.label, target.label)], weight=relation.delay)
 
 if __name__ == '__main__':
     unittest.main()

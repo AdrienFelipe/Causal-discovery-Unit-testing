@@ -209,16 +209,28 @@ class GeneratorTest(unittest.TestCase):
         for seed in range(50):
             random.seed(seed)
 
-            effect_function: Callable[[History], float] = lambda history: \
-                1 if history.get_event(2, delay=1) == 1 else None
+            event_function: Callable[[History], float] = lambda history: \
+                1 if history.get_event() == 1 else 0
 
-            dataset = Generator(sequential=True) \
-                .add_discrete(weight=0.5) \
-                .add_discrete(weight=0.5) \
-                .add_function(effect_function) \
-                .generate(4)
+            dataset = Generator() \
+                .add_discrete() \
+                .add_discrete() \
+                .add_function(event_function).generate()
 
             d = 3
+
+    def test_some(self):
+        random.seed(1)
+
+        event_function: Callable[[History], float] = lambda history: \
+            1 if history.get_event() == 1 else 0
+
+        dataset = Generator() \
+            .add_discrete() \
+            .add_discrete() \
+            .add_function(event_function)
+
+        dataset.plot_relations()
 
 
 if __name__ == '__main__':
