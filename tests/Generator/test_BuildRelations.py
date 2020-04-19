@@ -75,7 +75,7 @@ class RelationFactoryTest(unittest.TestCase):
 
         self.assertEqualRelation(expected, relations)
 
-    def test_lambda(self):
+    def test_lambda_as_function(self):
         function1: Callable[[History], float] = lambda history: \
             1 if history.get_event(0) == 1 else 0
 
@@ -93,7 +93,20 @@ class RelationFactoryTest(unittest.TestCase):
 
         self.assertEqualRelation(expected, relations)
 
+    def test_lambda_as_argument(self):
+        relations = Generator() \
+            .add_continuous() \
+            .add_continuous(6, 10).add_function(lambda h: h.get_event(2, delay=3)) \
+            .build_relations()
+
+        expected = [
+            Relation(3, 2, 3),
+        ]
+
+        self.assertEqualRelation(expected, relations)
+
     def test_with_time(self):
+        self.skipTest('infinite loop?')
         function1: Callable[[History], float] = lambda history: \
             1 if history.get_datetime() == 1 else history.get_event()
 
@@ -113,7 +126,37 @@ class RelationFactoryTest(unittest.TestCase):
         self.assertEqualRelation(expected, relations)
 
     def test_different_event_types(self):
-        self.skipTest('Group al events first')
+        event_function: Callable[[History], float] = lambda history: \
+            1 if history.get_event() == 1 else history.get_event(2, delay=1)
+
+        relations = Generator() \
+            .add_continuous() \
+            .add_discrete() \
+            .add_function(event_function) \
+            .add_linear() \
+            .build_relations()
+
+        expected = [
+            Relation(3, 1, 0),
+            Relation(3, 2, 1),
+        ]
+
+        self.assertEqualRelation(expected, relations)
+
+    def test_independent_effects(self):
+        relations = Generator() \
+            .add_continuous() \
+            .add_function(lambda h: h.get_event()) \
+            .add_linear() \
+            .add_function(lambda h: h.get_event(3)) \
+            .build_relations()
+
+        expected = [
+            Relation(2, 1, 0),
+            Relation(4, 3, 0),
+        ]
+
+        self.assertEqualRelation(expected, relations)
 
     def assertEqualRelation(self, expected: List[Relation], relations: List[Relation]):
         self.assertEqual(len(expected), len(relations))

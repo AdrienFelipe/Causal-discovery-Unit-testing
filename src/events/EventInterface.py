@@ -26,7 +26,9 @@ class EventInterface:
 
     def setup(self, events: List[EventInterface]):
         self.position = len(events)
-        self.label = self.LABEL_MAPPING[self.type] + str(self.position)
+        self.label = self.LABEL_MAPPING[self.type]
+        if self.position is not 0:
+            self.label += str(self.position)
 
     def draw(self) -> bool:
         return random() < self.probability

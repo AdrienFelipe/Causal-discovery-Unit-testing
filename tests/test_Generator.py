@@ -24,7 +24,7 @@ class GeneratorTest(unittest.TestCase):
             .add_discrete() \
             .generate()
 
-        expected = pd.DataFrame({'E1': [1, 1, 0], 'E2': [1, 1, 0], 'E3': [0, 0, 0]})
+        expected = pd.DataFrame({'E1': [1, 0, 0], 'E2': [1, 0, 0], 'E3': [0, 0, 1]})
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
     @staticmethod
@@ -39,14 +39,14 @@ class GeneratorTest(unittest.TestCase):
             .add_function(effect_function) \
             .generate().astype(int)
 
-        expected = pd.DataFrame({'E1': [4, 6, 9], 'E2': [2, 5, 0], 'E3': [4, 10, 0]})
+        expected = pd.DataFrame({'E1': [5, 5, 8], 'E2': [8, 2, 3], 'E3': [16, 4, 7]})
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
     @staticmethod
     def test_discrete_ordered():
         random.seed(10)
         effect_function: Callable[[History], float] = lambda history: \
-            1 if history.get_event(2, delay=1) == 1 else None
+            1 if history.get_event(2) == 1 else None
 
         dataset = Generator(sequential=True) \
             .add_discrete(weight=0.5) \
@@ -55,9 +55,9 @@ class GeneratorTest(unittest.TestCase):
             .generate(4)
 
         expected = pd.DataFrame({
-            'E1': [0, None, 1, None],
-            'E2': [None, 0, None, 1],
-            'E3': [None, None, None, None],
+            'E1': [1, None, None, 0],
+            'E2': [None, 1, None, None],
+            'E3': [None, None, 1, None],
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
@@ -74,9 +74,9 @@ class GeneratorTest(unittest.TestCase):
             .generate(5)
 
         expected = pd.DataFrame({
-            'E1': [None, 5, None, 7, None],
-            'E2': [None, None, 13, None, 17],
-            'E3': [6, None, None, None, None],
+            'E1': [None, 6, 9, None, None],
+            'E2': [None, None, None, 15, None],
+            'E3': [8, None, None, None, 8],
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
@@ -126,11 +126,11 @@ class GeneratorTest(unittest.TestCase):
             .generate()
 
         expected = pd.DataFrame({
-            EventInterface.LABEL_EVENT + '1': [1, 1, 1],
-            EventInterface.LABEL_EVENT + '2': [0, 0, 1],
+            EventInterface.LABEL_EVENT + '1': [0, 0, 1],
+            EventInterface.LABEL_EVENT + '2': [1, 1, 0],
             EventInterface.LABEL_EVENT + '3': [1, 1, 1],
-            EventInterface.LABEL_EVENT + '4': [2, 2, 3],
-            EventInterface.LABEL_EVENT + '5': [0, 1, 0],
+            EventInterface.LABEL_EVENT + '4': [2, 2, 2],
+            EventInterface.LABEL_EVENT + '5': [1, 1, 1],
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
@@ -150,9 +150,9 @@ class GeneratorTest(unittest.TestCase):
 
         expected = pd.DataFrame({
             EventInterface.LABEL_EVENT + '1': [1, 1, 1],
-            EventInterface.LABEL_EVENT + '3': [1, 1, 0],
-            EventInterface.LABEL_EVENT + '4': [1, 0, 1],
-            EventInterface.LABEL_EVENT + '7': [4, 9, 7],
+            EventInterface.LABEL_EVENT + '3': [1, 0, 1],
+            EventInterface.LABEL_EVENT + '4': [0, 0, 0],
+            EventInterface.LABEL_EVENT + '7': [4, 6, 8],
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
@@ -167,9 +167,9 @@ class GeneratorTest(unittest.TestCase):
             .generate().round(0)
 
         expected = pd.DataFrame({
-            EventInterface.LABEL_EVENT + '1': [9, 7, 6],
-            EventInterface.LABEL_EVENT + '2': [18, 14, 12],
-            EventInterface.LABEL_EVENT + '3': [19, 15, 13],
+            EventInterface.LABEL_EVENT + '1': [1, 3, 4],
+            EventInterface.LABEL_EVENT + '2': [2, 6, 8],
+            EventInterface.LABEL_EVENT + '3': [3, 7, 9],
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
@@ -230,7 +230,7 @@ class GeneratorTest(unittest.TestCase):
             .add_discrete() \
             .add_function(event_function)
 
-        dataset.plot_relations()
+        #dataset.plot_relations()
 
 
 if __name__ == '__main__':

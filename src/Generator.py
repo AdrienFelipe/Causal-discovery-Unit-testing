@@ -1,9 +1,7 @@
 from __future__ import annotations
 
-import time
 from typing import Callable
 from typing import List
-from typing import Union
 
 import pandas as pd
 
@@ -23,9 +21,10 @@ class Generator:
     EMPTY_VALUE = None
 
     def __init__(self, sequential: bool = False):
-        self.__events = [Time(shadow=True)]
+        self.__events = []
         self.__sequential = sequential
         self.history = History()
+        self.__add_event(Time(shadow=True))
 
     def generate(self, samples: int = 3) -> pd.DataFrame:
         data = pd.DataFrame()
@@ -37,7 +36,6 @@ class Generator:
 
         while len(data) < samples:
             sample = default_sample.copy()
-            self.history.add_sample()
 
             if self.__sequential:
                 # Process only one event at a time, but always process time.
@@ -57,8 +55,6 @@ class Generator:
             # Only add sample if it is not empty.
             if not all(value is None for value in list(sample.values())[1:]):
                 data = data.append(sample, ignore_index=True)
-            else:
-                self.history.pop_sample()
 
         # Remove shadow causes from dataset.
         columns = [event.label for event in events if event.shadow]
@@ -87,11 +83,13 @@ class Generator:
         return self.__add_event(Linear(start, step, **kwargs))
 
     def set_time(self, start_date: str = None, step: str = '1m', precision: str = None, **kwargs) -> Generator:
-        self.__time = Time(start_date, step, precision, **kwargs)
+        event = Time(start_date, step, precision, **kwargs)
+        event.setup(events=[])
+        self.__events[0] = event
         return self
 
-    def get_time(self) -> Union[Time, None]:
-        return self.__time
+    def get_time(self) -> Time:
+        return self.__events[0]
 
     def build_relations(self) -> List[Relation]:
         events = [event for event in self.get_events() if isinstance(event, Effect)]

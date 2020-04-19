@@ -8,8 +8,9 @@ from relation.Relation import Relation
 
 
 class RelationFactory:
-    __METHOD_NAME = 'get_event'
+    __EVENT_METHOD = 'get_event'
     __TIME_METHODS = 'get_datetime|get_timestamp'
+    __FUNC_METHOD = 'add_function'
     __ARG_POSITION = 'position'
     __ARG_DELAY = 'delay'
 
@@ -25,24 +26,47 @@ class RelationFactory:
     def __build_relation(self, event: Effect) -> list:
         function_string = inspect.getsource(event.effect)
 
+        if re.search(rf'.*\.{self.__FUNC_METHOD}\(', function_string):
+            scope_parts = re.split(r'([()])', function_string)
+            key = 0
+            while key < len(scope_parts):
+                func_content = ''
+                if re.search(rf'\.{self.__FUNC_METHOD}$', scope_parts[key]):
+                    depth = 0
+                    for local_part in scope_parts[key + 1:]:
+                        key += 1
+                        if local_part is '(':
+                            depth += 1
+                        if depth > 1 or local_part not in ['(', ')']:
+                            func_content += local_part
+                        if local_part is ')':
+                            depth -= 1
+                        if depth is 0:
+                            break
+                    function_string = func_content
+                    break
+                key += 1
+
         # Extract variable name.
-        argument_groups = re.search(r'^[^\n:]+\((.*?)\)|lambda *?(\w+)', function_string)
-        function_arguments = argument_groups.group(1)
+        argument_groups = re.search(r'(.*def[^\n:]+\((.*?)\)|lambda *?(\w+))(.*)', function_string, re.DOTALL)
+        function_arguments = argument_groups.group(2)
         if function_arguments is None:
-            function_arguments = argument_groups.group(2)
+            function_arguments = argument_groups.group(3)
         if function_arguments is None:
             return []
+
+        function_content = argument_groups.group(4)
 
         var_name = re.split(r' *: *', function_arguments)[0]
 
         args = []
         # Extract all History method calls.
         regex = re.compile(
-            rf'{var_name}\.({self.__METHOD_NAME}|(?P<time_method>{self.__TIME_METHODS}))'
+            rf'{var_name}\.({self.__EVENT_METHOD}|(?P<time_method>{self.__TIME_METHODS}))'
             rf'\((?P<arguments>.*?)\)'
         )
 
-        for method_parts in regex.finditer(function_string):
+        for method_parts in regex.finditer(function_content):
             items = method_parts.groupdict()
             arguments_string = items['arguments']
             is_time_method = items['time_method'] is not None
@@ -58,7 +82,7 @@ class RelationFactory:
 
             args.append(
                 Relation(
-                    source=int(event.position + History.DEFAULT_POSITION),
+                    source=int(event.position),
                     target=int(arg[self.__ARG_POSITION]),
                     delay=int(arg[self.__ARG_DELAY])
                 )
