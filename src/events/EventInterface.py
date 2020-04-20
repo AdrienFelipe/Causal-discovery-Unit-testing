@@ -17,18 +17,19 @@ class EventInterface:
     }
 
     type = TYPE_EVENT
-    label = LABEL_EVENT
     position = 0
 
-    def __init__(self, probability: float = 1, shadow: bool = False, **kwargs):
+    def __init__(self, probability: float = 1, shadow: bool = False, name=None, **kwargs):
         self.probability = probability
         self.shadow = shadow
+        self.label = name
 
     def setup(self, events: List[EventInterface]):
         self.position = len(events)
-        self.label = self.LABEL_MAPPING[self.type]
-        if self.position is not 0:
-            self.label += str(self.position)
+        if self.label is None:
+            self.label = self.LABEL_MAPPING[self.type]
+            if self.position is not 0:
+                self.label += str(self.position)
 
     def draw(self) -> bool:
         return random() < self.probability

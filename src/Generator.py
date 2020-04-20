@@ -6,6 +6,7 @@ from typing import List
 import pandas as pd
 
 from History import History
+from events.Constant import Constant
 from events.Continuous import Continuous
 from events.Discrete import Discrete
 from events.Effect import Effect
@@ -82,6 +83,9 @@ class Generator:
     def add_linear(self, start: float = 0, step: float = 1, **kwargs) -> Generator:
         return self.__add_event(Linear(start, step, **kwargs))
 
+    def add_constant(self, value: float = 1, **kwargs) -> Generator:
+        return self.__add_event(Constant(value, **kwargs))
+
     def set_time(self, start_date: str = None, step: str = '1m', precision: str = None, **kwargs) -> Generator:
         event = Time(start_date, step, precision, **kwargs)
         event.setup(events=[])
@@ -95,5 +99,5 @@ class Generator:
         events = [event for event in self.get_events() if isinstance(event, Effect)]
         return RelationFactory.build_relations(events)
 
-    def plot_relations(self):
-        RelationPlot.show(self.get_events(), self.build_relations())
+    def plot_relations(self, fig_size=(4, 3), node_size=20):
+        RelationPlot.show(self.get_events(), self.build_relations(), fig_size, node_size * 100)

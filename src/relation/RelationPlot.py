@@ -10,7 +10,7 @@ from relation.Relation import Relation
 class RelationPlot:
 
     @staticmethod
-    def show(events: List[EventInterface], relations: List[Relation]):
+    def show(events: List[EventInterface], relations: List[Relation], figsize: tuple = (5, 3), node_size=2000):
         graph = nx.DiGraph()
 
         for relation in relations:
@@ -31,7 +31,8 @@ class RelationPlot:
 
         # This needs to be last as events are transformed to strings.
         nx.relabel_nodes(graph, lambda event: event.label, copy=False)
+        plt.figure(figsize=figsize)
 
-        nx.draw_networkx(graph, node_size=2000, node_color=colors, edgecolors=borders)
+        nx.draw_networkx(graph, node_size=node_size, node_color=colors, edgecolors=borders)
         plt.margins(0.25)
         plt.show()
