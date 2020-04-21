@@ -6,13 +6,14 @@ from typing import List
 import pandas as pd
 
 from History import History
+from events.Categorical import Categorical
 from events.Constant import Constant
-from events.Uniform import Uniform
 from events.Discrete import Discrete
 from events.Effect import Effect
 from events.EventInterface import EventInterface
 from events.Linear import Linear
 from events.Time import Time
+from events.Uniform import Uniform
 from relation.Relation import Relation
 from relation.RelationFactory import RelationFactory
 from relation.RelationPlot import RelationPlot
@@ -61,6 +62,9 @@ class Generator:
         columns = [event.label for event in events if event.shadow]
         data = data.drop(columns, axis=1)
 
+        # Remove line breaks in column names.
+        data.columns = data.columns.str.replace("\n", " ")
+
         return data
 
     def get_events(self) -> List[EventInterface]:
@@ -85,6 +89,9 @@ class Generator:
 
     def add_constant(self, value: float = 1, **kwargs) -> Generator:
         return self.__add_event(Constant(value, **kwargs))
+
+    def add_categorical(self, values: tuple = (0, 1), weights: tuple = None, **kwargs) -> Generator:
+        return self.__add_event(Categorical(values, weights, **kwargs))
 
     def set_time(self, start_date: str = None, step: str = '1m', precision: str = None, **kwargs) -> Generator:
         event = Time(start_date, step, precision, **kwargs)
