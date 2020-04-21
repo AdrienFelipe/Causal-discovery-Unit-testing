@@ -42,6 +42,9 @@ class History:
         except:
             return null_value
 
+    def e(self, position: int = DEFAULT_POSITION, delay: int = DEFAULT_DELAY, null_value=None):
+        return self.get_event(position, delay, null_value)
+
     def get_timestamp(self, delay: int = DEFAULT_DELAY) -> float:
         if delay is 0 and self.time_buffer is not None:
             return self.time_buffer

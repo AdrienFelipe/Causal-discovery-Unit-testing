@@ -13,6 +13,8 @@ class RelationFactory:
     __FUNC_METHOD = 'add_function'
     __ARG_POSITION = 'position'
     __ARG_DELAY = 'delay'
+    __DEFAULT_ARG_EVENT = __ARG_POSITION
+    __DEFAULT_ARG_TIME = __ARG_DELAY
 
     @staticmethod
     def build_relations(events: List[Effect]):
@@ -47,7 +49,7 @@ class RelationFactory:
                     break
                 key += 1
 
-        # Extract variable name.
+        # Extract variable label.
         argument_groups = re.search(r'(.*def[^\n:]+\((.*?)\)|lambda *?(\w+))(.*)', function_string, re.DOTALL)
         function_arguments = argument_groups.group(2)
         if function_arguments is None:
@@ -71,13 +73,14 @@ class RelationFactory:
             arguments_string = items['arguments']
             is_time_method = items['time_method'] is not None
             default_position = 0 if is_time_method else History.DEFAULT_POSITION
+            default_argument = self.__DEFAULT_ARG_TIME if is_time_method else self.__DEFAULT_ARG_EVENT
             arg = {self.__ARG_POSITION: default_position, self.__ARG_DELAY: History.DEFAULT_DELAY}
             if arguments_string is not '':
                 arguments = re.split(" *, *", arguments_string)
                 for argument in arguments:
                     arg_value = re.split(' *= *', argument)
                     if len(arg_value) == 1:
-                        arg_value = [self.__ARG_POSITION, arg_value[0]]
+                        arg_value = [default_argument, arg_value[0]]
                     arg[arg_value[0]] = arg_value[1]
 
             args.append(

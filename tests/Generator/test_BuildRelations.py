@@ -1,5 +1,5 @@
 import unittest
-from collections import Callable
+from collections.abc import Callable
 from typing import List
 
 from Generator import Generator
@@ -95,8 +95,8 @@ class RelationFactoryTest(unittest.TestCase):
 
     def test_lambda_as_argument(self):
         relations = Generator() \
-            .add_continuous() \
-            .add_continuous(6, 10).add_function(lambda h: h.get_event(2, delay=3)) \
+            .add_uniform() \
+            .add_uniform(6, 10).add_function(lambda h: h.get_event(2, delay=3)) \
             .build_relations()
 
         expected = [
@@ -130,7 +130,7 @@ class RelationFactoryTest(unittest.TestCase):
             1 if history.get_event() == 1 else history.get_event(2, delay=1)
 
         relations = Generator() \
-            .add_continuous() \
+            .add_uniform() \
             .add_discrete() \
             .add_function(event_function) \
             .add_linear() \
@@ -145,7 +145,7 @@ class RelationFactoryTest(unittest.TestCase):
 
     def test_independent_effects(self):
         relations = Generator() \
-            .add_continuous() \
+            .add_uniform() \
             .add_function(lambda h: h.get_event()) \
             .add_linear() \
             .add_function(lambda h: h.get_event(3)) \
@@ -153,6 +153,35 @@ class RelationFactoryTest(unittest.TestCase):
 
         expected = [
             Relation(2, 1, 0),
+            Relation(4, 3, 0),
+        ]
+
+        self.assertEqualRelation(expected, relations)
+
+    def test_time_arguments(self):
+        def func1(history: History) -> float:
+            return history.get_datetime().weekday()
+
+        def func2(history: History) -> float:
+            return history.get_datetime(1).isocalendar()[1]
+
+        def func3(history: History) -> float:
+            return history.get_timestamp(delay=2)
+
+        relations = Generator() \
+            .set_time('2020-02-20', step='1d') \
+            .add_function(func1, shadow=True) \
+            .add_function(func2, shadow=True) \
+            .add_function(func3, shadow=True) \
+            .add_function(lambda h: h.get_event(1) * h.get_event(2, delay=2) * h.get_event(3)) \
+            .build_relations()
+
+        expected = [
+            Relation(1, 0, 0),
+            Relation(2, 0, 1),
+            Relation(3, 0, 2),
+            Relation(4, 1, 0),
+            Relation(4, 2, 2),
             Relation(4, 3, 0),
         ]
 

@@ -3,7 +3,7 @@ from random import uniform
 from events.EventInterface import EventInterface
 
 
-class Continuous(EventInterface):
+class Uniform(EventInterface):
 
     def __init__(self, min: float, max: float, round: int = None, **kwargs):
         super().__init__(**kwargs)

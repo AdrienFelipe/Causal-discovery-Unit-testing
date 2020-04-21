@@ -34,8 +34,8 @@ class GeneratorTest(unittest.TestCase):
             2 * history.get_event(2)
 
         dataset = Generator() \
-            .add_continuous() \
-            .add_continuous() \
+            .add_uniform() \
+            .add_uniform() \
             .add_function(effect_function) \
             .generate().astype(int)
 
@@ -68,9 +68,9 @@ class GeneratorTest(unittest.TestCase):
             2 * history.get_event(1, delay=1) + 3
 
         dataset = Generator(sequential=True) \
-            .add_continuous(probability=0.5, round=0) \
+            .add_uniform(probability=0.5, round=0) \
             .add_function(effect_function) \
-            .add_continuous(5, 9, probability=0.5, round=0) \
+            .add_uniform(5, 9, probability=0.5, round=0) \
             .generate(5)
 
         expected = pd.DataFrame({
@@ -144,8 +144,8 @@ class GeneratorTest(unittest.TestCase):
             .add_discrete() \
             .add_discrete(shadow=False) \
             .add_discrete(shadow=True) \
-            .add_continuous(shadow=True) \
-            .add_continuous() \
+            .add_uniform(shadow=True) \
+            .add_uniform() \
             .generate().round(0)
 
         expected = pd.DataFrame({
@@ -161,7 +161,7 @@ class GeneratorTest(unittest.TestCase):
         random.seed(2)
 
         dataset = Generator() \
-            .add_continuous() \
+            .add_uniform() \
             .add_function(lambda history: round(history.get_event()) * 2) \
             .add_function(lambda history: history.get_event(2) + 1) \
             .generate().round(0)
@@ -198,7 +198,7 @@ class GeneratorTest(unittest.TestCase):
 
         dataset = Generator() \
             .set_time('2020-02-20', step='1d') \
-            .add_continuous(250, 300) \
+            .add_uniform(250, 300) \
             .add_function(effect1) \
             .add_function(effect2) \
             .add_function(effect3) \

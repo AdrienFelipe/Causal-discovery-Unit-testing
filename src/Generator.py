@@ -7,7 +7,7 @@ import pandas as pd
 
 from History import History
 from events.Constant import Constant
-from events.Continuous import Continuous
+from events.Uniform import Uniform
 from events.Discrete import Discrete
 from events.Effect import Effect
 from events.EventInterface import EventInterface
@@ -74,8 +74,8 @@ class Generator:
     def add_function(self, event_function: Callable[[History], float], **kwargs) -> Generator:
         return self.__add_event(Effect(event_function, self.history, **kwargs))
 
-    def add_continuous(self, min: int = 0, max: int = 10, **kwargs) -> Generator:
-        return self.__add_event(Continuous(min, max, **kwargs))
+    def add_uniform(self, min: int = 0, max: int = 10, **kwargs) -> Generator:
+        return self.__add_event(Uniform(min, max, **kwargs))
 
     def add_discrete(self, weight: float = 0.5, **kwargs) -> Generator:
         return self.__add_event(Discrete(weight, **kwargs))

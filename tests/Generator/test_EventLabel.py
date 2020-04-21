@@ -7,8 +7,8 @@ from events.EventInterface import EventInterface
 class EventLabelTest(unittest.TestCase):
     def test_single_label(self):
         dataset = Generator() \
-            .add_continuous() \
-            .add_continuous() \
+            .add_uniform() \
+            .add_uniform() \
             .generate()
 
         self.assertEqual(EventInterface.LABEL_EVENT + '1', dataset.columns[0])
@@ -16,10 +16,10 @@ class EventLabelTest(unittest.TestCase):
 
     def test_multiple_cause_labels(self):
         dataset = Generator() \
-            .add_continuous() \
-            .add_continuous() \
-            .add_continuous() \
-            .add_continuous() \
+            .add_uniform() \
+            .add_uniform() \
+            .add_uniform() \
+            .add_uniform() \
             .generate()
 
         self.assertEqual(EventInterface.LABEL_EVENT + '1', dataset.columns[0])
@@ -29,10 +29,10 @@ class EventLabelTest(unittest.TestCase):
 
     def test_multiple_labels(self):
         dataset = Generator() \
-            .add_continuous() \
-            .add_continuous() \
-            .add_continuous() \
-            .add_continuous() \
+            .add_uniform() \
+            .add_uniform() \
+            .add_uniform() \
+            .add_uniform() \
             .generate()
 
         self.assertEqual(EventInterface.LABEL_EVENT + '1', dataset.columns[0])
