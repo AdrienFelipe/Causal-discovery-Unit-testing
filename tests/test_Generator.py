@@ -181,7 +181,7 @@ class GeneratorTest(unittest.TestCase):
             .set_time('2018-05-13 20:15', step='5m') \
             .add_categorical(('First', 'Second', 'Third')) \
             .add_function(lambda history: 'Third' in history.get_range(time_range='10m')) \
-            .generate().round(0)
+            .generate()
 
         expected = pd.DataFrame({
             EventInterface.LABEL_EVENT + '1': ['Third', 'First', 'Second'],
@@ -190,36 +190,51 @@ class GeneratorTest(unittest.TestCase):
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
-    def test_sales_dataset(self):
-        random.seed(3)
+    @staticmethod
+    def test_sales_dataset():
+        random.seed(30)
 
+        # Impact depending on the week day.
         def effect1(history: History) -> float:
             day = history.get_datetime().weekday()
+            # [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
             ratios = [20, 20, 15, 10, 0, -30, -50]
             return history.get_event(1) * (1 + ratios[day] / 100)
 
+        # Impact depending on the week number.
         def effect2(history: History) -> float:
             week = history.get_datetime().isocalendar()[1]
-            ratio = week - history.get_datetime(-1).isocalendar()[1]
+            ratio = week / 52
             return history.get_event(1) * (1 + ratio / 20)
 
+        # Impact depending on history items.
         def effect3(history: History) -> float:
             value = history.get_event(2)
-            if history.get_event(2, delay=1):
+            if not history.get_event(2, delay=1):
                 value *= 1.5
-            elif history.get_event(2, delay=2):
+            elif not history.get_event(2, delay=2):
                 value *= 3
-            elif history.get_event(2, delay=3):
-                value *= 1.2
+            elif not history.get_event(2, delay=3):
+                value *= 6
             return value
 
+        # Thursday 20/02/2020
         dataset = Generator() \
             .set_time('2020-02-20', step='1d') \
             .add_uniform(250, 300) \
             .add_function(effect1) \
             .add_function(effect2) \
             .add_function(effect3) \
-            .generate(20)
+            .generate().round(0)
+
+        expected = pd.DataFrame({
+            EventInterface.LABEL_EVENT + '1': [252, 299, 258],
+            EventInterface.LABEL_EVENT + '2': [277, 299, 181],
+            EventInterface.LABEL_EVENT + '3': [253, 302, 260],
+            EventInterface.LABEL_EVENT + '4': [415, 898, 1084],
+            EventInterface.LABEL_TIME: [1582153200, 1582239600, 1582326000],
+        })
+        pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
     @staticmethod
     def test_search():
@@ -227,7 +242,7 @@ class GeneratorTest(unittest.TestCase):
             random.seed(seed)
 
             event_function: Callable[[History], float] = lambda history: \
-                1 if history.get_event() == 1 else 0
+                history.get_event(1) and history.get_event(2)
 
             dataset = Generator() \
                 .add_discrete() \
