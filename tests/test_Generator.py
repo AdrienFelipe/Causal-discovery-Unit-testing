@@ -173,6 +173,23 @@ class GeneratorTest(unittest.TestCase):
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
+    @staticmethod
+    def test_range_from_next_event():
+        random.seed(25)
+
+        dataset = Generator() \
+            .set_time('2018-05-13 20:15', step='5m') \
+            .add_categorical(('First', 'Second', 'Third')) \
+            .add_function(lambda history: 'Third' in history.get_range(time_range='10m')) \
+            .generate().round(0)
+
+        expected = pd.DataFrame({
+            EventInterface.LABEL_EVENT + '1': ['Third', 'First', 'Second'],
+            EventInterface.LABEL_EVENT + '2': [1, 1, 0],
+            EventInterface.LABEL_TIME: [1526235300, 1526235600, 1526235900],
+        })
+        pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
+
     def test_sales_dataset(self):
         random.seed(3)
 
@@ -230,7 +247,7 @@ class GeneratorTest(unittest.TestCase):
             .add_discrete() \
             .add_function(event_function)
 
-        #dataset.plot_relations()
+        # dataset.plot_relations()
 
 
 if __name__ == '__main__':

@@ -8,7 +8,7 @@ from relation.Relation import Relation
 
 
 class RelationFactory:
-    __EVENT_METHOD = 'get_event'
+    __EVENT_METHODS = 'get_event|get_range|e'
     __TIME_METHODS = 'get_datetime|get_timestamp'
     __FUNC_METHOD = 'add_function'
     __ARG_POSITION = 'position'
@@ -64,7 +64,7 @@ class RelationFactory:
         args = []
         # Extract all History method calls.
         regex = re.compile(
-            rf'{var_name}\.({self.__EVENT_METHOD}|(?P<time_method>{self.__TIME_METHODS}))'
+            rf'{var_name}\.(({self.__EVENT_METHODS})|(?P<time_method>{self.__TIME_METHODS}))'
             rf'\((?P<arguments>.*?)\)'
         )
 

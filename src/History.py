@@ -1,7 +1,10 @@
 from collections import deque
 from datetime import datetime
 
+import numpy as np
+
 from events.EventInterface import EventInterface
+from tools.TimeParser import TimeParser
 
 
 class History:
@@ -44,6 +47,17 @@ class History:
 
     def e(self, position: int = DEFAULT_POSITION, delay: int = DEFAULT_DELAY, null_value=None):
         return self.get_event(position, delay, null_value)
+
+    def get_range(self, position: int = DEFAULT_POSITION, time_range: str = '1m', null_value=None) -> list:
+        try:
+            time_limit = self.get_timestamp() - TimeParser.timedelta(time_range).total_seconds()
+            np_events = np.array(self.events)
+            result = np_events[:, position][np_events[:, 0] > time_limit]
+            if null_value is not None:
+                result = np.where(result is None, null_value, result)
+            return result
+        except:
+            return [null_value]
 
     def get_timestamp(self, delay: int = DEFAULT_DELAY) -> float:
         if delay is 0 and self.time_buffer is not None:
