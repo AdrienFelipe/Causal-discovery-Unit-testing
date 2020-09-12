@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+
+  python:
+    image: python:3
+    ports:
+      - "22666:22"
+    volumes:
+      - .:/app
