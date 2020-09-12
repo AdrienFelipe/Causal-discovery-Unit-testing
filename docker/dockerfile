@@ -1,0 +1,19 @@
+FROM debian:buster-slim
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update
+
+# Install Python.
+RUN apt install -qy python3 && \
+    mv /usr/bin/python3 /usr/bin/python
+
+# Install R.
+RUN apt install -qy r-base
+
+# Install SSH.
+RUN apt install -qy openssh-server
+
+# Keep container up.
+CMD ["tail", "-f", "/dev/null"]
+
