@@ -1,2 +1,7 @@
 .idea
-env
+.env
+.cache
+.conda
+.empty
+.pycharm_helpers
+.bash_history
