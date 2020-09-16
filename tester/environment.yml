@@ -1,10 +1,8 @@
-name: null
+name: tester
 channels:
   - defaults
+  - conda-forge
 dependencies:
   - python=3
   - pip
-  - pip:
-    - cdt
-    - torch
-    - torchvision
+  - dowhy

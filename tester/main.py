@@ -1,25 +1,31 @@
-import cdt
-import networkx as nx
+from dowhy import CausalModel
+import dowhy.datasets
 
-data, graph = cdt.data.load_dataset('sachs')
-glasso = cdt.independence.graph.Glasso()
-skeleton = glasso.predict(data)
-new_skeleton = cdt.utils.graph.remove_indirect_links(skeleton, alg='aracne')
-nx.adjacency_matrix(skeleton).todense()
+ # https://github.com/Microsoft/dowhy
+ # https://ntanmayee.github.io/articles/2018/11/16/tools-for-causality.html
 
-# Causal discovery
-model = cdt.causality.graph.GES()
-output_graph = model.predict(data, new_skeleton)
-print(nx.adjacency_matrix(output_graph).todense())
+# Load some sample data
+data = dowhy.datasets.linear_dataset(
+    beta=10,
+    num_common_causes=5,
+    num_instruments=2,
+    num_samples=10000,
+    treatment_is_binary=True)
 
-# Scoring.
-scores = [metric(graph, output_graph) for metric in (precision_recall, SID, SHD)]
-print(scores)
+# Create a causal model from the data and given graph.
+model = CausalModel(
+    data=data["df"],
+    treatment=data["treatment_name"],
+    outcome=data["outcome_name"],
+    graph=data["gml_graph"])
 
-# now we compute the CAM graph without constraints and the associated scores
-model2 = cdt.causality.graph.CAM()
-output_graph_nc = model2.predict(data)
-scores_nc = [metric(graph, output_graph_nc) for metric in (precision_recall, SID, SHD)]
-print(scores_nc)
+# Identify causal effect and return target estimands
+identified_estimand = model.identify_effect()
 
-ff = 4
+# Estimate the target estimand using a statistical method.
+estimate = model.estimate_effect(identified_estimand,
+                                 method_name="backdoor.propensity_score_matching")
+
+# Refute the obtained estimate using multiple robustness checks.
+refute_results = model.refute_estimate(identified_estimand, estimate,
+                                       method_name="random_common_cause")

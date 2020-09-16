@@ -8,6 +8,7 @@ ENV_PATH=.env
 stop:
 		# Always true to avoid an error if container does not exist.
 		docker rm -f $(CONTAINER) || true
+
 build:
 		docker build -t $(IMAGE) .
 
