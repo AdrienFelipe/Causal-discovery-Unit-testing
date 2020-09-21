@@ -1,0 +1,10 @@
+name: generator
+channels:
+  - defaults
+dependencies:
+  - python=3
+  - numpy
+  - pandas
+  - matplotlib
+  - networkx
+  - pyarrow
