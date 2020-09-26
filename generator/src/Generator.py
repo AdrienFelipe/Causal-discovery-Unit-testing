@@ -14,9 +14,9 @@ from generator.events.EventInterface import EventInterface
 from generator.events.Linear import Linear
 from generator.events.Time import Time
 from generator.events.Uniform import Uniform
-from relation.Relation import Relation
-from relation.RelationFactory import RelationFactory
-from relation.RelationPlot import RelationPlot
+from generator.relation.Relation import Relation
+from generator.relation.RelationFactory import RelationFactory
+from generator.relation.RelationPlot import RelationPlot
 
 
 class Generator:

@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 from generator.events.EventInterface import EventInterface
-from relation.Relation import Relation
+from generator.relation.Relation import Relation
 
 
 class RelationPlot:

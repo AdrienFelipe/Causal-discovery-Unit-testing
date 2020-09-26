@@ -4,7 +4,7 @@ from typing import List
 
 from History import History
 from generator.events.Effect import Effect
-from relation.Relation import Relation
+from generator.relation.Relation import Relation
 
 
 class RelationFactory:

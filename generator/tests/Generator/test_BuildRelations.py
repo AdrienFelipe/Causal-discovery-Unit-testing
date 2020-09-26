@@ -4,7 +4,7 @@ from typing import List
 
 from Generator import Generator
 from History import History
-from relation.Relation import Relation
+from generator.relation.Relation import Relation
 
 
 class RelationFactoryTest(unittest.TestCase):
