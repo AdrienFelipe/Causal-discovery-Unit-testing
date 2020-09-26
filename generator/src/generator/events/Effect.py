@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Callable
 from typing import Union
 
-from History import History
+from generator.History import History
 from generator.events.EventInterface import EventInterface
 
 

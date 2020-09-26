@@ -5,7 +5,7 @@ from typing import List
 
 import pandas as pd
 
-from History import History
+from generator.History import History
 from generator.events.Categorical import Categorical
 from generator.events.Constant import Constant
 from generator.events.Discrete import Discrete

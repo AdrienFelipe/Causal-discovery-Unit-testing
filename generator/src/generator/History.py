@@ -4,7 +4,7 @@ from datetime import datetime
 import numpy as np
 
 from generator.events.EventInterface import EventInterface
-from tools.TimeParser import TimeParser
+from generator.tools.TimeParser import TimeParser
 
 
 class History:

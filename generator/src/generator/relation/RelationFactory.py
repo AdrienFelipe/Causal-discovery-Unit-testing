@@ -2,7 +2,7 @@ import inspect
 import re
 from typing import List
 
-from History import History
+from generator.History import History
 from generator.events.Effect import Effect
 from generator.relation.Relation import Relation
 

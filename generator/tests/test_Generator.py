@@ -5,8 +5,8 @@ from typing import Callable
 import numpy as np
 import pandas as pd
 
-from Generator import Generator
-from History import History
+from generator.Generator import Generator
+from generator.History import History
 from generator.events.EventInterface import EventInterface
 
 

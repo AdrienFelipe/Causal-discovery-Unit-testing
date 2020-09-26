@@ -2,8 +2,8 @@ import unittest
 from collections.abc import Callable
 from typing import List
 
-from Generator import Generator
-from History import History
+from generator.Generator import Generator
+from generator.History import History
 from generator.relation.Relation import Relation
 
 

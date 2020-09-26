@@ -1,6 +1,6 @@
 import unittest
 
-from History import History
+from generator.History import History
 from generator.events.Linear import Linear
 from generator.events.Time import Time
 

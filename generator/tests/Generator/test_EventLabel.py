@@ -1,6 +1,6 @@
 import unittest
 
-from Generator import Generator
+from generator.Generator import Generator
 from generator.events.EventInterface import EventInterface
 
 
