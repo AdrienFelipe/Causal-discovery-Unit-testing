@@ -3,7 +3,7 @@ import re
 from typing import List
 
 from History import History
-from events.Effect import Effect
+from generator.events.Effect import Effect
 from relation.Relation import Relation
 
 

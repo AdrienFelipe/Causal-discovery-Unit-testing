@@ -4,7 +4,7 @@ from typing import Callable
 from typing import Union
 
 from History import History
-from events.EventInterface import EventInterface
+from generator.events.EventInterface import EventInterface
 
 
 class Effect(EventInterface):

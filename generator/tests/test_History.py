@@ -1,8 +1,8 @@
 import unittest
 
 from History import History
-from events.Linear import Linear
-from events.Time import Time
+from generator.events.Linear import Linear
+from generator.events.Time import Time
 
 
 class HistoryTest(unittest.TestCase):

@@ -2,7 +2,7 @@ import random
 import unittest
 from datetime import datetime
 
-from events.Time import Time
+from generator.events.Time import Time
 
 
 class TimeTest(unittest.TestCase):

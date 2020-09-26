@@ -6,14 +6,14 @@ from typing import List
 import pandas as pd
 
 from History import History
-from events.Categorical import Categorical
-from events.Constant import Constant
-from events.Discrete import Discrete
-from events.Effect import Effect
-from events.EventInterface import EventInterface
-from events.Linear import Linear
-from events.Time import Time
-from events.Uniform import Uniform
+from generator.events.Categorical import Categorical
+from generator.events.Constant import Constant
+from generator.events.Discrete import Discrete
+from generator.events.Effect import Effect
+from generator.events.EventInterface import EventInterface
+from generator.events.Linear import Linear
+from generator.events.Time import Time
+from generator.events.Uniform import Uniform
 from relation.Relation import Relation
 from relation.RelationFactory import RelationFactory
 from relation.RelationPlot import RelationPlot

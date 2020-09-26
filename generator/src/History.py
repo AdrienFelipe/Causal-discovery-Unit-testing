@@ -3,7 +3,7 @@ from datetime import datetime
 
 import numpy as np
 
-from events.EventInterface import EventInterface
+from generator.events.EventInterface import EventInterface
 from tools.TimeParser import TimeParser
 
 

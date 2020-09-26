@@ -1,6 +1,6 @@
 from random import choices
 
-from events.EventInterface import EventInterface
+from generator.events.EventInterface import EventInterface
 
 
 class Categorical(EventInterface):

@@ -7,7 +7,7 @@ import pandas as pd
 
 from Generator import Generator
 from History import History
-from events.EventInterface import EventInterface
+from generator.events.EventInterface import EventInterface
 
 
 class GeneratorTest(unittest.TestCase):

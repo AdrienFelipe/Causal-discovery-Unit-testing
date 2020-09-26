@@ -1,6 +1,6 @@
 from random import uniform
 
-from events.EventInterface import EventInterface
+from generator.events.EventInterface import EventInterface
 
 
 class Uniform(EventInterface):

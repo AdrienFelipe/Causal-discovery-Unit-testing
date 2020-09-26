@@ -1,7 +1,7 @@
 import unittest
 
 from Generator import Generator
-from events.EventInterface import EventInterface
+from generator.events.EventInterface import EventInterface
 
 
 class EventLabelTest(unittest.TestCase):

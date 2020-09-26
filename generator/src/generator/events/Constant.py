@@ -1,4 +1,4 @@
-from events.EventInterface import EventInterface
+from generator.events.EventInterface import EventInterface
 
 
 class Constant(EventInterface):

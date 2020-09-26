@@ -3,7 +3,7 @@ from datetime import datetime
 from datetime import timedelta
 from random import uniform
 
-from events.EventInterface import EventInterface
+from generator.events.EventInterface import EventInterface
 from tools.TimeParser import TimeParser
 
 
