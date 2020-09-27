@@ -1,3 +1,5 @@
+# noinspection PyUnresolvedReferences
+import dowhy.api
 import pandas as pd
 
 # https://github.com/Microsoft/dowhy
@@ -21,6 +23,6 @@ identified_estimand = model.identify_effect()
 estimate = model.estimate_effect(identified_estimand, method_name="backdoor.propensity_score_matching")
 
 # Refute the obtained estimate using multiple robustness checks.
-refute_results = model.refute_estimate(identified_estimand, estimate,  method_name="random_common_cause")
+refute_results = model.refute_estimate(identified_estimand, estimate, method_name="random_common_cause")
 
 f = 3

@@ -5,3 +5,5 @@
 .empty
 .pycharm_helpers
 .bash_history
+__pycache__
+

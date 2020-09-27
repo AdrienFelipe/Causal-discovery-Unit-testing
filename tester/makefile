@@ -10,7 +10,7 @@ stop:
 		docker rm -f $(CONTAINER) || true
 
 build:
-		docker build -t $(IMAGE) .
+		docker build -t $(IMAGE) -f dockerfile .
 
 create:
 		$(EXEC_U) conda env create -f environment.yml --force --prefix $(ENV_PATH)
@@ -23,6 +23,8 @@ start: stop build
 		$(EXEC) /bin/bash -c "echo app:app | chpasswd"
 		# Ssh service cannot be started from the docker image.
 		$(EXEC) service ssh start
+		# Remove previous SSH key.
+		#ssh-keygen -f "$(HOME)/.ssh/known_hosts" -R "[localhost]:$(SSH_PORT)"
 		# Create conda local environment only if non existent.
 		if [ ! -d "$(ENV_PATH)" ]; then make create; fi
 
