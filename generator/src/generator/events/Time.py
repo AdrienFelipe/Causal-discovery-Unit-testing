@@ -4,7 +4,7 @@ from datetime import timedelta
 from random import uniform
 
 from generator.events.EventInterface import EventInterface
-from generator.tools.TimeParser import TimeParser
+from utils.TimeParser import TimeParser
 
 
 class Time(EventInterface):
