@@ -27,7 +27,7 @@ class History:
         del self.events[0]
 
     def set_event(self, event: EventInterface, value: float):
-        if event.type is EventInterface.TYPE_TIME and event.position is 0:
+        if event.type is EventInterface.TYPE_TIME and event.position == 0:
             self.time_buffer = value
             return
 
@@ -60,7 +60,7 @@ class History:
             return [null_value]
 
     def get_timestamp(self, delay: int = DEFAULT_DELAY) -> float:
-        if delay is 0 and self.time_buffer is not None:
+        if delay == 0 and self.time_buffer is not None:
             return self.time_buffer
         return self.events[delay][0]
 

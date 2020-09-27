@@ -28,7 +28,7 @@ class EventInterface:
         self.position = len(events)
         if self.label is None:
             self.label = self.LABEL_MAPPING[self.type]
-            if self.position is not 0:
+            if self.position != 0:
                 self.label += str(self.position)
 
     def draw(self) -> bool:
