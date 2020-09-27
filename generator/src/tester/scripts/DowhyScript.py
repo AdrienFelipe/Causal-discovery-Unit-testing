@@ -1,4 +1,4 @@
-from scripts.ScriptInterface import ScriptInterface
+from tester.scripts.ScriptInterface import ScriptInterface
 
 
 class DowhyScript(ScriptInterface):

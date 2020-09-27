@@ -27,6 +27,8 @@ start: stop build
 		#ssh-keygen -f "$(HOME)/.ssh/known_hosts" -R "[localhost]:$(SSH_PORT)"
 		# Create conda local environment only if non existent.
 		if [ ! -d "$(ENV_PATH)" ]; then make create; fi
+        # Make Python available in PATH.
+		$(EXEC) ln -fs $(ENV_PATH)/bin/python /usr/bin/
 
 root:
 		$(EXEC) /bin/bash -l

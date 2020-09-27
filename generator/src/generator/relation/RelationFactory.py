@@ -37,13 +37,13 @@ class RelationFactory:
                     depth = 0
                     for local_part in scope_parts[key + 1:]:
                         key += 1
-                        if local_part is '(':
+                        if local_part == '(':
                             depth += 1
                         if depth > 1 or local_part not in ['(', ')']:
                             func_content += local_part
-                        if local_part is ')':
+                        if local_part == ')':
                             depth -= 1
-                        if depth is 0:
+                        if depth == 0:
                             break
                     function_string = func_content
                     break
@@ -75,7 +75,7 @@ class RelationFactory:
             default_position = 0 if is_time_method else History.DEFAULT_POSITION
             default_argument = self.__DEFAULT_ARG_TIME if is_time_method else self.__DEFAULT_ARG_EVENT
             arg = {self.__ARG_POSITION: default_position, self.__ARG_DELAY: History.DEFAULT_DELAY}
-            if arguments_string is not '':
+            if arguments_string != '':
                 arguments = re.split(" *, *", arguments_string)
                 for argument in arguments:
                     arg_value = re.split(' *= *', argument)

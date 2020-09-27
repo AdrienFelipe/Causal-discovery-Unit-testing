@@ -1,19 +1,20 @@
-from typing import List
+from __future__ import annotations
 
-import pandas as pd
+from typing import Tuple
 
-from scripts.DowhyScript import DowhyScript
-from scripts.ScriptInterface import ScriptInterface
+from datasets.DatasetInterface import DatasetInterface
+from datasets.InstantActionDataset import InstantActionDataset
+from tester.scripts.DowhyScript import DowhyScript
+from tester.scripts.ScriptInterface import ScriptInterface
 
-datasets = ('instant-action', 'linear-action', 'logs-action', 'sensors-reads')
 
-
-def score_it(scripts: List[ScriptInterface]):
-    for dataset_name in datasets:
-        dataset = pd.read_pickle(f'datasets/{dataset_name}.pkl')
+def score_it(scripts: Tuple[ScriptInterface], datasets: Tuple[DatasetInterface]):
+    for dataset in datasets:
+        data = dataset.read()
         for script in scripts:
-            print(script.name)
+            print(f'{dataset.name} {script.name}')
 
 
+datasets = (InstantActionDataset,)
 scripts = (DowhyScript,)
-score_it(scripts)
+score_it(scripts, datasets)

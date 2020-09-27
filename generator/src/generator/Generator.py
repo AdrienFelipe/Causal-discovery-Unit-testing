@@ -58,7 +58,7 @@ class Generator:
             if not all(value is None for value in list(sample.values())[1:]):
                 data = data.append(sample, ignore_index=True)
 
-        # Remove shadow causes from dataset.
+        # Remove shadow causes from generator.
         columns = [event.label for event in events if event.shadow]
         data = data.drop(columns, axis=1)
 

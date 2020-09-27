@@ -262,7 +262,7 @@ class GeneratorTest(unittest.TestCase):
             .add_discrete() \
             .add_function(event_function)
 
-        # dataset.plot_relations()
+        # generator.plot_relations()
 
 
 if __name__ == '__main__':
