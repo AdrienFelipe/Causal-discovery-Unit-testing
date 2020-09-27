@@ -15,6 +15,6 @@ def score_it(scripts: Tuple[ScriptInterface], datasets: Tuple[DatasetInterface])
             print(f'{dataset.name} {script.name}')
 
 
-datasets = (InstantActionDataset,)
-scripts = (DowhyScript,)
+datasets = (InstantActionDataset(),)
+scripts = (DowhyScript(),)
 score_it(scripts, datasets)
