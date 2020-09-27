@@ -1,10 +1,10 @@
-name: generator
+name: tester
 channels:
   - defaults
+  - conda-forge
 dependencies:
   - python=3
-  - numpy
-  - pandas
-  - matplotlib
-  - networkx
-  - pyarrow
+  - pip
+  - typing
+  - dowhy
+  - causalimpact
