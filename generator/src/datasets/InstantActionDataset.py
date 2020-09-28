@@ -8,10 +8,7 @@ from generator.History import History
 
 
 class InstantActionDataset(DatasetInterface):
-
-    def __init__(self):
-        super().__init__()
-        self.name = 'instant-action'
+    name = 'instant-action'
 
     def build(self) -> Generator:
         event_function: Callable[[History], float] = lambda history: \

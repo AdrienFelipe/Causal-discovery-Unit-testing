@@ -13,6 +13,7 @@ def score_it(scripts: Tuple[ScriptInterface], datasets: Tuple[DatasetInterface])
         data = dataset.read()
         for script in scripts:
             print(f'{dataset.name} {script.name}')
+            script.predict(data)
 
 
 datasets = (InstantActionDataset(),)
