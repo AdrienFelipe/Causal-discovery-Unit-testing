@@ -1,14 +1,15 @@
 from __future__ import annotations
 
-from typing import Tuple
+from typing import List
 
 from datasets.DatasetInterface import DatasetInterface
 from datasets.InstantActionDataset import InstantActionDataset
+from tester.scripts.CausalInferenceScript import CausalInferenceScript
 from tester.scripts.DowhyScript import DowhyScript
 from tester.scripts.ScriptInterface import ScriptInterface
 
 
-def score_it(scripts: Tuple[ScriptInterface], datasets: Tuple[DatasetInterface]):
+def score_it(scripts: List[ScriptInterface], datasets: List[DatasetInterface]):
     for dataset in datasets:
         data = dataset.read()
         for script in scripts:
@@ -16,6 +17,6 @@ def score_it(scripts: Tuple[ScriptInterface], datasets: Tuple[DatasetInterface])
             script.predict(data)
 
 
-datasets = (InstantActionDataset(),)
-scripts = (DowhyScript(),)
+datasets = [InstantActionDataset()]
+scripts = [CausalInferenceScript(), DowhyScript()]
 score_it(scripts, datasets)

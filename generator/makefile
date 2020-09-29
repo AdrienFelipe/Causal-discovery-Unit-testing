@@ -28,7 +28,7 @@ start: stop build
 		# Create conda local environment only if non existent.
 		if [ ! -d "$(ENV_PATH)" ]; then make create; fi
         # Make Python available in PATH.
-		$(EXEC) ln -fs $(ENV_PATH)/bin/python /usr/bin/
+		$(EXEC) ln -fs /app/$(ENV_PATH)/bin/python /usr/bin/
 
 root:
 		$(EXEC) /bin/bash -l
