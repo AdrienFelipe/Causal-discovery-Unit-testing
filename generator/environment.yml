@@ -10,3 +10,6 @@ dependencies:
   - dowhy
   - causalimpact
   - causalinference
+  - medil[all]        # MeDILL
+  - seaborn           # MeDILL
+  - pytorch_lightning # MeDILL

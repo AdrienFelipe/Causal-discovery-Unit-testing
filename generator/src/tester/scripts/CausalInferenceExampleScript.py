@@ -5,17 +5,13 @@ from causalinference.utils import random_data
 from tester.scripts.ScriptInterface import ScriptInterface
 
 
-class CausalInferenceScript(ScriptInterface):
-    name = 'Causal-inference'
+class CausalInferenceExampleScript(ScriptInterface):
+    name = 'Causal-inference (example)'
 
     # https://github.com/laurencium/causalinference/blob/master/docs/tex/vignette.pdf
 
     def predict(self, data: pd.DataFrame):
-        size = len(data) // 2
-        Y, X = data['E3'].to_numpy(), data[['E1', 'E2']].to_numpy()
-
-        D = pd.np.concatenate((pd.np.zeros(size), pd.np.ones(len(data) - size)))
-        pd.np.random.shuffle(D)
+        Y, D, X = random_data()
         causal = CausalModel(Y, D, X)
 
         one = causal.est_propensity()
