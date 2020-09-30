@@ -15,6 +15,7 @@ from medil.independence_testing import hypothesis_test
 # for step 3
 from pytorch_lightning import Trainer
 
+from datasets.DatasetInterface import DatasetInterface
 from tester.scripts.ScriptInterface import ScriptInterface
 
 
@@ -24,7 +25,7 @@ class MeDILExampleScript(ScriptInterface):
     # https://causal.dev/files/medil_demo.pdf
     # https://medil.causal.dev/tutorial.html
 
-    def predict(self, data: pd.DataFrame):
+    def predict(self, dataset: DatasetInterface):
         # make sample data
         num_latent, num_observed = triangle.MCM.shape
 

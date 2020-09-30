@@ -2,6 +2,7 @@ import pandas as pd
 from causalinference import CausalModel
 from causalinference.utils import random_data
 
+from datasets.DatasetInterface import DatasetInterface
 from tester.scripts.ScriptInterface import ScriptInterface
 
 
@@ -10,7 +11,7 @@ class CausalInferenceExampleScript(ScriptInterface):
 
     # https://github.com/laurencium/causalinference/blob/master/docs/tex/vignette.pdf
 
-    def predict(self, data: pd.DataFrame):
+    def predict(self, dataset: DatasetInterface):
         Y, D, X = random_data()
         causal = CausalModel(Y, D, X)
 

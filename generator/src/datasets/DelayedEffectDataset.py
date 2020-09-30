@@ -7,20 +7,20 @@ from generator.Generator import Generator
 from generator.History import History
 
 
-class InstantActionDataset(DatasetInterface):
-    name = 'instant-action'
+class DelayedEffectDataset(DatasetInterface):
+    name = 'delayed-effect'
+    items = 50
 
     def build(self) -> Generator:
         event_function: Callable[[History], float] = lambda history: \
-            1 if history.get_event(1) == 1 else 0
+            2 * history.get_event(delay=2, null_value=0)
 
         return Generator() \
-            .add_discrete() \
-            .add_discrete() \
+            .add_uniform(1, 3, round=0) \
             .add_function(event_function, round=0)
 
     def get_causes(self) -> list:
-        return ['E1', 'E2']
+        return ['E1']
 
     def get_outcome(self) -> str:
-        return 'E3'
+        return 'E2'

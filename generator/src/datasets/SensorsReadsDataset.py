@@ -7,16 +7,17 @@ from generator.Generator import Generator
 from generator.History import History
 
 
-class InstantActionDataset(DatasetInterface):
-    name = 'instant-action'
+class SensorsReadsDataset(DatasetInterface):
+    name = 'sensors-reads'
+    items = 100
 
     def build(self) -> Generator:
         event_function: Callable[[History], float] = lambda history: \
-            1 if history.get_event(1) == 1 else 0
+            2 * history.get_event(delay=1) + 3
 
-        return Generator() \
-            .add_discrete() \
-            .add_discrete() \
+        return Generator(sequential=True) \
+            .add_uniform(round=0) \
+            .add_uniform(round=0) \
             .add_function(event_function, round=0)
 
     def get_causes(self) -> list:
