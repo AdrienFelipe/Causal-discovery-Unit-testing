@@ -1,29 +1,32 @@
-# noinspection PyUnresolvedReferences
-import dowhy.api
 import pandas as pd
 from dowhy import CausalModel
 
+from datasets.DatasetInterface import DatasetInterface
 from tester.scripts.ScriptInterface import ScriptInterface
 
 
 class DowhyScript(ScriptInterface):
     name = 'dowhy'
 
-    def predict(self, data: pd.DataFrame):
-        data['treatment'] = True
+    def predict(self, dataset: DatasetInterface):
+        data = dataset.get_data()
 
+        # Temporally add treatment.
+        data['treatment'] = True
         treatment = 'treatment'
-        outcome = 'E3'
-        common_causes = ['E1', 'E2']
+
+        outcome = dataset.get_outcome()
+        common_causes = dataset.get_causes()
 
         model = CausalModel(data, treatment, outcome, common_causes=common_causes, proceed_when_unidentifiable=True)
 
         # Identify the causal effect
         relation = model.identify_effect()
 
-        # Estimate the causal effect and compare it with Average Treatment Effect
+        # Estimate the causal effect
         estimate = model.estimate_effect(relation, method_name="backdoor.linear_regression", test_significance=True)
 
+        # Refute the obtained estimate
         result = model.refute_estimate(relation, estimate, method_name="random_common_cause")
 
         return result.estimated_effect, result.new_effect

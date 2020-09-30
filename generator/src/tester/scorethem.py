@@ -14,10 +14,9 @@ from tester.scripts.ScriptInterface import ScriptInterface
 
 def score_it(scripts: List[ScriptInterface], datasets: List[DatasetInterface]):
     for dataset in datasets:
-        data = dataset.read()
         for script in scripts:
             print(f'{dataset.name} {script.name}')
-            script.predict(data)
+            script.predict(dataset)
 
 
 datasets = [InstantActionDataset()]

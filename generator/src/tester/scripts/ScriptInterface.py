@@ -1,7 +1,6 @@
 from abc import abstractmethod
 
-import pandas as pd
-
+from datasets.DatasetInterface import DatasetInterface
 from tester.scripts.ScriptException import ScriptException
 
 
@@ -9,5 +8,5 @@ class ScriptInterface:
     name = None
 
     @abstractmethod
-    def predict(self, data: pd.DataFrame):
+    def predict(self, data: DatasetInterface):
         raise ScriptException('Script must implement its own predict method')
