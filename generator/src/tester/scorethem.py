@@ -43,6 +43,10 @@ datasets = [
     ShadowCauseDataset(),
 ]
 
+# http://www-desir.lip6.fr/~phw/aGrUM/docs/last/notebooks/11-structuralLearning.ipynb.html
+# learner.useLocalSearchWithTabuList()
+# learner.useGreedyHillClimbing()
+
 scripts = [
     DowhyScript(),
     #MeDILExampleScript(),
