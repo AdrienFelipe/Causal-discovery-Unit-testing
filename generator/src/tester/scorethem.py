@@ -14,11 +14,13 @@ from datasets.SalesDataset import SalesDataset
 from datasets.SensorsReadsDataset import SensorsReadsDataset
 from datasets.ShadowCauseDataset import ShadowCauseDataset
 from datasets.SinusoidalSeriesDataset import SinusoidalSeriesDataset
+from generator.relation.RelationPlot import RelationPlot
 from tester.scripts.CausalInferenceExampleScript import CausalInferenceExampleScript
 from tester.scripts.CausalInferenceScript import CausalInferenceScript
 from tester.scripts.DowhyScript import DowhyScript
 from tester.scripts.MeDILExampleScript import MeDILExampleScript
 from tester.scripts.MeDILScript import MeDILScript
+from tester.scripts.PyAgrumScript import PyAgrumScript
 from tester.scripts.ScriptInterface import ScriptInterface
 
 
@@ -26,7 +28,9 @@ def score_it(scripts: List[ScriptInterface], datasets: List[DatasetInterface]):
     for dataset in datasets:
         for script in scripts:
             print(f'{dataset.name} ({dataset.items}) → {script.name}')
-            script.predict(dataset)
+            relations = script.predict(dataset)
+
+            RelationPlot.show(dataset.build().get_events(), relations)
 
 
 datasets = [
@@ -48,6 +52,7 @@ datasets = [
 # learner.useGreedyHillClimbing()
 
 scripts = [
+    PyAgrumScript(),
     DowhyScript(),
     #MeDILExampleScript(),
     #MeDILScript(),
