@@ -21,6 +21,7 @@ from tester.scripts.CausalInferenceScript import CausalInferenceScript
 from tester.scripts.DowhyScript import DowhyScript
 from tester.scripts.MeDILExampleScript import MeDILExampleScript
 from tester.scripts.MeDILScript import MeDILScript
+from tester.scripts.PgmpyScript import PgmpyScript
 from tester.scripts.PyAgrumScript import PyAgrumScript
 from tester.scripts.ScriptInterface import ScriptInterface
 from utils import ProjectRoot
@@ -58,6 +59,7 @@ datasets = [
 # learner.useGreedyHillClimbing()
 
 scripts = [
+    PgmpyScript(),
     PyAgrumScript(PyAgrumScript.LEARNER_GREEDY),
     PyAgrumScript(PyAgrumScript.LEARNER_LOCAL_SEARCH),
     DowhyScript(),

@@ -45,7 +45,7 @@ class PyAgrumScript(ScriptInterface):
 
         return self.__build_relations(learner.learnBN())
 
-    def __build_relations(self, bn_tree) -> List[Relation]:
+    def __build_relations(self, bn_tree: gum.BayesNet) -> List[Relation]:
         relations = []
         for arc in bn_tree.arcs():
             relations.append(Relation(arc[0], arc[1], self.DEFAULT_DELAY))
