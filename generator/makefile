@@ -1,4 +1,5 @@
 SSH_PORT=22000
+JUPYTER_PORT=22001
 IMAGE=tfm.img
 CONTAINER=tfm.con
 EXEC=docker exec -it $(CONTAINER)
@@ -17,7 +18,7 @@ create:
 
 start: stop build
 		# Run container in the background.
-		docker run -v $(PWD):/app -w /app -p $(SSH_PORT):22 --name $(CONTAINER) -di $(IMAGE)
+		docker run -v $(PWD):/app -w /app -p $(SSH_PORT):22 -p $(JUPYTER_PORT):$(JUPYTER_PORT) --name $(CONTAINER) -di $(IMAGE)
 		# Create user 'app' as the current user (same id).
 		$(EXEC) useradd -s /bin/bash -u $$(id -u) -Md /app app
 		$(EXEC) /bin/bash -c "echo app:app | chpasswd"
@@ -46,3 +47,6 @@ pip:
 test:
 		#$(EXEC_U) -- PYTHONPATH=src $(ENV_PATH)/bin/python -m unittest -v
 		PYTHONPATH=src python -m unittest -v
+
+jupyter:
+		$(EXEC_U) /app/$(ENV_PATH)/bin/jupyter $(filter-out $@,$(MAKECMDGOALS)) --ip=0.0.0.0 --port=$(JUPYTER_PORT) --no-browser
