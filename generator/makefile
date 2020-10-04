@@ -28,7 +28,7 @@ start: stop build
 		#ssh-keygen -f "$(HOME)/.ssh/known_hosts" -R "[localhost]:$(SSH_PORT)"
 		# Create conda local environment only if non existent.
 		if [ ! -d "$(ENV_PATH)" ]; then make create; fi
-        # Make Python available in PATH.
+        # Make environment Python available in PATH.
 		$(EXEC) ln -fs /app/$(ENV_PATH)/bin/python /usr/bin/
 
 root:
@@ -45,8 +45,7 @@ pip:
 		$(EXEC_U) $(ENV_PATH)/bin/pip $(filter-out $@,$(MAKECMDGOALS))
 
 test:
-		#$(EXEC_U) -- PYTHONPATH=src $(ENV_PATH)/bin/python -m unittest -v
-		PYTHONPATH=src python -m unittest -v
+		$(EXEC_U) bash -c "PYTHONPATH=src python -m unittest -v"
 
 jupyter:
-		$(EXEC_U) /app/$(ENV_PATH)/bin/jupyter $(filter-out $@,$(MAKECMDGOALS)) --ip=0.0.0.0 --port=$(JUPYTER_PORT) --no-browser
+		$(EXEC_U) $(ENV_PATH)/bin/jupyter $(filter-out $@,$(MAKECMDGOALS)) --ip=0.0.0.0 --port=$(JUPYTER_PORT) --no-browser
