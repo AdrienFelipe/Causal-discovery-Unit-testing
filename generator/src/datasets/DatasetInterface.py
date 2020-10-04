@@ -12,11 +12,13 @@ from utils import ProjectRoot
 
 class DatasetInterface:
     name = None
-    data = None
-    items = 10
+    __data = None
+
+    def __init__(self, items: int = 100):
+        self.items = items
 
     @abstractmethod
-    def build(self) -> Generator:
+    def get_generator(self) -> Generator:
         raise DatasetException('Dataset must implement its own build method')
 
     @abstractmethod
@@ -28,21 +30,23 @@ class DatasetInterface:
         raise DatasetException('Dataset must implement its own get_outcome method')
 
     def get_data(self, force_rebuild: bool = False) -> pd.DataFrame:
-        if self.data is None:
-            self.data = self.read() if self.get_filepath().is_file() and not force_rebuild else self.save(self.items)
+        if self.__data is None:
+            self.__data = self.read() if self.get_filepath().is_file() and not force_rebuild else self.save(self.items)
 
-        return self.data
+        return self.__data
 
     def read(self) -> pd.DataFrame:
-        return pd.read_pickle(self.get_filepath())
+        return pd.read_csv(self.get_filepath())
 
     def save(self, items: int) -> pd.DataFrame:
-        data = self.build().generate(items)
-        data.to_pickle(str(self.get_filepath()))
+        data = self.get_generator().generate(items)
+        # Not saving to pickle as some learners need direct csv filepath as input.
+        data.to_csv(str(self.get_filepath()), index=False)
+
         return data
 
     def get_filepath(self) -> Path:
         if self.name is None or self.name == '':
             raise DatasetException('Dataset name is undefined')
 
-        return ProjectRoot.get() / f'res/datasets/{self.name}.pkl'
+        return ProjectRoot.get() / f'res/datasets/{self.name}-{self.items}.csv'

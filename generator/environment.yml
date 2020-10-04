@@ -16,3 +16,4 @@ dependencies:
   - seaborn           # MeDILL
   - pytorch_lightning # MeDILL
   - pyagrum
+  - prettytable

@@ -8,7 +8,7 @@ class MultipleEffectsDataset(DatasetInterface):
     name = 'multiple-effects'
     items = 100
 
-    def build(self) -> Generator:
+    def get_generator(self) -> Generator:
         return Generator() \
             .add_uniform() \
             .add_function(lambda history: int(history.get_event()) * 2) \

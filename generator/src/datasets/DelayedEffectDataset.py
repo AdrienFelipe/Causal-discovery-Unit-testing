@@ -11,7 +11,7 @@ class DelayedEffectDataset(DatasetInterface):
     name = 'delayed-effect'
     items = 50
 
-    def build(self) -> Generator:
+    def get_generator(self) -> Generator:
         event_function: Callable[[History], float] = lambda history: \
             2 * history.get_event(delay=2, null_value=0)
 

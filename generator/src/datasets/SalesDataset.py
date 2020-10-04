@@ -11,7 +11,7 @@ class SalesDataset(DatasetInterface):
     name = 'sales-history'
     items = 100
 
-    def build(self) -> Generator:
+    def get_generator(self) -> Generator:
         return self.basic()
 
     def get_causes(self) -> list:

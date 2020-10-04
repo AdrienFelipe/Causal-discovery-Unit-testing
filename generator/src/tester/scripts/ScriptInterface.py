@@ -11,4 +11,4 @@ class ScriptInterface:
 
     @abstractmethod
     def predict(self, data: DatasetInterface) -> List[Relation]:
-        raise ScriptException('Script must implement its own predict method')
+        raise ScriptException('Script must implement a predict method')

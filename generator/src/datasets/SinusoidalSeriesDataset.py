@@ -13,7 +13,7 @@ class SinusoidalSeriesDataset(DatasetInterface):
     name = 'sinusoidal-series'
     items = 100
 
-    def build(self) -> Generator:
+    def get_generator(self) -> Generator:
         event_function: Callable[[History], float] = lambda history: \
             np.sin(history.get_timestamp() / 60 / 5 * np.pi / 2)
 

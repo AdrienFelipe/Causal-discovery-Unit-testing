@@ -11,7 +11,7 @@ class MultipleCausesDataset(DatasetInterface):
     name = 'multiple-causes'
     items = 100
 
-    def build(self) -> Generator:
+    def get_generator(self) -> Generator:
         event_function: Callable[[History], float] = lambda history: \
             history.get_event(1) + history.get_event(2)
 

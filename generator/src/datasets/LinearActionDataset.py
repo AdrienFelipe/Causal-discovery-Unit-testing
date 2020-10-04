@@ -9,9 +9,8 @@ from generator.History import History
 
 class LinearActionDataset(DatasetInterface):
     name = 'linear-action'
-    items = 100
 
-    def build(self) -> Generator:
+    def get_generator(self) -> Generator:
         event_function: Callable[[History], float] = lambda history: \
             2 * history.get_event() + 10
 

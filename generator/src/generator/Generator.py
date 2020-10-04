@@ -67,8 +67,8 @@ class Generator:
 
         return data
 
-    def get_events(self) -> List[EventInterface]:
-        return self.__events
+    def get_events(self, include_shadow: bool = True) -> List[EventInterface]:
+        return self.__events if include_shadow else [event for event in self.__events if not event.shadow]
 
     def __add_event(self, event: EventInterface) -> Generator:
         event.setup(self.__events)

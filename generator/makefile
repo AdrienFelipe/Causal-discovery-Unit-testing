@@ -45,7 +45,7 @@ pip:
 		$(EXEC_U) $(ENV_PATH)/bin/pip $(filter-out $@,$(MAKECMDGOALS))
 
 test:
-		$(EXEC_U) bash -c "PYTHONPATH=src python -m unittest -v"
+		$(EXEC_U) bash -c "PYTHONPATH=src python -m unittest"
 
 jupyter:
 		$(EXEC_U) bash -c "PYTHONPATH=src $(ENV_PATH)/bin/jupyter $(filter-out $@,$(MAKECMDGOALS)) --ip=0.0.0.0 --port=$(JUPYTER_PORT) --no-browser"

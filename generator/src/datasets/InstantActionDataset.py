@@ -10,7 +10,7 @@ from generator.History import History
 class InstantActionDataset(DatasetInterface):
     name = 'instant-action'
 
-    def build(self) -> Generator:
+    def get_generator(self) -> Generator:
         event_function: Callable[[History], float] = lambda history: \
             1 if history.get_event(1) == 1 else 0
 

@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Callable
-
 from datasets.DatasetInterface import DatasetInterface
 from generator.Generator import Generator
 from generator.History import History
@@ -9,21 +7,29 @@ from generator.History import History
 
 class GeneExpressionDataset(DatasetInterface):
     name = 'gene-expression'
-    items = 100
 
-    def build(self) -> Generator:
-        event_function: Callable[[History], float] = lambda history: \
-            history.get_event(1) + history.get_event(2)
+    def get_generator(self) -> Generator:
+        return self.simple()
 
+    def simple(self) -> Generator:
         return Generator() \
-            .add_uniform(0, 1) \
-            .add_uniform(0, 1, shadow=True) \
-            .add_uniform(0, 1) \
-            .add_uniform(0, 1) \
-            .add_function(lambda h: (h.e(3) + h.e(4)) / 2) \
-            .add_uniform(0, 1) \
-            .add_uniform(0, 1) \
-            .add_function(self.pathology, label='P')
+            .add_uniform(0, 1, round=1) \
+            .add_uniform(0, 1, round=1) \
+            .add_uniform(0, 1, round=1) \
+            .add_uniform(0, 1, round=1) \
+            .add_uniform(0, 1, round=1) \
+            .add_function(lambda h: h.e(1) > 0.3 and h.e(2) > 0.8 or h.e(3) < 0.3, label='P', round=3)
+
+    def complex(self) -> Generator:
+        return Generator() \
+            .add_uniform(0, 1, round=3) \
+            .add_uniform(0, 1, round=3, shadow=True) \
+            .add_uniform(0, 1, round=3) \
+            .add_uniform(0, 1, round=3) \
+            .add_function(lambda h: (h.e(3) + h.e(4)) / 2, round=3) \
+            .add_uniform(0, 1, round=3) \
+            .add_uniform(0, 1, round=3) \
+            .add_function(self.pathology, label='P', round=3)
 
     def get_causes(self) -> list:
         return ['E1', 'E3', 'E4', 'E5', 'E6', 'E7']

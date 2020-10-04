@@ -12,7 +12,7 @@ class LogsDataset(DatasetInterface):
     name = 'logs-action'
     items = 100
 
-    def build(self) -> Generator:
+    def get_generator(self) -> Generator:
         return self.basic()
 
     def get_causes(self) -> list:
