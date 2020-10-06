@@ -8,7 +8,7 @@ from pgmpy.estimators import PC
 
 from datasets.DatasetInterface import DatasetInterface
 from generator.relation.Relation import Relation
-from tester.scripts.ScriptInterface import ScriptInterface
+from discovery.scripts.ScriptInterface import ScriptInterface
 
 
 class PgmpyScript(ScriptInterface):

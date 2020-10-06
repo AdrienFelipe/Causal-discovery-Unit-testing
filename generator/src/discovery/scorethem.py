@@ -19,15 +19,13 @@ from datasets.SinusoidalSeriesDataset import SinusoidalSeriesDataset
 from generator.events.EventInterface import EventInterface
 from generator.relation.Relation import Relation
 from generator.relation.RelationPlot import RelationPlot
-from tester.EvaluateLearner import EvaluateLearner
-from tester.scripts.CausalInferenceExampleScript import CausalInferenceExampleScript
-from tester.scripts.CausalInferenceScript import CausalInferenceScript
-from tester.scripts.DowhyScript import DowhyScript
-from tester.scripts.MeDILExampleScript import MeDILExampleScript
-from tester.scripts.MeDILScript import MeDILScript
-from tester.scripts.PgmpyScript import PgmpyScript
-from tester.scripts.PyAgrumScript import PyAgrumScript
-from tester.scripts.ScriptInterface import ScriptInterface
+from discovery.EvaluateLearner import EvaluateLearner
+from discovery.scripts.CausalInferenceScript import CausalInferenceScript
+from discovery.scripts.DowhyScript import DowhyScript
+from discovery.scripts.MeDILScript import MeDILScript
+from discovery.scripts.PgmpyScript import PgmpyScript
+from discovery.scripts.PyAgrumScript import PyAgrumScript
+from discovery.scripts.ScriptInterface import ScriptInterface
 from utils import ProjectRoot
 import datetime
 

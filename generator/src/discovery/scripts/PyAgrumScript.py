@@ -6,8 +6,8 @@ import pyAgrum as gum
 
 from datasets.DatasetInterface import DatasetInterface
 from generator.relation.Relation import Relation
-from tester.scripts.ScriptException import ScriptException
-from tester.scripts.ScriptInterface import ScriptInterface
+from discovery.scripts.ScriptException import ScriptException
+from discovery.scripts.ScriptInterface import ScriptInterface
 
 
 class PyAgrumScript(ScriptInterface):

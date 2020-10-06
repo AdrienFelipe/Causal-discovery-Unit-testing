@@ -3,7 +3,7 @@ from typing import List
 
 from datasets.DatasetInterface import DatasetInterface
 from generator.relation.Relation import Relation
-from tester.scripts.ScriptException import ScriptException
+from discovery.scripts.ScriptException import ScriptException
 
 
 class ScriptInterface:

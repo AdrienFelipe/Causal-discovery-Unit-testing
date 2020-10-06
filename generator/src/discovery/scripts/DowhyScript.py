@@ -2,7 +2,7 @@ import pandas as pd
 from dowhy import CausalModel
 
 from datasets.DatasetInterface import DatasetInterface
-from tester.scripts.ScriptInterface import ScriptInterface
+from discovery.scripts.ScriptInterface import ScriptInterface
 
 
 class DowhyScript(ScriptInterface):
