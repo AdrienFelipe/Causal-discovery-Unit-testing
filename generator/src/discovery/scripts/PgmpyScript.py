@@ -7,8 +7,8 @@ from pgmpy.base import PDAG
 from pgmpy.estimators import PC
 
 from datasets.DatasetInterface import DatasetInterface
-from generator.relation.Relation import Relation
 from discovery.scripts.ScriptInterface import ScriptInterface
+from generator.relation.Relation import Relation
 
 
 class PgmpyScript(ScriptInterface):

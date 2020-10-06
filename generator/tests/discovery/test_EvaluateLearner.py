@@ -1,7 +1,7 @@
 import unittest
 
-from generator.relation.Relation import Relation
 from discovery.EvaluateLearner import EvaluateLearner
+from generator.relation.Relation import Relation
 from tests.generator.asserts.RelationAssert import RelationAssert
 
 

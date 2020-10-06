@@ -37,7 +37,7 @@ def score_it(scripts: List[ScriptInterface], datasets: List[DatasetInterface]):
         dataset.get_data(force_rebuild=True)
         for script in scripts:
             print(f'{dataset.name} ({dataset.items}) → {script.name}')
-            # Mesure script execution time.
+            # Measure algorithm execution time.
             time = datetime.datetime.now()
             learned_relations = script.predict(dataset)
             time = (datetime.datetime.now() - time).total_seconds()

@@ -49,3 +49,6 @@ test:
 
 jupyter:
 		$(EXEC_U) bash -c "PYTHONPATH=src $(ENV_PATH)/bin/jupyter $(filter-out $@,$(MAKECMDGOALS)) --ip=0.0.0.0 --port=$(JUPYTER_PORT) --no-browser"
+
+evaluate:
+		$(EXEC_U) bash -c "PYTHONPATH=src python src/discovery/evaluate.py"
