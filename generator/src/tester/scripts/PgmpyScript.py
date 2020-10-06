@@ -19,7 +19,7 @@ class PgmpyScript(ScriptInterface):
     def predict(self, dataset: DatasetInterface) -> List[Relation]:
         data = dataset.get_data()
         estimator = PC(data)
-        graph = estimator.estimate(variant='stable', max_cond_vars=4)
+        graph = estimator.estimate(variant='stable', max_cond_vars=4, show_progress=False)
 
         return self.__build_relations(graph, data)
 

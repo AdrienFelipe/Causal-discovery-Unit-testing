@@ -17,20 +17,19 @@ class PyAgrumScript(ScriptInterface):
     LEARNER_LOCAL_SEARCH = 'local search'
 
     DEFAULT_DELAY = 0
-    DEFAULT_LEARNER = LEARNER_GREEDY
+    DEFAULT_ALGORITHM = LEARNER_GREEDY
 
-    def __init__(self, learner: str = DEFAULT_LEARNER):
-        self.learner = learner
-        self.name = f'{self.name} ({self.learner})'
+    def __init__(self, algorithm: str = DEFAULT_ALGORITHM):
+        self.algorithm = algorithm
 
     def predict(self, dataset: DatasetInterface) -> List[Relation]:
-        if self.learner == self.LEARNER_GREEDY:
+        if self.algorithm == self.LEARNER_GREEDY:
             return self.greedy_hill_climbing(dataset)
 
-        if self.learner == self.LEARNER_LOCAL_SEARCH:
+        if self.algorithm == self.LEARNER_LOCAL_SEARCH:
             return self.local_search_with_tabu_list(dataset)
 
-        raise ScriptException('Undefined learner')
+        raise ScriptException('Undefined algorithm')
 
     def greedy_hill_climbing(self, dataset: DatasetInterface) -> List[Relation]:
         learner = gum.BNLearner(str(dataset.get_filepath()))

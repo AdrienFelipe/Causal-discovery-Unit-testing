@@ -8,6 +8,7 @@ from tester.scripts.ScriptException import ScriptException
 
 class ScriptInterface:
     name = None
+    algorithm = 'default'
 
     @abstractmethod
     def predict(self, data: DatasetInterface) -> List[Relation]:
