@@ -1,10 +1,10 @@
 import unittest
 from collections.abc import Callable
-from typing import List
 
 from generator.Generator import Generator
 from generator.History import History
 from generator.relation.Relation import Relation
+from tests.generator.asserts.RelationAssert import RelationAssert
 
 
 class RelationFactoryTest(unittest.TestCase):
@@ -20,7 +20,7 @@ class RelationFactoryTest(unittest.TestCase):
             Relation(History.DEFAULT_POSITION, History.DEFAULT_POSITION, History.DEFAULT_DELAY)
         ]
 
-        self.assertEqualRelation(expected, relations)
+        RelationAssert.equal(self, expected, relations)
 
     def test_function_combinations(self):
         def effect_function(history: History) -> float:
@@ -50,7 +50,7 @@ class RelationFactoryTest(unittest.TestCase):
             Relation(History.DEFAULT_POSITION, 401, History.DEFAULT_DELAY),
         ]
 
-        self.assertEqualRelation(expected, relations)
+        RelationAssert.equal(self, expected, relations)
 
     def test_function_short_variable(self):
         def effect_function1(h: History) -> float:
@@ -73,7 +73,7 @@ class RelationFactoryTest(unittest.TestCase):
             Relation(History.DEFAULT_POSITION + 1, 10, 20),
         ]
 
-        self.assertEqualRelation(expected, relations)
+        RelationAssert.equal(self, expected, relations)
 
     def test_lambda_as_function(self):
         function1: Callable[[History], float] = lambda history: \
@@ -91,7 +91,7 @@ class RelationFactoryTest(unittest.TestCase):
             Relation(History.DEFAULT_POSITION + 1, History.DEFAULT_POSITION, History.DEFAULT_DELAY),
         ]
 
-        self.assertEqualRelation(expected, relations)
+        RelationAssert.equal(self, expected, relations)
 
     def test_lambda_as_argument(self):
         relations = Generator() \
@@ -103,7 +103,7 @@ class RelationFactoryTest(unittest.TestCase):
             Relation(3, 2, 3),
         ]
 
-        self.assertEqualRelation(expected, relations)
+        RelationAssert.equal(self, expected, relations)
 
     def test_with_time(self):
         self.skipTest('infinite loop?')
@@ -123,7 +123,7 @@ class RelationFactoryTest(unittest.TestCase):
             Relation(History.DEFAULT_POSITION + 1, History.DEFAULT_POSITION, History.DEFAULT_DELAY),
         ]
 
-        self.assertEqualRelation(expected, relations)
+        RelationAssert.equal(self, expected, relations)
 
     def test_different_event_types(self):
         event_function: Callable[[History], float] = lambda history: \
@@ -141,7 +141,7 @@ class RelationFactoryTest(unittest.TestCase):
             Relation(3, 2, 1),
         ]
 
-        self.assertEqualRelation(expected, relations)
+        RelationAssert.equal(self, expected, relations)
 
     def test_independent_effects(self):
         relations = Generator() \
@@ -156,7 +156,7 @@ class RelationFactoryTest(unittest.TestCase):
             Relation(4, 3, 0),
         ]
 
-        self.assertEqualRelation(expected, relations)
+        RelationAssert.equal(self, expected, relations)
 
     def test_time_arguments(self):
         def func1(history: History) -> float:
@@ -185,14 +185,7 @@ class RelationFactoryTest(unittest.TestCase):
             Relation(4, 3, 0),
         ]
 
-        self.assertEqualRelation(expected, relations)
-
-    def assertEqualRelation(self, expected: List[Relation], relations: List[Relation]):
-        self.assertEqual(len(expected), len(relations))
-        for key, relation in enumerate(relations):
-            self.assertEqual(expected[key].source, relation.source, 'Incorrect source')
-            self.assertEqual(expected[key].target, relation.target, 'Incorrect target')
-            self.assertEqual(expected[key].delay, relation.delay, 'Incorrect delay')
+        RelationAssert.equal(self, expected, relations)
 
 
 if __name__ == '__main__':

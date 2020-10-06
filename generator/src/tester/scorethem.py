@@ -16,6 +16,7 @@ from datasets.SensorsReadsDataset import SensorsReadsDataset
 from datasets.ShadowCauseDataset import ShadowCauseDataset
 from datasets.SinusoidalSeriesDataset import SinusoidalSeriesDataset
 from generator.relation.RelationPlot import RelationPlot
+from tester.EvaluateLearner import EvaluateLearner
 from tester.scripts.CausalInferenceExampleScript import CausalInferenceExampleScript
 from tester.scripts.CausalInferenceScript import CausalInferenceScript
 from tester.scripts.DowhyScript import DowhyScript
@@ -33,11 +34,14 @@ def score_it(scripts: List[ScriptInterface], datasets: List[DatasetInterface]):
         dataset.get_data(force_rebuild=True)
         for script in scripts:
             print(f'{dataset.name} ({dataset.items}) → {script.name}')
-            relations = script.predict(dataset)
+            learned_relations = script.predict(dataset)
 
             generator = dataset.get_generator()
             generator.plot_relations(fig_size=(10, 10))
-            RelationPlot.show(generator.get_events(include_shadow=False), relations, figsize=(10, 10))
+            RelationPlot.show(generator.get_events(include_shadow=False), learned_relations, figsize=(10, 10))
+
+            missing, added, inverted = EvaluateLearner.compare_relations(generator.build_relations(), learned_relations)
+
 
 
 datasets = [
