@@ -9,7 +9,7 @@ from generator.History import History
 
 class DelayedEffectDataset(DatasetInterface):
     name = 'delayed-effect'
-    items = 50
+    samples = 50
 
     def get_generator(self) -> Generator:
         event_function: Callable[[History], float] = lambda history: \

@@ -14,8 +14,8 @@ class DatasetInterface:
     name = None
     __data = None
 
-    def __init__(self, items: int = 100):
-        self.items = items
+    def __init__(self, samples: int = 100):
+        self.samples = samples
 
     @abstractmethod
     def get_generator(self) -> Generator:
@@ -31,7 +31,7 @@ class DatasetInterface:
 
     def get_data(self, force_rebuild: bool = False) -> pd.DataFrame:
         if self.__data is None:
-            self.__data = self.read() if self.get_filepath().is_file() and not force_rebuild else self.save(self.items)
+            self.__data = self.read() if self.get_filepath().is_file() and not force_rebuild else self.save(self.samples)
 
         return self.__data
 
@@ -49,4 +49,4 @@ class DatasetInterface:
         if self.name is None or self.name == '':
             raise DatasetException('Dataset name is undefined')
 
-        return ProjectRoot.get() / f'res/datasets/{self.name}-{self.items}.csv'
+        return ProjectRoot.get() / f'res/datasets/{self.name}-{self.samples}.csv'

@@ -36,7 +36,7 @@ def score_it(scripts: List[ScriptInterface], datasets: List[DatasetInterface]):
         # Make sure dataset file was generated.
         dataset.get_data(force_rebuild=True)
         for script in scripts:
-            print(f'{dataset.name} ({dataset.items}) → {script.name}')
+            print(f'{dataset.name} ({dataset.samples}) → {script.name}')
             # Measure algorithm execution time.
             time = datetime.datetime.now()
             learned_relations = script.predict(dataset)
@@ -56,7 +56,7 @@ def score_it(scripts: List[ScriptInterface], datasets: List[DatasetInterface]):
 
             # Build results to be printed
             results.setdefault('dataset', []).append(dataset.name)
-            results.setdefault('items', []).append(dataset.items)
+            results.setdefault('samples', []).append(dataset.samples)
             results.setdefault('library', []).append(script.name)
             results.setdefault('algorithm', []).append(script.algorithm)
             results.setdefault('found', []).append(f'{int(found * 100)}%')

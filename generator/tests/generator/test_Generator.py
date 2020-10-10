@@ -207,7 +207,7 @@ class GeneratorTest(unittest.TestCase):
             ratio = week / 52
             return history.get_event(1) * (1 + ratio / 20)
 
-        # Impact depending on history items.
+        # Impact depending on history samples.
         def effect3(history: History) -> float:
             value = history.get_event(2)
             if not history.get_event(2, delay=1):

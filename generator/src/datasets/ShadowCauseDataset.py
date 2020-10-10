@@ -9,7 +9,7 @@ from generator.History import History
 
 class ShadowCauseDataset(DatasetInterface):
     name = 'shadow-cause'
-    items = 100
+    samples = 100
 
     def get_generator(self) -> Generator:
         event_function: Callable[[History], float] = lambda history: \

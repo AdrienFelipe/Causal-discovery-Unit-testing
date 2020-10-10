@@ -10,7 +10,7 @@ from generator.events.Uniform import Uniform
 
 class LogsDataset(DatasetInterface):
     name = 'logs-action'
-    items = 100
+    samples = 100
 
     def get_generator(self) -> Generator:
         return self.basic()

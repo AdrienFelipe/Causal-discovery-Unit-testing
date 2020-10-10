@@ -32,7 +32,9 @@ import datetime
 
 datasets = [
     GeneExpressionDataset(1000),
-    #InstantActionDataset(1000),
+    InstantActionDataset(100),
+    InstantActionDataset(500),
+    InstantActionDataset(1000),
     #LinearActionDataset(500),
     ##SensorsReadsDataset(500),
     #SinusoidalSeriesDataset(500),

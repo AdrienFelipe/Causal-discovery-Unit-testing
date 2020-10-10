@@ -9,7 +9,7 @@ from generator.History import History
 
 class SalesDataset(DatasetInterface):
     name = 'sales-history'
-    items = 100
+    samples = 100
 
     def get_generator(self) -> Generator:
         return self.basic()

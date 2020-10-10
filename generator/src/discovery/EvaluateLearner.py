@@ -4,6 +4,7 @@ import datetime
 from typing import List
 
 from tabulate import tabulate
+from termcolor import colored
 
 from datasets.DatasetInterface import DatasetInterface
 from discovery.scripts.ScriptInterface import ScriptInterface
@@ -14,11 +15,12 @@ from generator.relation.Relation import Relation
 class EvaluateLearner:
 
     @staticmethod
-    def compare_algorithms(scripts: List[ScriptInterface], datasets: List[DatasetInterface]):
+    def compare_algorithms(scripts: List[ScriptInterface], datasets: List[DatasetInterface], force_rebuild=False):
+
         results = {}
         for dataset in datasets:
             # Make sure dataset file was generated.
-            dataset.get_data(force_rebuild=True)
+            dataset.get_data(force_rebuild)
             for script in scripts:
                 generator = dataset.get_generator()
 
@@ -35,16 +37,17 @@ class EvaluateLearner:
 
                 missing, added, inverted = EvaluateLearner.compare_relations(real, learned)
                 found = 1 - (len(missing) + len(inverted)) / len(real)
+                color = 'red' if found < 0.5 else 'yellow' if found < 0.75 else 'green'
 
                 # Build results to be printed
                 results.setdefault('dataset', []).append(dataset.name)
-                results.setdefault('items', []).append(dataset.items)
+                results.setdefault('samples', []).append(dataset.samples)
                 results.setdefault('library', []).append(script.name)
                 results.setdefault('algorithm', []).append(script.algorithm)
-                results.setdefault('found', []).append(f'{int(found * 100)}%')
-                results.setdefault('erroneous', []).append(len(added))
-                results.setdefault('inverted', []).append(len(inverted))
-                results.setdefault('missing', []).append(len(missing))
+                results.setdefault('found', []).append(colored(f'{int(found * 100)}%', color))
+                results.setdefault('erroneous', []).append(colored(len(added), 'red' if len(added) > 0 else 'white'))
+                results.setdefault('inverted', []).append(colored(len(inverted), 'red' if len(inverted) > 0 else 'white'))
+                results.setdefault('missing', []).append(colored(len(missing), 'red' if len(missing) > 0 else 'white'))
                 results.setdefault('time', []).append(f'{int(time * 1000)}ms')
 
         print()

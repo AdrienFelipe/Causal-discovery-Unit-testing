@@ -6,7 +6,7 @@ from generator.Generator import Generator
 
 class MultipleEffectsDataset(DatasetInterface):
     name = 'multiple-effects'
-    items = 100
+    samples = 100
 
     def get_generator(self) -> Generator:
         return Generator() \
