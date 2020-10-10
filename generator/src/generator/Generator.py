@@ -9,7 +9,7 @@ from generator.History import History
 from generator.events.Categorical import Categorical
 from generator.events.Constant import Constant
 from generator.events.Discrete import Discrete
-from generator.events.Effect import Effect
+from generator.events.Function import Function
 from generator.events.EventInterface import EventInterface
 from generator.events.Linear import Linear
 from generator.events.Time import Time
@@ -76,7 +76,7 @@ class Generator:
         return self
 
     def add_function(self, event_function: Callable[[History], float], **kwargs) -> Generator:
-        return self.__add_event(Effect(event_function, self.history, **kwargs))
+        return self.__add_event(Function(event_function, self.history, **kwargs))
 
     def add_uniform(self, min: int = 0, max: int = 10, **kwargs) -> Generator:
         return self.__add_event(Uniform(min, max, **kwargs))
@@ -103,7 +103,7 @@ class Generator:
         return self.__events[0]
 
     def build_relations(self) -> List[Relation]:
-        events = [event for event in self.get_events() if isinstance(event, Effect)]
+        events = [event for event in self.get_events() if isinstance(event, Function)]
         return RelationFactory.build_relations(events)
 
     def plot_relations(self, fig_size=(4, 3), node_size=20):

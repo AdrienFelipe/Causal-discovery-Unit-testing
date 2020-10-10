@@ -7,7 +7,7 @@ from generator.History import History
 from generator.events.EventInterface import EventInterface
 
 
-class Effect(EventInterface):
+class Function(EventInterface):
 
     def __init__(self, effect_function: Callable[[History], float], history: History, round=None, **kwargs):
         super().__init__(**kwargs)

@@ -3,7 +3,7 @@ import re
 from typing import List
 
 from generator.History import History
-from generator.events.Effect import Effect
+from generator.events.Function import Function
 from generator.relation.Relation import Relation
 
 
@@ -17,7 +17,7 @@ class RelationFactory:
     __DEFAULT_ARG_TIME = __ARG_DELAY
 
     @staticmethod
-    def build_relations(events: List[Effect]):
+    def build_relations(events: List[Function]):
         factory = RelationFactory()
         relations = []
         for event in events:
@@ -25,7 +25,7 @@ class RelationFactory:
 
         return relations
 
-    def __build_relation(self, event: Effect) -> list:
+    def __build_relation(self, event: Function) -> list:
         function_string = inspect.getsource(event.effect)
 
         if re.search(rf'.*\.{self.__FUNC_METHOD}\(', function_string):
