@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: tesis_varando.aux
+The style file: plainnat.bst
+Database file #1: biblio.bib
+Warning--empty journal in hammersley1971
+You've used 70 entries,
+            2773 wiz_defined-function locations,
+            1064 strings with 17953 characters,
+and the built_in function-call counts, 36227 in all, are:
+= -- 3306
+> -- 1959
+< -- 70
++ -- 656
+- -- 586
+* -- 2871
+:= -- 5386
+add.period$ -- 236
+call.type$ -- 70
+change.case$ -- 388
+chr.to.int$ -- 70
+cite$ -- 141
+duplicate$ -- 1699
+empty$ -- 3028
+format.name$ -- 712
+if$ -- 7831
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 81
+newline$ -- 363
+num.names$ -- 298
+pop$ -- 799
+preamble$ -- 1
+purify$ -- 329
+quote$ -- 0
+skip$ -- 1343
+stack$ -- 0
+substring$ -- 1681
+swap$ -- 293
+text.length$ -- 29
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 715
+warning$ -- 1
+while$ -- 334
+width$ -- 0
+write$ -- 949
+(There was 1 warning)

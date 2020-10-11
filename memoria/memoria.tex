@@ -1,0 +1,209 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+\PassOptionsToPackage{spanish, english}{babel}
+\documentclass[11pt, oneside, spanish, singlespacing]{MastersDoctoralThesis}
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\renewcommand*\familydefault{\sfdefault} 
+
+\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
+
+\addbibresource{memoria.bib} % The filename of the bibliography
+
+\usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+
+\usepackage[spanish]{babel}
+
+%----------------------------------------------------------------------------------------
+%	MARGIN SETTINGS
+%----------------------------------------------------------------------------------------
+
+\geometry{
+	paper=a4paper, % Change to letterpaper for US letter
+	inner=3cm, % Inner margin
+	outer=3cm, % Outer margin
+	bindingoffset=0cm, % Binding offset
+	top=3cm,
+	bottom=3cm,
+	%showframe, % Uncomment to show how the type block is set on the page
+}
+
+%----------------------------------------------------------------------------------------
+%	THESIS INFORMATION
+%----------------------------------------------------------------------------------------
+
+\thesistitle{Causal Discovery Unit Testing} % Your thesis title, this is used in the title and Resumen, print it elsewhere with \ttitle
+\supervisor{Dr. Gherardo \textsc{Varando}} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\degree{Master en Inteligencia Artificial} % Your degree name, this is used in the title page and Resumen, print it elsewhere with \degreename
+\author{Adrien \textsc{Felipe}} % Your name, this is used in the title page and Resumen, print it elsewhere with \authorname
+\partner{Dra. Marta \textsc{Rajkiewicz} }  % \partnername
+
+\subject{Biological Sciences} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
+\keywords{} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+\university{\href{https://www.universidadviu.es}{Universidad Internacional de Valencia}} % Your university's name and URL, this is used in the title page and Resumen, print it elsewhere with \univname
+
+\AtBeginDocument{
+\hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
+\hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
+\hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
+}
+
+
+%------------------
+% Background images
+%------------------
+\usepackage{eso-pic}
+\newcommand\BackgroundPic{%
+\put(0,600){%
+\includegraphics[width=\paperwidth]{images/background.png}%
+
+}}
+
+\usepackage{eso-pic}
+\newcommand\LogoPic{%
+\put(6.5, 373){%
+\parbox[b][\paperheight]{0cm}{%
+\vfill
+\includegraphics[width=6cm]{images/logo-viu.png}%
+\vfill
+}}}
+
+
+\begin{document}
+\AddToShipoutPicture*{\BackgroundPic}
+
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+
+\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+\begin{center}
+
+
+
+\vspace*{.08\textheight}
+\textsc{\LARGE	 Máster en Inteligencia Artificial }\\[4cm] % Thesis type
+
+\HRule \\[0.4cm] % Horizontal line
+{\Huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
+\HRule \\[3cm] % Horizontal line
+
+\begingroup
+\setlength{\tabcolsep}{13pt}
+\begin{tabular}{!{\color[HTML]{e95611}\vrule width 2pt}l!{\color[HTML]{e95611}\vrule width 2pt}l!{\color[HTML]{e95611}\vrule width 2pt}l}
+\textbf{Titulación:} & \textbf{Alumno/a:} & \textbf{Convocatoria:} \\
+Máster & \authorname  & Primera \\
+&& \\
+\textbf{Curso académico:} & \textbf{D.N.I:} & \textbf{Orientación:} \\
+2019-2020 & X3392572A & ? \\
+&& \\
+\textbf{Lugar de residencia, mes y año:} & \textbf{Director:} & \textbf{Créditos:} \\
+Barcelona, Noviembre 2020 & \supname & ? \\
+\end{tabular}
+\endgroup
+ 
+\vfill
+
+{\large \today}\\[10cm] % Date
+%\includegraphics{Logo} % University/department logo - uncomment to place it
+ 
+\vfill
+\end{center}
+\end{titlepage}
+
+
+%----------------------------------------------------------------------------------------
+%	Resumen PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{Resumen}
+\AddToShipoutPicture{\LogoPic}
+\addchaptertocentry{\Resumenname} % Add the Resumen to the table of contents
+Una necesidad fundamental en múltiples dominios, y no necesariamente científicos, es poder explicar y predecir un sistema a partir de las relaciones de causa y efecto que dominan sus propiedades o eventos. Para ello la exploración causal o Casual Discovery propone técnicas y algoritmos con el propósito de descubrir dichas relaciones a partir de observaciones del sistema. Desafortunadamente no resulta trivial dominar el funcionamiento preciso de cada algoritmo ni tampoco escoger la estrategia de búsqueda más apropiada según la problemática. Sería conveniente disponer de una herramienta que permita valorar y comparar diversos algoritmos de exploración aplicado específicamente al caso. Asimismo se podría también valorar qué tipos de relaciones un algoritmo es capaz de encontrar, y con cuales falla. Se podría generar conjuntos independientes, cada uno con un tipo de relación específica y ejecutar el algoritmo sobre cada uno.
+\newline\newline
+Inversamente, durante el desarrollo de un algoritmo de exploración causal, o durante su mantenimiento es importante medir su buen funcionamiento. En el desarrollo de software es habitual disponer de pruebas automáticas de código que garantizan el cumplimiento de los requisitos de la aplicación, y resultaría útil poder aplicar los mismos patrones de comprobación sobre los algoritmos de exploración causal. 
+\newline\newline
+Este trabajo se centrará en el desarrollo de un framework basado en Python que permita crear fácilmente conjuntos de datos relacionales, sobre los cuales ejecutar y valorar uno o varios algoritmos de exploración causal. Adicionalmente se buscará definir los tipos de relaciones básicas representativos del abanico completo de las posibles relaciones causales de forma a tener un punto inicial completo de valoración, pero a la vez con la flexibilidad de poder adaptarlo a las necesidades específicas de cada proyecto. Mientras no esté dentro del alcance del TFM, la intención es poder integrar en un futuro esta aplicación dentro de un proceso de integración continua.
+\newline\newline
+Si el \supname, tutor de este TFM, participa activamente en la propuesta y mejora de algoritmos de exploración causal, este proyecto no se basa en un trabajo anterior.
+
+\end{Resumen}
+
+
+%----------------------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES PAGES
+%----------------------------------------------------------------------------------------
+
+\renewcommand{\contentsname}{Índice}
+\tableofcontents % Prints the main table of contents
+
+\listoffigures % Prints the list of figures
+
+\listoftables % Prints the list of tables
+
+
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENTS
+%----------------------------------------------------------------------------------------
+
+\begin{acknowledgements}
+\renewcommand{\acknowledgementname}{Agradecimientos}
+\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
+A través de estas líneas quiero expresar mi más sincero agradecimiento a todas las personas que hicieron posible este máster en inteligencia artificial.
+\newline\newline
+Agradezco muy especialmente a mi director de TFM el \supname, por su tiempo y paciencia, con quien he podido no solo realizar este trabajo pero además profundizar en el ámbito de exploración causal que desconocía por completo.
+\newline\newline
+Quiero agradecer a todos los profesores de este máster quienes han sido claves en transmitirnos la base de conocimientos necesaria y quienes me han inspirado en más de una ocasión.
+\newline\newline
+A mi compañero de máster Enrique \textsc{Navarro} por su interés y acompañamiento a lo largo del desarrollo de este curso a pesar de sus condiciones virtuales.
+\newline\newline
+Finalmente, una gratitud particular a mi querida prometida la \partnername  por su soporte y comprensión durante todo este tiempo dedicado día tras día a este curso y trabajo final.
+
+\end{acknowledgements}
+
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - CHAPTERS
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+\pagestyle{thesis} % Return the page headers back to the "thesis" style
+
+% Include the chapters of the thesis as separate files from the Chapters folder
+% Uncomment the lines as you write the chapters
+
+\include{Chapters/Chapter1}
+%\include{Chapters/Chapter2} 
+%\include{Chapters/Chapter3}
+%\include{Chapters/Chapter4} 
+%\include{Chapters/Chapter5} 
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - APPENDICES
+%----------------------------------------------------------------------------------------
+
+\appendix % Cue to tell LaTeX that the following "chapters" are Appendices
+
+% Include the appendices of the thesis as separate files from the Appendices folder
+% Uncomment the lines as you write the Appendices
+
+\include{Appendices/AppendixA}
+%\include{Appendices/AppendixB}
+%\include{Appendices/AppendixC}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\printbibliography[heading=bibintoc]
+
+%----------------------------------------------------------------------------------------
+
+\end{document}  

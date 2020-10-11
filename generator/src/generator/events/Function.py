@@ -11,13 +11,13 @@ class Function(EventInterface):
 
     def __init__(self, effect_function: Callable[[History], float], history: History, round=None, **kwargs):
         super().__init__(**kwargs)
-        self.effect = effect_function
+        self.function = effect_function
         self.__history = history
         self.__round = round
 
     def generate(self) -> Union[float, None]:
         try:
-            result = self.effect(self.__history)
+            result = self.function(self.__history)
             if self.__round is not None:
                 result = round(result, self.__round)
             return result

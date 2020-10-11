@@ -1,0 +1,50 @@
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Hypotheses and Objectives}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Document Organization}{chapter.1}% 3
+\BOOKMARK [0][-]{chapter.2}{Background}{}% 4
+\BOOKMARK [1][-]{section.2.1}{Notations and Basics}{chapter.2}% 5
+\BOOKMARK [2][-]{subsection.2.1.1}{Conditional Independence}{section.2.1}% 6
+\BOOKMARK [2][-]{subsection.2.1.2}{Graphs}{section.2.1}% 7
+\BOOKMARK [1][-]{section.2.2}{Probabilistic Graphical Models}{chapter.2}% 8
+\BOOKMARK [2][-]{subsection.2.2.1}{Markov Models}{section.2.2}% 9
+\BOOKMARK [2][-]{subsection.2.2.2}{Bayesian Networks}{section.2.2}% 10
+\BOOKMARK [1][-]{section.2.3}{Classification}{chapter.2}% 11
+\BOOKMARK [2][-]{subsection.2.3.1}{The Binary Classification Problem}{section.2.3}% 12
+\BOOKMARK [2][-]{subsection.2.3.2}{Probabilistic Classifiers}{section.2.3}% 13
+\BOOKMARK [2][-]{subsection.2.3.3}{Generative Classifiers}{section.2.3}% 14
+\BOOKMARK [2][-]{subsection.2.3.4}{Bayesian Network Classifiers}{section.2.3}% 15
+\BOOKMARK [0][-]{chapter.3}{Decision Boundary for Bayesian Network Classifiers}{}% 16
+\BOOKMARK [1][-]{section.3.1}{Introduction}{chapter.3}% 17
+\BOOKMARK [1][-]{section.3.2}{Polynomial Threshold Functions for Bayesian Network Classifiers}{chapter.3}% 18
+\BOOKMARK [2][-]{subsection.3.2.1}{Lagrange Interpolation of Discrete Probability}{section.3.2}% 19
+\BOOKMARK [2][-]{subsection.3.2.2}{Naive Bayes}{section.3.2}% 20
+\BOOKMARK [2][-]{subsection.3.2.3}{Tree Augmented Naive Bayes}{section.3.2}% 21
+\BOOKMARK [2][-]{subsection.3.2.4}{Bayesian Network-Augmented Naive Bayes}{section.3.2}% 22
+\BOOKMARK [2][-]{subsection.3.2.5}{Full Bayesian Networks}{section.3.2}% 23
+\BOOKMARK [1][-]{section.3.3}{Expressive Power of Bayesian Network Classifiers}{chapter.3}% 24
+\BOOKMARK [1][-]{section.3.4}{Conclusions}{chapter.3}% 25
+\BOOKMARK [0][-]{chapter.4}{Decision Functions for Chain Classifiers Based on Bayesian Networks for Multi-Label Classification}{}% 26
+\BOOKMARK [1][-]{section.4.1}{Introduction}{chapter.4}% 27
+\BOOKMARK [2][-]{subsection.4.1.1}{Chapter Outline}{section.4.1}% 28
+\BOOKMARK [1][-]{section.4.2}{BAN Binary Relevance Classifiers}{chapter.4}% 29
+\BOOKMARK [1][-]{section.4.3}{BAN Chain Classifiers}{chapter.4}% 30
+\BOOKMARK [2][-]{subsection.4.3.1}{Extensions to Classifier Trellises}{section.4.3}% 31
+\BOOKMARK [1][-]{section.4.4}{Binary Relevance vs. Chain Classifiers}{chapter.4}% 32
+\BOOKMARK [1][-]{section.4.5}{Chain Regressors}{chapter.4}% 33
+\BOOKMARK [1][-]{section.4.6}{Conclusions}{chapter.4}% 34
+\BOOKMARK [0][-]{chapter.5}{Markov Property in Generative Classifiers}{}% 35
+\BOOKMARK [1][-]{section.5.1}{Introduction}{chapter.5}% 36
+\BOOKMARK [2][-]{subsection.5.1.1}{Chapter Outline}{section.5.1}% 37
+\BOOKMARK [1][-]{section.5.2}{Difference Operator and Conditional Independence}{chapter.5}% 38
+\BOOKMARK [1][-]{section.5.3}{Markov network Classifiers}{chapter.5}% 39
+\BOOKMARK [2][-]{subsection.5.3.1}{Extended Markov Classifiers}{section.5.3}% 40
+\BOOKMARK [2][-]{subsection.5.3.2}{Gaussian Predictors}{section.5.3}% 41
+\BOOKMARK [1][-]{section.5.4}{Constant Interactions Models}{chapter.5}% 42
+\BOOKMARK [1][-]{section.5.5}{Parameters Estimation}{chapter.5}% 43
+\BOOKMARK [2][-]{subsection.5.5.1}{Non Optimality}{section.5.5}% 44
+\BOOKMARK [2][-]{subsection.5.5.2}{Fixed Discrimination Maximum-Likelihood Estimator}{section.5.5}% 45
+\BOOKMARK [1][-]{section.5.6}{Conclusions}{chapter.5}% 46
+\BOOKMARK [0][-]{chapter.6}{Conclusions}{}% 47
+\BOOKMARK [1][-]{section.6.1}{Summary of Contributions}{chapter.6}% 48
+\BOOKMARK [1][-]{section.6.2}{List of Publications}{chapter.6}% 49
+\BOOKMARK [1][-]{section.6.3}{Future Work}{chapter.6}% 50

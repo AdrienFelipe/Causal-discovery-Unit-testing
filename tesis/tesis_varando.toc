@@ -1,0 +1,78 @@
+\contentsline {paragraph}{President:}{3}{section*.1}
+\contentsline {paragraph}{External Member:}{3}{section*.2}
+\contentsline {paragraph}{Member:}{3}{section*.3}
+\contentsline {paragraph}{Member:}{3}{section*.4}
+\contentsline {paragraph}{Secretary:}{3}{section*.5}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Hypotheses and Objectives}{2}{section.1.1}
+\contentsline {subsubsection}{Assumptions}{2}{section*.12}
+\contentsline {subsubsection}{Hypotheses}{2}{section*.13}
+\contentsline {subsubsection}{Objectives}{2}{section*.14}
+\contentsline {section}{\numberline {1.2}Document Organization}{2}{section.1.2}
+\contentsline {chapter}{\numberline {2}Background}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}Notations and Basics}{5}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Conditional Independence}{6}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Graphs}{6}{subsection.2.1.2}
+\contentsline {section}{\numberline {2.2}Probabilistic Graphical Models}{7}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Markov Models}{8}{subsection.2.2.1}
+\contentsline {subsubsection}{Maximum-Likelihood Estimation}{9}{section*.16}
+\contentsline {subsection}{\numberline {2.2.2}Bayesian Networks}{9}{subsection.2.2.2}
+\contentsline {subsubsection}{Maximum-Likelihood Estimation}{10}{section*.17}
+\contentsline {section}{\numberline {2.3}Classification}{10}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}The Binary Classification Problem}{11}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Probabilistic Classifiers}{11}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Generative Classifiers}{12}{subsection.2.3.3}
+\contentsline {subsubsection}{Generative vs Discriminative Classifiers}{13}{section*.19}
+\contentsline {subsection}{\numberline {2.3.4}Bayesian Network Classifiers}{14}{subsection.2.3.4}
+\contentsline {subsubsection}{Naive Bayes}{14}{section*.20}
+\contentsline {subsubsection}{Augmented Naive Bayes}{15}{section*.23}
+\contentsline {paragraph}{Tree augmented naive Bayes}{15}{section*.24}
+\contentsline {paragraph}{$k$-dependence Bayesian classifiers}{15}{section*.25}
+\contentsline {paragraph}{Bayesian-network augmented naive Bayes}{15}{section*.26}
+\contentsline {subsubsection}{Unrestricted Bayesian Network Classifiers}{16}{section*.27}
+\contentsline {subsubsection}{The Expressive Power of Bayesian Network Classifiers}{16}{section*.29}
+\contentsline {chapter}{\numberline {3}Decision Boundary for Bayesian Network Classifiers}{19}{chapter.3}
+\contentsline {section}{\numberline {3.1}Introduction}{19}{section.3.1}
+\contentsline {subsubsection}{Chapter Outline}{19}{section*.30}
+\contentsline {section}{\numberline {3.2}Polynomial Threshold Functions for Bayesian Network Classifiers}{19}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Lagrange Interpolation of Discrete Probability}{20}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Naive Bayes}{21}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Tree Augmented Naive Bayes}{26}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Bayesian Network-Augmented Naive Bayes}{29}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.5}Full Bayesian Networks}{33}{subsection.3.2.5}
+\contentsline {section}{\numberline {3.3}Expressive Power of Bayesian Network Classifiers}{34}{section.3.3}
+\contentsline {section}{\numberline {3.4}Conclusions}{38}{section.3.4}
+\contentsline {chapter}{\numberline {4}Decision Functions for Chain Classifiers Based on Bayesian Networks for Multi-Label Classification}{41}{chapter.4}
+\contentsline {section}{\numberline {4.1}Introduction}{41}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Chapter Outline}{42}{subsection.4.1.1}
+\contentsline {section}{\numberline {4.2}BAN Binary Relevance Classifiers}{42}{section.4.2}
+\contentsline {section}{\numberline {4.3}BAN Chain Classifiers}{44}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Extensions to Classifier Trellises}{50}{subsection.4.3.1}
+\contentsline {section}{\numberline {4.4}Binary Relevance vs. Chain Classifiers}{51}{section.4.4}
+\contentsline {section}{\numberline {4.5}Chain Regressors}{52}{section.4.5}
+\contentsline {section}{\numberline {4.6}Conclusions}{54}{section.4.6}
+\contentsline {chapter}{\numberline {5}Markov Property in Generative Classifiers}{55}{chapter.5}
+\contentsline {section}{\numberline {5.1}Introduction}{55}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Chapter Outline}{55}{subsection.5.1.1}
+\contentsline {section}{\numberline {5.2}Difference Operator and Conditional Independence}{55}{section.5.2}
+\contentsline {section}{\numberline {5.3}Markov network Classifiers}{58}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Extended Markov Classifiers}{60}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Gaussian Predictors}{61}{subsection.5.3.2}
+\contentsline {section}{\numberline {5.4}Constant Interactions Models}{63}{section.5.4}
+\contentsline {subsubsection}{$2 \times 2$ Predictors}{63}{section*.49}
+\contentsline {subsubsection}{General Predictors}{63}{section*.50}
+\contentsline {section}{\numberline {5.5}Parameters Estimation}{65}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}Non Optimality}{66}{subsection.5.5.1}
+\contentsline {subsubsection}{Modified Naive Bayes}{66}{section*.51}
+\contentsline {subsection}{\numberline {5.5.2}Fixed Discrimination Maximum-Likelihood Estimator}{67}{subsection.5.5.2}
+\contentsline {subsubsection}{Combining Discriminative and Generative Approaches}{68}{section*.52}
+\contentsline {section}{\numberline {5.6}Conclusions}{68}{section.5.6}
+\contentsline {chapter}{\numberline {6}Conclusions}{69}{chapter.6}
+\contentsline {section}{\numberline {6.1}Summary of Contributions}{69}{section.6.1}
+\contentsline {section}{\numberline {6.2}List of Publications}{69}{section.6.2}
+\contentsline {paragraph}{JCR articles}{69}{section*.53}
+\contentsline {paragraph}{Submission}{70}{section*.54}
+\contentsline {paragraph}{In proceedings}{70}{section*.55}
+\contentsline {section}{\numberline {6.3}Future Work}{70}{section.6.3}
+\contentsline {paragraph}{Learning algorithms}{70}{section*.56}
+\contentsline {paragraph}{Hidden variables}{71}{figure.caption.58}

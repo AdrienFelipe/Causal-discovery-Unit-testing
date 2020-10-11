@@ -1,0 +1,226 @@
+% Definimos el estilo del documento
+\documentclass[12pt,a4paper,spanish]{book}
+% Utilizamos el paquete para utilizar español
+\usepackage[spanish]{babel}
+% Utilizamos el paquete para gestionar acentos
+\usepackage[latin1]{inputenc}
+%Utilizamos el paquete para incorporar graficos postcript
+\usepackage[dvips,final]{epsfig}
+% Definimos la zona de la pagina ocupada por el texto
+\oddsidemargin 0.1cm \headsep 0.5cm \textwidth=15.5cm
+\textheight=22cm
+%Empieza el documento
+\begin{document}
+% Definimos titulo, autor, fecha, generamos titulo e indice de
+contenidos
+\title{TITULO DE MI PROYECTO}
+\author{MI NOMBRE}
+\date{}
+\maketitle
+\tableofcontents
+% Definimos una primera pagina para los agradecimientos
+\newpage
+\thispagestyle{empty}
+\section*{Agradecimientos}
+ Aqui ponemos los agradecimientos
+% Empezamos capitulos
+\chapter{Introducci\'on}
+ La introducción es lo primero que se lee, pero habitualmente lo
+último que se escribe. Pues su redacción
+ depende de cómo se hayan escrito todas las otras secciones.
+Normalmente la introducción incluye una
+ descripción muy general del proyecto y termina con un desglose del
+contenido de la memoria.
+\chapter{Estado actual del tema}
+ Descripción del estado actual del tema con referencia a trabajos
+anteriores en el caso de proyectos que
+ sean continuación o relacionados con otros proyectos.
+\chapter{Metodología}
+ Metodología a utilizar para el desarrollo del proyecto,
+herramientas de análisis, etc..
+\chapter{Recursos necesarios}
+ Detallar los recursos hardware, software u otros necesarios para el
+desarrollo del proyecto.
+\chapter{Plan de trabajo y temporización}
+Desarrollo del plan de trabajo desglosado en etapas, con una
+estimación en cada etapa del tiempo de ejecución
+\begin{itemize}
+\item Etapa 1 de Mi Proyecto
+\item Etapa 2 de Mi Proyecto
+\item .................
+\end{itemize}
+A continuación vendrán las secciones donde se desarrollan cada una de
+las etapas del proyecto
+\chapter{Etapa 1 de Mi proyecto}
+ Desarrollo de la etapa 1 de mi proyecto
+\chapter{Etapa 2 de Mi proyecto}
+ Desarrollo de la etapa 2 de mi proyecto
+\chapter{Resultados y conclusiones}
+ Desarrollo de los resultados y conclusiones del proyecto. Se debe
+intentar resaltar el interés del proyecto
+ y la calidad del trabajo realizado. Ha llegado el momento de
+"vender" nuestro trabajo. Se deben incluir aspectos como:
+\begin{itemize}
+\item Calidad, dificultad y amplitud del trabajo desarrollado que
+justifique el tiempo de dedicación al proyecto.
+\item Aspectos integradores de las disciplinas de la titulación de
+Ingeniero en Informática.
+\item Impacto social. Utilidad del proyecto en el ámbito social
+\item Facilidad de utilización de los resultados del proyecto por
+terceras personas.
+\item Publicidad de los resultados del proyecto a través de páginas
+web, etc.. Cuando de los resultados del proyecto
+ se derive un prototipo o programa de utilización se debe poner
+a disposición del público en general una versión
+ de demostración de dicho prototipo.
+\item Cualquier otro mérito.
+\end{itemize}
+\chapter{Trabajo Futuro}
+ Continuidad del trabajo realizado a través de una implementación,
+o utilidad real del proyecto,
+ o a través de otros proyectos fin de carrera.
+% EMPIEZAN LOS APENDICES DEL PROYECTO
+\appendix
+\chapter{Manuales de usuario}
+ En el caso de que el desarrollo (y/o naturaleza del proyecto haya
+dado lugar a la creación de manuales
+ de usuario, habrá que ponerlo aquí).
+\chapter[Detalles Implementación]{Detalles técnicos sobre la
+implementación del proyecto}
+ En las secciones anteriores del proyecto, no se debe entrar en
+demasiados detalles técnicos sobre
+ cuestiones de implementación del proyecto pues dificultaría su
+lectura y comprensión. Los detalles técnicos
+ sobre la implementación del proyecto se incluyen
+preferentemente en apéndices al final de la memoria.
+\chapter[Redacción de Proyectos]{Comentarios Generales sobre la
+redacción de los proyectos}
+Por donde se empieza? Habitualmente se empieza a redactar en orden
+inverso al que se lee el documento, primero
+se puede empezar a rellenar la bibliografía utilizada que se irá
+completando según avance el proyecto. A continuación,
+a partir de un esqueleto inicial del proyecto, que puede estar
+redactado, manuscrito, o simplemente en la cabeza del estudiante,
+se empieza a redactar las partes más concretas del proyecto, que
+tengamos más claras, y que sean lo más independiente posible
+de la redacción de otras partes del proyecto. Por ejemplo, se puede
+empezar por anexos donde se resuma las características
+de una herramienta que utilizamos, etc.., a continuación empezamos a
+redactar de manera individual los detalles de cada
+una de las etapas en las que se constituye el proyecto, no tienen que
+redactarse ordenadas según aparecen en el texto,
+sobre la elección sobre cual empezar, siempre primará que sea una
+parte que tengamos bien clara, y que hayamos delimitado
+su contenido para que sea independiente de la redacción de las otras
+etapas. Como verán, según vayan avanzando en la
+redacción, cada vez verán las cosas más claras, y de forma natural
+verán la forma de ir redactando las otras partes del
+proyecto, hasta llegar a las secciones de introducción y conclusiones
+y resultados que son las más delicadas de desarrollar,
+pues son las más importantes y las que previsiblemente se van a leer
+en mayor detalle las personas que lean el proyecto.
+Una deficiente redacción de la introducción (que es donde se atrae al
+lector sobre la importancia de lo que se va a hacer)
+o una mala presentación de las conclusiones y resultados (que es
+donde se transmite el mensaje de todo lo bueno que hay
+en proyecto) pone en entredicho la calidad global del proyecto. Una
+buena estrategia consiste en según se van redactando
+las diferentes secciones del proyecto, ir haciendo un borrador de las
+secciones de introducción y conclusiones y resultados,
+poniendo las ideas sueltas, y en principio desordenadas, que nos
+vayan surgiendo y que puedan ser de utilidad en la redacción
+de estas secciones. Redactar bien tiene su dificultad y no todos los
+días tenemos la inspiración adecuada, para esos días
+negros, que no nos viene nada a la cabeza, lo mejor es dedicarse a
+cosas más mecánicas que no requieren tanta concentración,
+como puede ser completar la bibliografía, ir haciendo un manual de
+usuario o un anexo técnico, etc..
+Cuando empezamos a redactar, siempre es necesario tener en cuenta
+algunos criterios básicos como son:
+1. Escribir de cada cosa su esencia. Que es lo que es realmente
+relevante en la sección que estoy redactando y esforzarme
+en que ello quede claro
+2. Ponerse en el lugar del potencial lector. El orden y la forma en
+la redactamos no es sólo para que nosotros tengamos
+claro lo que hacemos, es sobre todo para que una tercera persona que
+lea el texto lo pueda tener, si cabe, más claro
+que nosotros. Para ello hay que respetar un orden lógico en la forma
+en que presentamos las cosas y no presuponer que
+el lector conoce los entresijos de lo que estamos haciendo, hay que
+evitar dar saltos en el vacío, por ejemplo dando
+por supuesto conocimientos que el lector no tiene o alterando el
+orden natural en que deben aparecer las cosas.
+Algunas ideas sueltas sacadas del libro "Como elaborar y presentar un
+trabajo escrito" cuyo autor es el profesor Santos Pérez:
+El proyecto fin de carrera es un trabajo personal en el que el
+estudiante debe demostrar que domina el tema, sabe organizarlo,
+estructurarlo y elaborar en profundidad, y presentarlo en la forma
+normalizada de un trabajo técnico o científico. Es la
+ocasión que tiene el estudiante de demostrar que sabe analizar un
+problema, sabe seleccionar la metodología y técnicas
+apropiadas para reunir los datos, y alcanzar conclusiones razonables.
+Un proyecto de esta naturaleza permite la evaluación
+de la capacidad del estudiante para aplicar su conocimiento a un tema
+concreto.
+El proyecto fin de carrera debe ser
+\begin{itemize}
+\item Proyecto Personal: debe ser un producto de la reflexión,
+investigación y esfuerzo del estudiante. Si se hace con
+ reflexión, con investigación y esfuerzo personal, el
+rendimiento que obtiene el estudiante es muy productivo y
+ beneficioso para él y de una duración permanente.
+\item Es un trabajo documentado: es decir, serio, científico, hay
+que sustentar las afirmaciones con datos comprobables
+ y lógicamente fundados.
+\item Planificado: La elaboración de un proyecto fin de carrera es
+un proceso complicado. Un trabajo de esta naturaleza
+ requiere una planificación cuidadosa del tiempo: tiempo para
+investigar y documentarse, tiempo para reflexionar,
+ tiempo para corregir posibles desviaciones y finalmente tiempo
+para redactarlo y presentarlo de forma adecuada.
+\end{itemize}
+El esquema final de un proyecto fin de carrera debe llenar las
+siguientes características:
+\begin{itemize}
+\item Claridad: la claridad se consigue sobre todo con una nítida
+división y distribución del esquema. Y a su vez esta
+ claridad deriva también de la compresión en profundidad del
+material recogido.
+\item Convergencia hacia el objetivo: El secreto de la claridad
+está en saber ordenar las partes del trabajo hacia el
+ objetivo buscado; es decir, en lograr que cada punto del
+esquema nos vaya encaminando con naturalidad hacia la meta
+ enunciada en el título del trabajo.
+\item Coherencia: las distintas partes, puntos o párrafos deben
+estar trabados entre sí, concatenados, de forma que se 
+ vayan preparando y completandose recíprocamente para
+conseguir el efectode que cada punto sea consecuencia del otro,
+ formando un todo orgánico y no una mera yuxtaposición de
+partes; por el contrario que se vaya mostrando la conexión
+ y la coherencia lógica de los distintos aspectos tratados
+\item Conformidad con el objetivo: La estructura del esquema final
+debe resaltar lo más importante y debe dejar en la
+ penumbra los accesorios.
+\item Elegancia: en la distribución del esquema, debe guardarse una
+cierta simetría y proporción. La elegancia no debe
+ subordinarse a la claridad y a la verdad; pero hay una
+elegancia no sólo formal, sino de concepción y elegancia
+ que contribuye significativamente a conseguir la armonía y
+transparencia en la transmisión del contenido principal
+ del tema. Conviene resaltar esta elegancia sobre todo ahora
+que nos encontramos en un mundo de zafiedad y donde se
+ hace gala del caos mental como norma de actuación.
+\item El descanso inteligente: Una vez que se ha acabado la primera
+redacción del proyecto se sugiere tomarse unos
+ días de descanso suficientes para que la cabeza descanse del
+tema. Con este descanso se adquiere perspectiva,
+ y aumenta la objetividad y sentido crítico del autor.
+\end{itemize}
+% Aqui va la Bibliografía utilizada por el proyecto.
+\begin{thebibliography}{1}
+\bibitem{La86} Leslie Lamport {\em LaTex : A document Preparation
+System}. Addison-Wesley, 1986.
+\bibitem{Ro93} Christian Rolland {\em LaTex guide pratique}. AddisonWesley, 1993.
+\end{thebibliography}
+% Termina el documento
+\end{document}

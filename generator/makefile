@@ -9,14 +9,14 @@ CONTAINER=cdut.con
 ENV_PATH=.env
 # Path to the evaluation script
 SCRIPT_PATH=src/discovery/evaluate.py
-# Execute docker as root
+# Execute container as root
 EXEC=docker exec -it $(CONTAINER)
-# Execute docker as current user
+# Execute container as current user
 EXEC_U=docker exec -itu $$(id -u) $(CONTAINER)
 
 
 stop:
-        # Remove container instead of stopping it to free up its tag.
+		# Remove container instead of stopping it to free up its tag.
 		# Always true to ignore error when container does not exist.
 		docker rm -f $(CONTAINER) || true
 
@@ -38,7 +38,7 @@ start: stop build
 		#ssh-keygen -f "$(HOME)/.ssh/known_hosts" -R "[localhost]:$(SSH_PORT)"
 		# Create conda local environment only once.
 		if [ ! -d "$(ENV_PATH)" ]; then make create; fi
-        # Make environment Python available in PATH.
+		# Make environment Python available in PATH.
 		$(EXEC) ln -fs /app/$(ENV_PATH)/bin/python /usr/bin/
 
 root:
@@ -58,6 +58,7 @@ test:
 		$(EXEC_U) bash -c "PYTHONPATH=src python -m unittest"
 
 jupyter:
+		# Use the link by IP, not by container name, unless you have it mapped to your local DNS
 		$(EXEC_U) bash -c "PYTHONPATH=src $(ENV_PATH)/bin/jupyter $(filter-out $@,$(MAKECMDGOALS)) --ip=0.0.0.0 --port=$(JUPYTER_PORT) --no-browser"
 
 evaluate:

@@ -26,7 +26,7 @@ class RelationFactory:
         return relations
 
     def __build_relation(self, event: Function) -> list:
-        function_string = inspect.getsource(event.effect)
+        function_string = inspect.getsource(event.function)
 
         if re.search(rf'.*\.{self.__FUNC_METHOD}\(', function_string):
             scope_parts = re.split(r'([()])', function_string)

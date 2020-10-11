@@ -11,6 +11,7 @@ from generator.events.Constant import Constant
 from generator.events.Discrete import Discrete
 from generator.events.Function import Function
 from generator.events.EventInterface import EventInterface
+from generator.events.Gaussian import Gaussian
 from generator.events.Linear import Linear
 from generator.events.Time import Time
 from generator.events.Uniform import Uniform
@@ -80,6 +81,9 @@ class Generator:
 
     def add_uniform(self, min: int = 0, max: int = 10, **kwargs) -> Generator:
         return self.__add_event(Uniform(min, max, **kwargs))
+
+    def add_gaussian(self, mu: float = 0, sigma: float = 1, **kwargs) -> Generator:
+        return self.__add_event(Gaussian(mu, sigma, **kwargs))
 
     def add_discrete(self, weight: float = 0.5, **kwargs) -> Generator:
         return self.__add_event(Discrete(weight, **kwargs))

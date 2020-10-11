@@ -1,0 +1,468 @@
+\begin{thebibliography}{70}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Abramowitz and Stegun(1964)]{abramowitz}
+Milton Abramowitz and Irene~A. Stegun.
+\newblock \emph{Handbook of Mathematical Functions: With Formulas, Graphs, and
+  Mathematical Tables}.
+\newblock Applied Mathematics Series. Dover Publications, 1964.
+
+\bibitem[Bielza and Larra\~{n}aga(2014)]{bielza2014}
+Concha Bielza and Pedro Larra\~{n}aga.
+\newblock Discrete {B}ayesian network classifiers: A survey.
+\newblock \emph{ACM Comput. Surv.}, 47\penalty0 (1):\penalty0 5:1--5:43, 2014.
+
+\bibitem[Bielza et~al.(2011)Bielza, Li, and Larra{\~n}aga]{bielza11d}
+Concha Bielza, Guangdi Li, and Pedro Larra{\~n}aga.
+\newblock Multi-dimensional classification with {B}ayesian networks.
+\newblock \emph{International Journal of Approximate Reasoning}, 52:\penalty0
+  705--727, 2011.
+
+\bibitem[Blockeel et~al.(2006)Blockeel, Schietgat, Struyf, Džeroski, and
+  Clare]{Blockeel}
+Hendrik Blockeel, Leander Schietgat, Jan Struyf, Sašo Džeroski, and Amanda
+  Clare.
+\newblock Decision trees for hierarchical multilabel classification: A case
+  study in functional genomics.
+\newblock In Johannes Fürnkranz, Tobias Scheffer, and Myra Spiliopoulou,
+  editors, \emph{Knowledge Discovery in Databases: PKDD 2006}, volume 4213 of
+  \emph{Lecture Notes in Computer Science}, pages 18--29. Springer Berlin
+  Heidelberg, 2006.
+
+\bibitem[Borchani et~al.(2015)Borchani, Varando, Bielza, and
+  Larrañaga]{WIDM:WIDM1157}
+Hanen Borchani, Gherardo Varando, Concha Bielza, and Pedro Larrañaga.
+\newblock A survey on multi-output regression.
+\newblock \emph{Wiley Interdisciplinary Reviews: Data Mining and Knowledge
+  Discovery}, 5\penalty0 (5):\penalty0 216--233, 2015.
+\newblock ISSN 1942-4795.
+
+\bibitem[Carlini and Rapallo(2005)]{carlini2005}
+Enrico Carlini and Fabio Rapallo.
+\newblock The geometry of statistical models for two-way contingency tables
+  with fixed odds ratios.
+\newblock \emph{Rendiconti dell'Instituto di Matematica dell'Universit{\`a} di
+  Trieste}, 37:\penalty0 71--84, 2005.
+
+\bibitem[Cheng and Greiner(1999)]{Cheng1999}
+Jie Cheng and Russell Greiner.
+\newblock Comparing {B}ayesian network classifiers.
+\newblock In \emph{Proceedings of the Fifteenth Conference on Uncertainty in
+  Artificial Intelligence}, UAI'99, pages 101--108. Morgan Kaufmann Publishers
+  Inc., 1999.
+
+\bibitem[Cheng and Greiner(2001)]{Cheng2001}
+Jie Cheng and Russell Greiner.
+\newblock Learning {B}ayesian belief network classifiers: Algorithms and
+  system.
+\newblock In \emph{Proceedings of the 14th Biennial Conference of the Canadian
+  Society on Computational Studies of Intelligence: Advances in Artificial
+  Intelligence}, AI '01, pages 141--151. Springer-Verlag, 2001.
+
+\bibitem[Chow and Liu(1968)]{chow1968}
+C.~Chow and C.~Liu.
+\newblock Approximating discrete probability distributions with dependence
+  trees.
+\newblock \emph{IEEE Transactions on Information Theory}, 14\penalty0
+  (3):\penalty0 462--467, 1968.
+
+\bibitem[Cortes and Vapnik(1995)]{Cortes1995}
+Corinna Cortes and Vladimir Vapnik.
+\newblock Support-vector networks.
+\newblock \emph{Machine Learning}, 20\penalty0 (3):\penalty0 273--297, 1995.
+
+\bibitem[de~Waal and van~der Gaag(2007)]{waal2007}
+Peter~R. de~Waal and Linda~C. van~der Gaag.
+\newblock Inference and learning in multi-dimensional {B}ayesian network
+  classifiers.
+\newblock In Khaled Mellouli, editor, \emph{ECSQARU}, volume 4724 of
+  \emph{Lecture Notes in Computer Science}, pages 501--511. Springer, 2007.
+
+\bibitem[Dembczynski et~al.(2010)Dembczynski, Cheng, and
+  H{\"u}llermeier]{icml2010_037}
+Krzysztof Dembczynski, Weiwei Cheng, and Eyke H{\"u}llermeier.
+\newblock {B}ayes optimal multilabel classification via probabilistic
+  classifier chains.
+\newblock In Johannes F{\"u}rnkranz and Thorsten Joachims, editors,
+  \emph{Proceedings of the 27th International Conference on Machine Learning
+  (ICML-10)}, pages 279--286. Omnipress, 2010.
+
+\bibitem[Devroye et~al.(1996)Devroye, Gy{\"{o}}rfi, and Lugosi]{ptpr}
+L.~Devroye, L.~Gy{\"{o}}rfi, and G.~Lugosi.
+\newblock \emph{{A Probabilistic Theory of Pattern Recognition}}.
+\newblock Springer, 1996.
+
+\bibitem[Diaconis and Sturmfels(1995)]{Diaconis95}
+Persi Diaconis and Bernd Sturmfels.
+\newblock Algebraic algorithms for sampling from conditional distributions.
+\newblock \emph{Annals of Statistics}, 26:\penalty0 363--397, 1995.
+
+\bibitem[Domingos and Pazzani(1997)]{Domingos97}
+Pedro Domingos and Michael Pazzani.
+\newblock On the optimality of the simple {B}ayesian classifier under zero-one
+  loss.
+\newblock \emph{Machine Learning}, 29\penalty0 (2-3):\penalty0 103--130, 1997.
+
+\bibitem[Drton et~al.(2009)Drton, Sturmfels, and Sullivant]{drton2009lectures}
+M.~Drton, B.~Sturmfels, and S.~Sullivant.
+\newblock \emph{Lectures on Algebraic Statistics}.
+\newblock Oberwolfach Seminars. Birkh{\"a}user Basel, 2009.
+
+\bibitem[Duda et~al.(2000)Duda, Hart, and Stork]{Duda2000}
+Richard~O. Duda, Peter~E. Hart, and David~G. Stork.
+\newblock \emph{Pattern Classification (2nd Edition)}.
+\newblock Wiley-Interscience, 2000.
+
+\bibitem[Fienberg(1968)]{fienberg1968}
+Stephen~E. Fienberg.
+\newblock The geometry of an {$r\times c$} contingency table.
+\newblock \emph{The Annals of Mathematical Statistics}, 39\penalty0
+  (4):\penalty0 1186--1190, 1968.
+
+\bibitem[Fienberg(1970)]{fienbergIPF70}
+Stephen~E. Fienberg.
+\newblock An iterative procedure for estimation in contingency tables.
+\newblock \emph{Ann. Math. Statist.}, 41\penalty0 (3):\penalty0 907--917, 1970.
+
+\bibitem[Fienberg and Gilbert(1970)]{fienberg70}
+Stephen~E. Fienberg and John~P. Gilbert.
+\newblock The geometry of a two by two contingency table.
+\newblock \emph{Journal of the American Statistical Association}, 65\penalty0
+  (330):\penalty0 694--701, 1970.
+
+\bibitem[Flatto(1970)]{Flatto1970}
+Leopold Flatto.
+\newblock A new proof of the transposition theorem.
+\newblock \emph{Proceedings of the American Mathematical Society}, 24\penalty0
+  (1):\penalty0 29--31, 1970.
+
+\bibitem[Flores et~al.(2009)Flores, G{\'a}mez, Mart{\'i}nez, and
+  Puerta]{flores2009}
+M.~Julia Flores, Jos{\'e}~A. G{\'a}mez, Ana~M. Mart{\'i}nez, and Jos{\'e}~M.
+  Puerta.
+\newblock Hode: Hidden one-dependence estimator.
+\newblock In Claudio Sossai and Gaetano Chemello, editors, \emph{Symbolic and
+  Quantitative Approaches to Reasoning with Uncertainty}, pages 481--492.
+  Springer Berlin Heidelberg, 2009.
+
+\bibitem[Friedman et~al.(1997)Friedman, Geiger, and Goldszmidt]{Friedman1997}
+Nir Friedman, Dan Geiger, and Moises Goldszmidt.
+\newblock {B}ayesian network classifiers.
+\newblock \emph{Machine Learning}, 29\penalty0 (2-3):\penalty0 131--163, 1997.
+
+\bibitem[Gandolfi and Lenarda(2017)]{gandolfi2017}
+Alberto Gandolfi and Pietro Lenarda.
+\newblock A note on gibbs and markov random fields with constraints and their
+  moments.
+\newblock \emph{Mathematics and Mechanics of Complex Systems}, 4\penalty0
+  (3-4):\penalty0 407–422, 2017.
+
+\bibitem[Garcia et~al.(2005)Garcia, Stillman, and Sturmfels]{GARCIA2005}
+Luis~David Garcia, Michael Stillman, and Bernd Sturmfels.
+\newblock Algebraic geometry of {B}ayesian networks.
+\newblock \emph{Journal of Symbolic Computation}, 39\penalty0 (3):\penalty0
+  331--355, 2005.
+\newblock Special issue on the occasion of MEGA 2003.
+
+\bibitem[Gon{\c{c}}alves and Quaresma(2003)]{goncalves}
+Teresa Gon{\c{c}}alves and Paulo Quaresma.
+\newblock A preliminary approach to the multilabel classification problem of
+  {P}ortuguese juridical documents.
+\newblock In FernandoMoura Pires and Salvador Abreu, editors, \emph{Progress in
+  Artificial Intelligence}, volume 2902 of \emph{Lecture Notes in Computer
+  Science}, pages 435--444. Springer Berlin Heidelberg, 2003.
+
+\bibitem[Hall(2007)]{Hall2007}
+Mark Hall.
+\newblock A decision tree-based attribute weighting filter for naive {B}ayes.
+\newblock In Max Bramer, Frans Coenen, and Andrew Tuson, editors,
+  \emph{Research and Development in Intelligent Systems XXIII}, pages 59--70.
+  Springer London, 2007.
+
+\bibitem[Hammersley and Clifford(1971)]{hammersley1971}
+John Hammersley and Peter Clifford.
+\newblock Markov fields on finite graphs and lattices.
+\newblock 1971.
+\newblock Unpublished manuscript.
+
+\bibitem[Han et~al.(2005)Han, Xu, Zha, and Giles]{Han2005}
+Hui Han, Wei Xu, Hongyuan Zha, and C.~Lee Giles.
+\newblock A hierarchical naive {B}ayes mixture model for name disambiguation in
+  author citations.
+\newblock In \emph{SAC}, 2005.
+
+\bibitem[Hoerl and Kennard(1970)]{hoerl1970}
+Arthur~E. Hoerl and Robert~W. Kennard.
+\newblock Ridge regression: Biased estimation for nonorthogonal problems.
+\newblock \emph{Technometrics}, 12\penalty0 (1):\penalty0 55--67, 1970.
+
+\bibitem[Iverson(1962)]{Iverson1962}
+Kenneth~E. Iverson.
+\newblock \emph{A {P}rogramming {L}anguage}.
+\newblock John Wiley \& Sons, Inc., 1962.
+
+\bibitem[Jaeger(2003)]{Jaeger03}
+Manfred Jaeger.
+\newblock Probabilistic classifiers and the concepts they recognize.
+\newblock In Tom Fawcett and Nina Mishra, editors, \emph{Proceedings of the
+  Twentieth {I}nternational Conference on Machine Learning (ICML-03)}, pages
+  266--273. AAAI Press, 2003.
+
+\bibitem[Jeffreys and Jeffreys(1999)]{jeffreys}
+Harold Jeffreys and Bertha Jeffreys.
+\newblock \emph{Methods of Mathematical Physics}.
+\newblock Cambridge Mathematical Library. Cambridge University Press, 1999.
+
+\bibitem[Jung et~al.(2018)Jung, Niculita, and Skaf]{JUNG2018}
+Marcel Jung, Octavian Niculita, and Zakwan Skaf.
+\newblock Comparison of different classification algorithms for fault detection
+  and fault isolation in complex systems.
+\newblock \emph{Procedia Manufacturing}, 19:\penalty0 111 -- 118, 2018.
+\newblock Proceedings of the 6th International Conference in Through-life
+  Engineering Services, University of Bremen, 7th and 8th November 2017.
+
+\bibitem[Keogh and Pazzani(2002)]{keogh2002}
+Eamonn~J. Keogh and Michael~J. Pazzani.
+\newblock Learning the structure of augmented {B}ayesian classifiers.
+\newblock \emph{International Journal on Artificial Intelligence Tools},
+  11\penalty0 (04):\penalty0 587--601, 2002.
+
+\bibitem[Langseth and Nielsen(2006)]{Langseth2006}
+Helge Langseth and Thomas~D. Nielsen.
+\newblock Classification using hierarchical na{\"i}ve {B}ayes models.
+\newblock \emph{Machine Learning}, 63\penalty0 (2):\penalty0 135--159, 2006.
+
+\bibitem[Lasserre et~al.(2007)Lasserre, Bishop, Bernardo, Bayarri, Berger,
+  Dawid, Heckerman, Smith, and West]{lasserre2007}
+Julia Lasserre, {Christopher M.} Bishop, {J. M.} Bernardo, {M. J.} Bayarri, {J.
+  O.} Berger, {A. P.} Dawid, D.~Heckerman, {A. F. M.} Smith, and M.~West.
+\newblock \emph{Generative or Discriminative? Getting the Best of Both Worlds},
+  volume~8, pages 3--24.
+\newblock Oxford University Press, 2007.
+
+\bibitem[Lauritzen(1996)]{lauritzen1996}
+Steffen~L. Lauritzen.
+\newblock \emph{Graphical Models}.
+\newblock Oxford Statistical Science Series. Clarendon Press, 1996.
+
+\bibitem[Ling and Zhang(2002)]{Ling03}
+Charles~X. Ling and Huajie Zhang.
+\newblock The representational power of discrete {B}ayesian networks.
+\newblock \emph{Journal of Machine Learning Research}, 3:\penalty0 709--721,
+  2002.
+
+\bibitem[Minsky(1961)]{Minsky61stepstoward}
+Marvin Minsky.
+\newblock Steps toward artificial intelligence.
+\newblock In \emph{Computers and Thought}, pages 406--450. McGraw-Hill, 1961.
+
+\bibitem[Morales et~al.(2013)Morales, Vives-Gilabert, Gómez-Ansón,
+  Bengoetxea, Larrañaga, Bielza, Pagonabarraga, Kulisevsky, Corcuera-Solano,
+  and Delfino]{MORALES2013}
+Dinora~A. Morales, Yolanda Vives-Gilabert, Beatriz Gómez-Ansón, Endika
+  Bengoetxea, Pedro Larrañaga, Concha Bielza, Javier Pagonabarraga, Jaime
+  Kulisevsky, Idoia Corcuera-Solano, and Manuel Delfino.
+\newblock Predicting dementia development in {P}arkinson's disease using
+  {B}ayesian network classifiers.
+\newblock \emph{Psychiatry Research: Neuroimaging}, 213\penalty0 (2):\penalty0
+  92 -- 98, 2013.
+
+\bibitem[Nakamura et~al.(2005)Nakamura, Schmitt, Schmitt, and
+  Simon]{Nakamura05}
+Atsuyoshi Nakamura, Michael Schmitt, Niels Schmitt, and Hans~Ulrich Simon.
+\newblock Inner product spaces for {B}ayesian networks.
+\newblock \emph{Journal of Machine Learning Research}, 6:\penalty0 1383--1403,
+  2005.
+
+\bibitem[Ng and Jordan(2001)]{Ng2001}
+Andrew~Y. Ng and Michael~I. Jordan.
+\newblock On discriminative vs. generative classifiers: A comparison of
+  logistic regression and naive {B}ayes.
+\newblock In \emph{Proceedings of the 14th International Conference on Neural
+  Information Processing Systems: Natural and Synthetic}, NIPS'01, pages
+  841--848. MIT Press, 2001.
+
+\bibitem[Njah et~al.(2016)Njah, Jamoussi, and Mahdi]{njah2016}
+H.~Njah, S.~Jamoussi, and W.~Mahdi.
+\newblock Semi-hierarchical naive {B}ayes classifier.
+\newblock In \emph{2016 International Joint Conference on Neural Networks
+  (IJCNN)}, pages 1772--1779, 2016.
+
+\bibitem[O'Donnell(2014)]{odonnell2014}
+Ryan O'Donnell.
+\newblock \emph{Spectral Structure and Learning}, page 54–78.
+\newblock Cambridge University Press, 2014.
+
+\bibitem[Pearl(1988)]{Pearl1988}
+Judea Pearl.
+\newblock \emph{Probabilistic Reasoning in Intelligent Systems: {N}etworks of
+  Plausible Inference}.
+\newblock Morgan Kaufmann Publishers Inc., 1988.
+
+\bibitem[Peot(1996)]{peot}
+Mark~A. Peot.
+\newblock Geometric implications of the naive {B}ayes assumption.
+\newblock In \emph{Proceedings of the Twelfth International Conference on
+  Uncertainty in Artificial Intelligence}, UAI'96, pages 414--419. Morgan
+  Kaufmann Publishers Inc., 1996.
+
+\bibitem[Pistone et~al.(2001)Pistone, Riccomagno, and Wynn]{pistone2001}
+Giovanni Pistone, Eva Riccomagno, and Henry~P. Wynn.
+\newblock Gr{\"{o}}bner bases and factorisation in discrete probability and
+  {B}ayes.
+\newblock \emph{Statistics and Computing}, 11\penalty0 (1):\penalty0 37--46,
+  2001.
+
+\bibitem[Read et~al.(2009)Read, Pfahringer, Holmes, and Frank]{reed2009}
+Jesse Read, Bernhard Pfahringer, Geoff Holmes, and Eibe Frank.
+\newblock Classifier chains for multi-label classification.
+\newblock In \emph{Machine Learning and Knowledge Discovery in Databases},
+  volume 5782 of \emph{Lecture Notes in Computer Science}, pages 254--269.
+  Springer Berlin Heidelberg, 2009.
+
+\bibitem[Read et~al.(2014)Read, Bielza, and Larra{\~n}aga]{read2013}
+Jesse Read, Concha Bielza, and Pedro Larra{\~n}aga.
+\newblock Multi-dimensional classification with super-classes.
+\newblock \emph{IEEE Transactions on Knowledge and Data Engineering},
+  26\penalty0 (7):\penalty0 1720--1733, 2014.
+\newblock ISSN 1041-4347.
+
+\bibitem[Read et~al.(2015)Read, Martino, Olmos, and Luengo]{Read2015}
+Jesse Read, Luca Martino, Pablo~M. Olmos, and David Luengo.
+\newblock Scalable multi-output label prediction: From classifier chains to
+  classifier trellises.
+\newblock \emph{Pattern Recognition}, 48\penalty0 (6):\penalty0 2096 -- 2109,
+  2015.
+
+\bibitem[Roos et~al.(2005)Roos, Wettig, Gr{\"u}nwald, Myllym{\"a}ki, and
+  Tirri]{Roos2005}
+Teemu Roos, Hannes Wettig, Peter Gr{\"u}nwald, Petri Myllym{\"a}ki, and Henry
+  Tirri.
+\newblock On discriminative {B}ayesian network classifiers and logistic
+  regression.
+\newblock \emph{Machine Learning}, 59\penalty0 (3):\penalty0 267--296, 2005.
+
+\bibitem[Rosenblatt(1957)]{rosenblatt1957perceptron}
+Frank Rosenblatt.
+\newblock \emph{The Perceptron, a perceiving and recognizing automaton}.
+\newblock Cornell Aeronautical Laboratory, 1957.
+
+\bibitem[Sahami(1996)]{Sahami1996}
+Mehran Sahami.
+\newblock Learning limited dependence {B}ayesian classifiers.
+\newblock In \emph{Proceedings of the Second International Conference on
+  Knowledge Discovery and Data Mining}, KDD'96, pages 335--338. AAAI Press,
+  1996.
+
+\bibitem[Sahami et~al.(1998)Sahami, Dumais, Heckerman, and Horvitz]{sahami1998}
+Mehran Sahami, Susan Dumais, David Heckerman, and Eric Horvitz.
+\newblock A {B}ayesian approach to filtering junk e-mail.
+\newblock In \emph{Learning for Text Categorization: Papers from the 1998
+  {W}orkshop}, volume~62, pages 98--105, 1998.
+
+\bibitem[Settimi and Smith(1998)]{Settimi1998}
+Raffaella Settimi and Jim~Q. Smith.
+\newblock On the geometry of {B}ayesian graphical models with hidden variables.
+\newblock In \emph{Proceedings of the Fourteenth Conference on Uncertainty in
+  Artificial Intelligence}, UAI'98, pages 472--479. Morgan Kaufmann Publishers
+  Inc., 1998.
+
+\bibitem[Sucar et~al.(2014)Sucar, Bielza, Morales, Hernandez-Leal, Zaragoza,
+  and Larra\~{n}aga]{sucar2014}
+L.~Enrique Sucar, Concha Bielza, Eduardo~F. Morales, Pablo Hernandez-Leal,
+  Julio~H. Zaragoza, and Pedro Larra\~{n}aga.
+\newblock Multi-label classification with {B}ayesian network-based chain
+  classifiers.
+\newblock \emph{Pattern Recognition Letter}, 41:\penalty0 14--22, 2014.
+
+\bibitem[Tsoumakas and Katakis(2007)]{Tsoumakas07}
+Grigorios Tsoumakas and Ioannis Katakis.
+\newblock Multi-label classification: An overview.
+\newblock \emph{International Journal of Data Warehousing and Mining},
+  2007:\penalty0 1--13, 2007.
+
+\bibitem[van~der Gaag and de~Waal(2006)]{gaag2006}
+Linda~C. van~der Gaag and Peter~R. de~Waal.
+\newblock Multi-dimensional {B}ayesian network classifiers.
+\newblock In Milan Studen{\'y} and Jir\'{\i} Vomlel, editors, \emph{Third
+  European Workshop on Probabilistic Graphical Models}, pages 107--114, 2006.
+
+\bibitem[Vapnik and Chervonenkis(1971)]{vapnik}
+Vladimir~N. Vapnik and Alexy Chervonenkis.
+\newblock On the uniform convergence of relative frequencies of events to their
+  probabilities.
+\newblock \emph{Theory of Probability and Its Applications}, 16\penalty0
+  (2):\penalty0 264--280, 1971.
+
+\bibitem[Varando et~al.(2014)Varando, Bielza, and Larra{\~n}aga]{varandopgm}
+Gherardo Varando, Concha Bielza, and Pedro Larra{\~n}aga.
+\newblock Expressive power of binary relevance and chain classifiers based on
+  {B}ayesian networks for multi-label classification.
+\newblock In Linda~C. van~der Gaag and Ad~J. Feelders, editors,
+  \emph{Probabilistic Graphical Models}, volume 8754 of \emph{Lecture Notes in
+  Computer Science}, pages 519--534. Springer, 2014.
+
+\bibitem[Varando et~al.(2015)Varando, Bielza, and Larranaga]{varando15}
+Gherardo Varando, Concha Bielza, and Pedro Larranaga.
+\newblock Decision boundary for discrete {B}ayesian network classifiers.
+\newblock \emph{Journal of Machine Learning Research}, 16:\penalty0 2725--2749,
+  2015.
+
+\bibitem[Varando et~al.(2016)Varando, Bielza, and Larra{\~{n}}aga]{varando16}
+Gherardo Varando, Concha Bielza, and Pedro Larra{\~{n}}aga.
+\newblock Decision functions for chain classifiers based on {B}ayesian networks
+  for multi-label classification.
+\newblock \emph{Int. J. Approx. Reasoning}, 68:\penalty0 164--178, 2016.
+
+\bibitem[Varghese et~al.(2015)Varghese, George, Makkithaya, and
+  Kumar]{varghese2015}
+Linda Varghese, {V. I.} George, Krishnamoorthi Makkithaya, and Abhishek Kumar.
+\newblock Data driven approach to monitoring and fault detection in process
+  control plants.
+\newblock \emph{International Journal of Control Theory and Applications},
+  8\penalty0 (3):\penalty0 1121--1128, 2015.
+
+\bibitem[Webb and Pazzani(1998)]{Webb98}
+Geoffrey~I. Webb and Michael~J. Pazzani.
+\newblock Adjusted probability naive {B}ayesian induction.
+\newblock In \emph{Proceedings of the {E}leventh {A}ustralian Joint Conference
+  on Artificial Intelligence}, pages 285--295. Springer-Verlag, 1998.
+
+\bibitem[Yang and Wu(2012)]{Yang2012}
+Youlong Yang and Yan Wu.
+\newblock On the properties of concept classes induced by multivalued
+  {B}ayesian networks.
+\newblock \emph{Information Sciences}, 184\penalty0 (1):\penalty0 155--165,
+  2012.
+
+\bibitem[Zaidi et~al.(2013)Zaidi, Cerquides, Carman, and Webb]{zaidi13}
+Nayyar~A. Zaidi, Jesus Cerquides, Mark~J. Carman, and Geoffrey~I. Webb.
+\newblock Alleviating naive {B}ayes attribute independence assumption by
+  attribute weighting.
+\newblock \emph{Journal of Machine Learning Research}, 14:\penalty0 1947--1988,
+  2013.
+
+\bibitem[Zaidi et~al.(2017)Zaidi, Webb, Carman, Petitjean, Buntine, Hynes, and
+  De~Sterck]{Zaidi2017}
+Nayyar~A. Zaidi, Geoffrey~I. Webb, Mark~J. Carman, Fran{\c{c}}ois Petitjean,
+  Wray Buntine, Mike Hynes, and Hans De~Sterck.
+\newblock Efficient parameter learning of {B}ayesian network classifiers.
+\newblock \emph{Machine Learning}, 106\penalty0 (9):\penalty0 1289--1329, 2017.
+
+\bibitem[Zhang and Zhou(2007)]{Zhang2007}
+Min-Ling Zhang and Zhi-Hua Zhou.
+\newblock Ml-knn: A lazy learning approach to multi-label learning.
+\newblock \emph{Pattern Recognition}, 40\penalty0 (7):\penalty0 2038 -- 2048,
+  2007.
+
+\bibitem[Zhang and Zhou(2014)]{zhang2013review}
+Min-Ling Zhang and Zhi-Hua Zhou.
+\newblock A review on multi-label learning algorithms.
+\newblock \emph{IEEE Transactions on Knowledge and Data Engineering},
+  26\penalty0 (8):\penalty0 1819--1837, 2014.
+
+\end{thebibliography}
