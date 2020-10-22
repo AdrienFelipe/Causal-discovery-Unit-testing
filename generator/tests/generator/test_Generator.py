@@ -112,6 +112,22 @@ class GeneratorTest(unittest.TestCase):
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
 
     @staticmethod
+    def test_time_alias():
+        effect_function: Callable[[History], float] = lambda history: \
+            np.sin(history.t() / 60 / 5 * np.pi / 2)
+
+        dataset = Generator() \
+            .set_time('2018-05-13 20:15', step='5m') \
+            .add_function(effect_function) \
+            .generate(5)
+
+        expected = pd.DataFrame({
+            EventInterface.LABEL_EVENT + '1': [-1, 0, 1, 0, -1],
+            EventInterface.LABEL_TIME: [1526235300, 1526235600, 1526235900, 1526236200, 1526236500],
+        })
+        pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
+
+    @staticmethod
     def test_multiple():
         random.seed(0)
         effect_function: Callable[[History], float] = lambda history: \

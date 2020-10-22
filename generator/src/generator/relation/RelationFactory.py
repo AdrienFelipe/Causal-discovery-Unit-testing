@@ -9,7 +9,7 @@ from generator.relation.Relation import Relation
 
 class RelationFactory:
     __EVENT_METHODS = 'get_event|get_range|e'
-    __TIME_METHODS = 'get_datetime|get_timestamp'
+    __TIME_METHODS = 'get_datetime|get_timestamp|t'
     __FUNC_METHOD = 'add_function'
     __ARG_POSITION = 'position'
     __ARG_DELAY = 'delay'

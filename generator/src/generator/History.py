@@ -64,5 +64,8 @@ class History:
             return self.time_buffer
         return self.events[delay][0]
 
+    def t(self, delay: int = DEFAULT_DELAY) -> float:
+        return self.get_timestamp(delay)
+
     def get_datetime(self, delay: int = DEFAULT_DELAY) -> datetime:
         return datetime.fromtimestamp(self.get_timestamp(delay))
