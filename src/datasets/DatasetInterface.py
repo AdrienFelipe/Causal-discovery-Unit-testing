@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from abc import abstractmethod
 from pathlib import Path
 
@@ -11,27 +12,21 @@ from utils import ProjectRoot
 
 
 class DatasetInterface:
-    name = None
     __data = None
 
-    def __init__(self, samples: int = 100):
+    def __init__(self, name: str, case: str = None, samples: int = 100):
+        self.name = name
+        self.case = case
         self.samples = samples
 
     @abstractmethod
     def get_generator(self) -> Generator:
         raise DatasetException('Dataset must implement its own build method')
 
-    @abstractmethod
-    def get_causes(self) -> list:
-        raise DatasetException('Dataset must implement its own get_causes method')
-
-    @abstractmethod
-    def get_outcome(self) -> str:
-        raise DatasetException('Dataset must implement its own get_outcome method')
-
     def get_data(self, force_rebuild: bool = False) -> pd.DataFrame:
         if self.__data is None:
-            self.__data = self.read() if self.get_filepath().is_file() and not force_rebuild else self.save(self.samples)
+            self.__data = self.read() if self.get_filepath().is_file() and not force_rebuild else self.save(
+                self.samples)
 
         return self.__data
 
@@ -45,8 +40,15 @@ class DatasetInterface:
 
         return data
 
+    def get_label(self):
+        return self.name + f' - {self.case}' if self.case is not None else ''
+
     def get_filepath(self) -> Path:
         if self.name is None or self.name == '':
             raise DatasetException('Dataset name is undefined')
 
-        return ProjectRoot.get() / f'res/datasets/{self.name}-{self.samples}.csv'
+        # Parse dataset label to a hyphen separated string.
+        filename = re.findall('[A-z]+', self.get_label())
+        filename = '-'.join([word.lower() for word in filename])
+
+        return ProjectRoot.get() / f'res/datasets/{filename}-{self.samples}.csv'

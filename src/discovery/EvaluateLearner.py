@@ -13,11 +13,13 @@ from generator.relation.Relation import Relation
 
 
 class EvaluateLearner:
+    EXIT_CODE_SUCCESS = 0
+    EXIT_CODE_FAILED = 1
 
     @staticmethod
     def run(scripts: List[ScriptInterface], datasets: List[DatasetInterface], threshold=90, force_rebuild=False):
         # Whether all explorations met the threshold.
-        failed = False
+        exit_status = EvaluateLearner.EXIT_CODE_SUCCESS
 
         results = {}
         for dataset in datasets:
@@ -38,15 +40,15 @@ class EvaluateLearner:
                 # RelationPlot.show(generator.get_events(include_shadow=False), learned_relations, figsize=(10, 10))
 
                 missing, added, inverted = EvaluateLearner.compare_relations(real, learned)
-                found = 1 - (len(missing) + len(inverted)) / len(real)
+                found = 1 - (len(missing) + len(inverted) + len(added)) / (len(real) + len(added))
                 color = 'red' if found < 0.5 else 'yellow' if found < 0.75 else 'green'
 
                 # Validate threshold.
                 if found < threshold / 100:
-                    failed = True
+                    exit_status = EvaluateLearner.EXIT_CODE_FAILED
 
                 # Build results to be printed
-                results.setdefault('dataset', []).append(dataset.name)
+                results.setdefault('dataset', []).append(dataset.get_label())
                 results.setdefault('samples', []).append(dataset.samples)
                 results.setdefault('library', []).append(script.name)
                 results.setdefault('algorithm', []).append(script.algorithm)
@@ -61,7 +63,7 @@ class EvaluateLearner:
         print(tabulate(results, headers='keys'))
         print()
 
-        return failed
+        return exit_status
 
     @staticmethod
     def relations_to_label(relations: List[Relation], events: List[EventInterface]) -> List[Relation]:

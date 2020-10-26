@@ -2,8 +2,8 @@ from abc import abstractmethod
 from typing import List
 
 from datasets.DatasetInterface import DatasetInterface
-from generator.relation.Relation import Relation
 from discovery.scripts.ScriptException import ScriptException
+from generator.relation.Relation import Relation
 
 
 class ScriptInterface:
