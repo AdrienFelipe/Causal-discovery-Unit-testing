@@ -1,2 +1,0 @@
-class ScriptInterface:
-    name = None

@@ -1,9 +1,0 @@
-name: tester
-channels:
-  - defaults
-  - conda-forge
-dependencies:
-  - python=3
-  - pip
-  - dowhy
-  - causalimpact
