@@ -7,7 +7,7 @@ from generator.relation.Relation import Relation
 
 
 class ScriptInterface:
-    name = None
+    library = None
     algorithm = 'default'
 
     @abstractmethod

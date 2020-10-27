@@ -11,7 +11,7 @@ from discovery.scripts.ScriptInterface import ScriptInterface
 
 
 class PyAgrumScript(ScriptInterface):
-    name = 'pyAgrum'
+    library = 'pyAgrum'
 
     LEARNER_GREEDY = 'greedy'
     LEARNER_LOCAL_SEARCH = 'local search'

@@ -13,7 +13,7 @@ random.seed(12)
 
 def temperature_function(h):
     # \boldsymbol{30 - \frac{1}{12} (\text{Tiempo} + 0.5) (\text{Viento} +50)}
-    return 30 - (values.index(h.e(1)) + 0.5) * (h.e(2)+50) / 12
+    return 30 - (values.index(h.e(1)) + 0.5) * (h.e(2) + 50) / 12
 
 
 generator = Generator() \

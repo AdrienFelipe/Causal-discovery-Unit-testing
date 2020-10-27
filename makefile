@@ -8,7 +8,7 @@ CONTAINER=cdut.con
 # Python virtual environment relative path
 ENV_PATH=.env
 # Path to the evaluation script
-SCRIPT_PATH=src/discovery/evaluate.py
+SCRIPT_PATH=src/ui/cli.py
 # Execute container as root
 EXEC=docker exec -it $(CONTAINER)
 # Execute container as current user
@@ -61,5 +61,5 @@ jupyter:
 		# Use the link by IP, not by container name, unless you have it mapped to your local DNS
 		$(EXEC_U) bash -c "PYTHONPATH=src $(ENV_PATH)/bin/jupyter $(filter-out $@,$(MAKECMDGOALS)) --ip=0.0.0.0 --port=$(JUPYTER_PORT) --no-browser"
 
-evaluate:
+run:
 		$(EXEC_U) bash -c "PYTHONPATH=src python $(SCRIPT_PATH)"

@@ -12,14 +12,15 @@ from generator.relation.Relation import Relation
 
 
 class PgmpyScript(ScriptInterface):
-    name = 'pgmpy'
+    library = 'pgmpy'
+    algorithm = 'PC'
 
     DEFAULT_DELAY = 0
 
     def predict(self, dataset: DatasetInterface) -> List[Relation]:
         data = dataset.get_data()
         estimator = PC(data)
-        graph = estimator.estimate(variant='stable', max_cond_vars=4, show_progress=False)
+        graph = estimator.estimate(variant='stable', max_cond_vars=2, show_progress=False)
 
         return self.__build_relations(graph, data)
 

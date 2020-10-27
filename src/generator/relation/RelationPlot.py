@@ -11,6 +11,12 @@ class RelationPlot:
 
     @staticmethod
     def show(events: List[EventInterface], relations: List[Relation], figsize: tuple = (5, 3), node_size=2000):
+        fig = plt.figure(figsize=figsize)
+        RelationPlot.draw_plot(events, relations, node_size)
+        plt.show()
+
+    @staticmethod
+    def draw_plot(events: List[EventInterface], relations: List[Relation], node_size=2000, ax=None, title=None):
         graph = nx.DiGraph()
 
         for relation in relations:
@@ -31,8 +37,11 @@ class RelationPlot:
 
         # This needs to be last as events are transformed to strings.
         nx.relabel_nodes(graph, lambda event: event.label, copy=False)
-        plt.figure(figsize=figsize)
+
+        if ax is not None:
+            plt.sca(ax)
+            ax.set_title(title, fontsize=12)
+            plt.setp(ax.spines.values(), color='#CCCCCC')
 
         nx.draw_networkx(graph, node_size=node_size, node_color=colors, edgecolors=borders)
         plt.margins(0.25)
-        plt.show()

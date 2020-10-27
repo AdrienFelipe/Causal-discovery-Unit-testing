@@ -3,6 +3,7 @@ from __future__ import annotations
 import datetime
 from typing import List
 
+import matplotlib.pyplot as plt
 from tabulate import tabulate
 from termcolor import colored
 
@@ -10,14 +11,19 @@ from datasets.DatasetInterface import DatasetInterface
 from discovery.scripts.ScriptInterface import ScriptInterface
 from generator.events.EventInterface import EventInterface
 from generator.relation.Relation import Relation
+from generator.relation.RelationPlot import RelationPlot
 
 
 class EvaluateLearner:
     EXIT_CODE_SUCCESS = 0
     EXIT_CODE_FAILED = 1
 
+    TABLE_OUTPUT = 'table'
+    GRAPH_OUTPUT = 'graph'
+
     @staticmethod
-    def run(scripts: List[ScriptInterface], datasets: List[DatasetInterface], threshold=90, force_rebuild=False):
+    def run(scripts: List[ScriptInterface], datasets: List[DatasetInterface], threshold=90, output=TABLE_OUTPUT,
+            force_rebuild=False):
         # Whether all explorations met the threshold.
         exit_status = EvaluateLearner.EXIT_CODE_SUCCESS
 
@@ -30,38 +36,55 @@ class EvaluateLearner:
 
                 # Measure algorithm execution time.
                 time = datetime.datetime.now()
-                learned = script.predict(dataset)
+                ori_learned = script.predict(dataset)
                 time = (datetime.datetime.now() - time).total_seconds()
-                learned = EvaluateLearner.relations_to_label(learned, generator.get_events(include_shadow=False))
+                learned = EvaluateLearner.relations_to_label(ori_learned, generator.get_events(include_shadow=False))
 
                 real = EvaluateLearner.relations_to_label(generator.build_relations(), generator.get_events())
 
-                # generator.plot_relations(fig_size=(10, 10))
-                # RelationPlot.show(generator.get_events(include_shadow=False), learned_relations, figsize=(10, 10))
-
                 missing, added, inverted = EvaluateLearner.compare_relations(real, learned)
                 found = 1 - (len(missing) + len(inverted) + len(added)) / (len(real) + len(added))
-                color = 'red' if found < 0.5 else 'yellow' if found < 0.75 else 'green'
 
                 # Validate threshold.
                 if found < threshold / 100:
                     exit_status = EvaluateLearner.EXIT_CODE_FAILED
 
-                # Build results to be printed
-                results.setdefault('dataset', []).append(dataset.get_label())
-                results.setdefault('samples', []).append(dataset.samples)
-                results.setdefault('library', []).append(script.name)
-                results.setdefault('algorithm', []).append(script.algorithm)
-                results.setdefault('found', []).append(colored(f'{int(found * 100)}%', color))
-                results.setdefault('erroneous', []).append(colored(len(added), 'red' if len(added) > 0 else 'white'))
-                results.setdefault('inverted', []).append(
-                    colored(len(inverted), 'red' if len(inverted) > 0 else 'white'))
-                results.setdefault('missing', []).append(colored(len(missing), 'red' if len(missing) > 0 else 'white'))
-                results.setdefault('time', []).append(f'{int(time * 1000)}ms')
+                # Format print outputs with colors.
+                color = 'red' if found < 0.5 else 'yellow' if found < 0.75 else 'green'
+                found_print = colored(f'{int(found * 100)}%', color)
+                erroneous_print = colored(len(added), 'red' if len(added) > 0 else 'white')
+                inverted_print = colored(len(inverted), 'red' if len(inverted) > 0 else 'white')
+                missing_print = colored(len(missing), 'red' if len(missing) > 0 else 'white')
 
-        print()
-        print(tabulate(results, headers='keys'))
-        print()
+                # Build results to be printed
+                if output == EvaluateLearner.TABLE_OUTPUT:
+                    results.setdefault('dataset', []).append(dataset.get_label())
+                    results.setdefault('samples', []).append(dataset.samples)
+                    results.setdefault('library', []).append(script.library)
+                    results.setdefault('algorithm', []).append(script.algorithm)
+                    results.setdefault('found', []).append(found_print)
+                    results.setdefault('erroneous', []).append(erroneous_print)
+                    results.setdefault('inverted', []).append(inverted_print)
+                    results.setdefault('missing', []).append(missing_print)
+                    results.setdefault('time', []).append(f'{int(time * 1000)}ms')
+
+                # Plot graph output.
+                elif output == EvaluateLearner.GRAPH_OUTPUT:
+                    print('\n\n')
+                    print(f'{dataset.get_label()} → {script.algorithm} ({script.library}): {found_print}')
+
+                    fig, ax = plt.subplots(1, 2, figsize=(15, 5))
+                    RelationPlot.draw_plot(generator.get_events(), generator.build_relations(), ax=ax[0],
+                                           title='Original graph')
+                    RelationPlot.draw_plot(generator.get_events(include_shadow=False), ori_learned, ax=ax[1],
+                                           title='Learned graph')
+
+                    plt.show()
+
+        if output == EvaluateLearner.TABLE_OUTPUT:
+            print()
+            print(tabulate(results, headers='keys'))
+            print()
 
         return exit_status
 
