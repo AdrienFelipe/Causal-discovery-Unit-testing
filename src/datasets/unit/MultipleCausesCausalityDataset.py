@@ -9,7 +9,7 @@ from generator.Generator import Generator
 
 class MultipleCausesCausalityDataset(DatasetInterface):
     name = 'Multiple Causes'
-    noise = 5
+    noise = 1
 
     def __init__(self, case: str, function: Callable, *args, **kwargs):
         self.__function = function

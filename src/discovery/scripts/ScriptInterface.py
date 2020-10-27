@@ -7,8 +7,10 @@ from generator.relation.Relation import Relation
 
 
 class ScriptInterface:
-    library = None
-    algorithm = 'default'
+
+    def __init__(self, library: str, algorithm: str = 'default'):
+        self.library = library
+        self.algorithm = algorithm
 
     @abstractmethod
     def predict(self, data: DatasetInterface) -> List[Relation]:

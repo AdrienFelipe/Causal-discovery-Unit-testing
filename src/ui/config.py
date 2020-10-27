@@ -24,7 +24,9 @@ datasets = [
 # algorithm.useGreedyHillClimbing()
 
 scripts = [
-    PgmpyScript(),
+    PgmpyScript.pc(),
+    PgmpyScript.local_search(),
+    #PgmpyScript.exhaustive_search(),
     PyAgrumScript(PyAgrumScript.LEARNER_GREEDY),
     # PyAgrumScript(PyAgrumScript.LEARNER_LOCAL_SEARCH),
     # DowhyScript(),

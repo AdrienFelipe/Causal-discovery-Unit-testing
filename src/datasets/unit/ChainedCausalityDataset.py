@@ -18,18 +18,16 @@ class ChainedCausalityDataset(DatasetInterface):
     def get_generator(self) -> Generator:
         return Generator() \
             .add_uniform() \
-            .add_uniform() \
             .add_function(self.__functions[0], round=2) \
             .add_function(self.__functions[1], round=2) \
-            .add_function(self.__functions[2], round=2) \
-            .add_uniform()
+            .add_function(self.__functions[2], round=2)
 
     @staticmethod
     def linear(*args, **kwargs) -> ChainedCausalityDataset:
         functions = [
             lambda h: 20 * h.e(1) + 10 + gauss(0, ChainedCausalityDataset.noise),
-            lambda h: 10 * h.e(3) - 5 + gauss(0, ChainedCausalityDataset.noise),
-            lambda h: 2 * h.e(4) + 20 + gauss(0, ChainedCausalityDataset.noise),
+            lambda h: 10 * h.e(2) - 5 + gauss(0, ChainedCausalityDataset.noise),
+            lambda h: 2 * h.e(3) + 20 + gauss(0, ChainedCausalityDataset.noise),
         ]
 
         return ChainedCausalityDataset('Linear', functions, *args, **kwargs)
