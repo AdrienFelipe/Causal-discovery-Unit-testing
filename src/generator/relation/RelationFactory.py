@@ -35,7 +35,10 @@ class RelationFactory:
 
     @staticmethod
     def _remove_shadow_events(relations: List[Relation], events: List[EventInterface]):
-        """ Rebuild relations after removing shadow events """
+        """
+        Rebuild relations after removing shadow events
+        TODO for now this removes the time delay from relations
+        """
         # List all sources and targets into separate lists.
         sources, targets = zip(*((relation.source, relation.target) for relation in relations))
         # Remove targets from sources to keep only root sources.

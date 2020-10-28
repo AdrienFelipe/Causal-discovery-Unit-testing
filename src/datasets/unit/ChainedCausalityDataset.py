@@ -5,10 +5,12 @@ from typing import Callable, List
 
 from datasets.DatasetInterface import DatasetInterface
 from generator.Generator import Generator
+from generator.relation.RelationPlot import RelationPlot
 
 
 class ChainedCausalityDataset(DatasetInterface):
     name = 'Chained Causality'
+    node_size = RelationPlot.BIG_NODE_SIZE
     noise = 0.5
 
     def __init__(self, case: str, functions: List[Callable], *args, **kwargs):
@@ -17,10 +19,10 @@ class ChainedCausalityDataset(DatasetInterface):
 
     def get_generator(self) -> Generator:
         return Generator() \
-            .add_uniform() \
-            .add_function(self.__functions[0], round=2) \
-            .add_function(self.__functions[1], round=2) \
-            .add_function(self.__functions[2], round=2)
+            .add_uniform(label='Cause') \
+            .add_function(self.__functions[0], round=2, label='Chain 1') \
+            .add_function(self.__functions[1], round=2, label='Chain 2') \
+            .add_function(self.__functions[2], round=2, label='Effect')
 
     @staticmethod
     def linear(*args, **kwargs) -> ChainedCausalityDataset:

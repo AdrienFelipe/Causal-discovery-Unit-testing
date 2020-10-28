@@ -75,9 +75,11 @@ class EvaluateLearner:
                     print('\n\n')
                     print(f'{dataset.get_label()} → {script.algorithm} ({script.library}): {found_print}')
 
-                    fig, ax = plt.subplots(1, 2, figsize=(15, 5))
-                    RelationPlot.draw_plot(generator.get_events(), relations, ax=ax[0], title='Original graph')
-                    RelationPlot.draw_plot(events, ori_learned, ax=ax[1], title='Learned graph')
+                    fig, ax = plt.subplots(1, 2, figsize=(17, 5))
+                    RelationPlot.draw_plot(generator.get_events(), relations, ax=ax[0], title='Original graph',
+                                           node_size=dataset.node_size)
+                    RelationPlot.draw_plot(events, ori_learned, ax=ax[1], title='Learned graph',
+                                           node_size=dataset.node_size)
 
                     plt.show()
 

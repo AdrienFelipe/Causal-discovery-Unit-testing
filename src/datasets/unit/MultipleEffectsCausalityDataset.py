@@ -5,10 +5,12 @@ from typing import Callable, List
 
 from datasets.DatasetInterface import DatasetInterface
 from generator.Generator import Generator
+from generator.relation.RelationPlot import RelationPlot
 
 
 class MultipleEffectsCausalityDataset(DatasetInterface):
     name = 'Multiple Effects'
+    node_size = RelationPlot.BIG_NODE_SIZE
     noise = 5
 
     def __init__(self, case: str, functions: List[Callable], *args, **kwargs):
@@ -17,10 +19,10 @@ class MultipleEffectsCausalityDataset(DatasetInterface):
 
     def get_generator(self) -> Generator:
         return Generator() \
-            .add_discrete(6) \
-            .add_function(self.__functions[0]) \
-            .add_function(self.__functions[1]) \
-            .add_function(self.__functions[2])
+            .add_discrete(6, label='Cause') \
+            .add_function(self.__functions[0], label='Effect 1') \
+            .add_function(self.__functions[1], label='Effect 2') \
+            .add_function(self.__functions[2], label='Effect 3')
 
     @staticmethod
     def discrete(*args, **kwargs) -> MultipleEffectsCausalityDataset:

@@ -13,6 +13,7 @@ from utils import ProjectRoot
 
 class DatasetInterface:
     __data = None
+    node_size = None
 
     def __init__(self, name: str, case: str = None, samples: int = 100):
         self.name = name

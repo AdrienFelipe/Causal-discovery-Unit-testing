@@ -39,7 +39,7 @@ class PgmpyScript(ScriptInterface):
         for edge in graph.edges:
             source = data.columns.get_loc(edge[0])
             target = data.columns.get_loc(edge[1])
-            relations.append(Relation(target, source))
+            relations.append(Relation(source, target))
 
         return relations
 

@@ -8,10 +8,12 @@ from datasets.DatasetInterface import DatasetInterface
 from generator.Generator import Generator
 from generator.History import History
 from generator.events.Discrete import Discrete
+from generator.relation.RelationPlot import RelationPlot
 
 
 class MultipleCausesCausalityDataset(DatasetInterface):
     name = 'Multiple Causes'
+    node_size = RelationPlot.BIG_NODE_SIZE
     noise = 1
 
     def __init__(self, case: str, function: Callable, *args, **kwargs):
@@ -20,11 +22,11 @@ class MultipleCausesCausalityDataset(DatasetInterface):
 
     def get_generator(self) -> Generator:
         return Generator() \
-            .add_discrete(5) \
+            .add_discrete(5, label='Cause 1') \
             .add_discrete(20) \
-            .add_discrete(5) \
+            .add_discrete(5, label='Cause 2') \
             .add_discrete(3) \
-            .add_function(self.__function)
+            .add_function(self.__function, label='Effect')
 
     @staticmethod
     def discrete(*args, **kwargs) -> MultipleCausesCausalityDataset:
@@ -49,12 +51,12 @@ class MultipleCausesCausalityDataset(DatasetInterface):
 
     @staticmethod
     def linear(*args, **kwargs) -> MultipleCausesCausalityDataset:
-        function = lambda h: 10 * h.e(1) + 5 * h.e(2) + 10 + gauss(0, MultipleCausesCausalityDataset.noise)
+        function = lambda h: 10 * h.e(1) + 5 * h.e(3) + 10 + gauss(0, MultipleCausesCausalityDataset.noise)
 
         return MultipleCausesCausalityDataset('Linear', function, *args, **kwargs)
 
     @staticmethod
     def power(*args, **kwargs) -> MultipleCausesCausalityDataset:
-        function = lambda h: h.e(1) ** 2 - h.e(2) ** 3 + 10 + gauss(0, MultipleCausesCausalityDataset.noise)
+        function = lambda h: h.e(1) ** 2 - h.e(3) ** 3 + 10 + gauss(0, MultipleCausesCausalityDataset.noise)
 
         return MultipleCausesCausalityDataset('Power', function, *args, **kwargs)

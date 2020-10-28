@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from abc import abstractmethod
 from random import random
 from typing import List
 
@@ -34,6 +35,7 @@ class EventInterface:
     def draw(self) -> bool:
         return random() < self.probability
 
+    @abstractmethod
     def generate(self) -> float:
         pass
 
