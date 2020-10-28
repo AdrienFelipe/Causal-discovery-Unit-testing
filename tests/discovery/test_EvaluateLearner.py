@@ -9,23 +9,23 @@ class EvaluateLearnerTest(unittest.TestCase):
 
     def test_compare_relations(self):
         real_relations = [
-            Relation(0, 1, 0),
-            Relation(0, 2, 0),
-            Relation(4, 2, 0),
+           Relation(1, 0, 0),
+           Relation(2, 0, 0),
+           Relation(2, 4, 0),
         ]
         learned_relations = [
-            Relation(0, 2, 0),
-            Relation(1, 0, 0),
-            Relation(3, 1, 0),
+           Relation(2, 0, 0),
+           Relation(0, 1, 0),
+           Relation(1, 3, 0),
         ]
         expected_missing = [
-            Relation(4, 2, 0),
+           Relation(2, 4, 0),
         ]
         expected_added = [
-            Relation(3, 1, 0),
+           Relation(1, 3, 0),
         ]
         expected_inverted = [
-            Relation(1, 0, 0),
+           Relation(0, 1, 0),
         ]
 
         missing, added, inverted = EvaluateLearner.compare_relations(real_relations, learned_relations)
@@ -36,14 +36,14 @@ class EvaluateLearnerTest(unittest.TestCase):
 
     def test_empty_learned(self):
         real_relations = [
-            Relation(0, 1, 0),
-            Relation(0, 2, 0),
+           Relation(1, 0, 0),
+           Relation(2, 0, 0),
         ]
         learned_relations = []
 
         expected_missing = [
-            Relation(0, 1, 0),
-            Relation(0, 2, 0),
+           Relation(1, 0, 0),
+           Relation(2, 0, 0),
         ]
         expected_added = []
         expected_inverted = []

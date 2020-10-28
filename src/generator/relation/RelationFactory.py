@@ -87,8 +87,8 @@ class RelationFactory:
 
             args.append(
                 Relation(
-                    source=int(event.position),
-                    target=int(arg[self.__ARG_POSITION]),
+                    source=int(arg[self.__ARG_POSITION]),
+                    target=int(event.position),
                     delay=int(arg[self.__ARG_DELAY])
                 )
             )

@@ -22,7 +22,7 @@ class RelationPlot:
         for relation in relations:
             source = events[relation.source]
             target = events[relation.target]
-            graph.add_edges_from([(target, source)])
+            graph.add_edges_from([(source, target)])
 
         # Sort nodes for the colors to be correctly applied.
         from functools import cmp_to_key

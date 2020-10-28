@@ -17,7 +17,7 @@ class RelationFactoryTest(unittest.TestCase):
             .build_relations()
 
         expected = [
-            Relation(History.DEFAULT_POSITION, History.DEFAULT_POSITION, History.DEFAULT_DELAY)
+           Relation(History.DEFAULT_POSITION, History.DEFAULT_POSITION, History.DEFAULT_DELAY)
         ]
 
         RelationAssert.equal(self, expected, relations)
@@ -42,12 +42,12 @@ class RelationFactoryTest(unittest.TestCase):
             .build_relations()
 
         expected = [
-            Relation(History.DEFAULT_POSITION, History.DEFAULT_POSITION, History.DEFAULT_DELAY),
-            Relation(History.DEFAULT_POSITION, 201, 200),
-            Relation(History.DEFAULT_POSITION, 301, 300),
-            Relation(History.DEFAULT_POSITION, History.DEFAULT_POSITION, 500),
-            Relation(History.DEFAULT_POSITION, 601, 600),
-            Relation(History.DEFAULT_POSITION, 401, History.DEFAULT_DELAY),
+           Relation(History.DEFAULT_POSITION, History.DEFAULT_POSITION, History.DEFAULT_DELAY),
+           Relation(201, History.DEFAULT_POSITION, 200),
+           Relation(301, History.DEFAULT_POSITION, 300),
+           Relation(History.DEFAULT_POSITION, History.DEFAULT_POSITION, 500),
+           Relation(601, History.DEFAULT_POSITION, 600),
+           Relation(401, History.DEFAULT_POSITION, History.DEFAULT_DELAY),
         ]
 
         RelationAssert.equal(self, expected, relations)
@@ -69,8 +69,8 @@ class RelationFactoryTest(unittest.TestCase):
             .build_relations()
 
         expected = [
-            Relation(History.DEFAULT_POSITION, History.DEFAULT_POSITION, History.DEFAULT_DELAY),
-            Relation(History.DEFAULT_POSITION + 1, 10, 20),
+           Relation(History.DEFAULT_POSITION, History.DEFAULT_POSITION, History.DEFAULT_DELAY),
+           Relation(10, History.DEFAULT_POSITION + 1, 20),
         ]
 
         RelationAssert.equal(self, expected, relations)
@@ -87,8 +87,8 @@ class RelationFactoryTest(unittest.TestCase):
             .build_relations()
 
         expected = [
-            Relation(History.DEFAULT_POSITION, 0, History.DEFAULT_DELAY),
-            Relation(History.DEFAULT_POSITION + 1, History.DEFAULT_POSITION, History.DEFAULT_DELAY),
+           Relation(0, History.DEFAULT_POSITION, History.DEFAULT_DELAY),
+           Relation(History.DEFAULT_POSITION, History.DEFAULT_POSITION + 1, History.DEFAULT_DELAY),
         ]
 
         RelationAssert.equal(self, expected, relations)
@@ -100,7 +100,7 @@ class RelationFactoryTest(unittest.TestCase):
             .build_relations()
 
         expected = [
-            Relation(3, 2, 3),
+           Relation(2, 3, 3),
         ]
 
         RelationAssert.equal(self, expected, relations)
@@ -119,8 +119,8 @@ class RelationFactoryTest(unittest.TestCase):
             .build_relations()
 
         expected = [
-            Relation(History.DEFAULT_POSITION, 0, History.DEFAULT_DELAY),
-            Relation(History.DEFAULT_POSITION + 1, History.DEFAULT_POSITION, History.DEFAULT_DELAY),
+           Relation(0, History.DEFAULT_POSITION, History.DEFAULT_DELAY),
+           Relation(History.DEFAULT_POSITION, History.DEFAULT_POSITION + 1, History.DEFAULT_DELAY),
         ]
 
         RelationAssert.equal(self, expected, relations)
@@ -137,8 +137,8 @@ class RelationFactoryTest(unittest.TestCase):
             .build_relations()
 
         expected = [
-            Relation(3, 1, 0),
-            Relation(3, 2, 1),
+           Relation(1, 3, 0),
+           Relation(2, 3, 1),
         ]
 
         RelationAssert.equal(self, expected, relations)
@@ -152,8 +152,8 @@ class RelationFactoryTest(unittest.TestCase):
             .build_relations()
 
         expected = [
-            Relation(2, 1, 0),
-            Relation(4, 3, 0),
+           Relation(1, 2, 0),
+           Relation(3, 4, 0),
         ]
 
         RelationAssert.equal(self, expected, relations)
@@ -177,12 +177,12 @@ class RelationFactoryTest(unittest.TestCase):
             .build_relations()
 
         expected = [
-            Relation(1, 0, 0),
-            Relation(2, 0, 1),
-            Relation(3, 0, 2),
-            Relation(4, 1, 0),
-            Relation(4, 2, 2),
-            Relation(4, 3, 0),
+           Relation(0, 1, 0),
+           Relation(0, 2, 1),
+           Relation(0, 3, 2),
+           Relation(1, 4, 0),
+           Relation(2, 4, 2),
+           Relation(3, 4, 0),
         ]
 
         RelationAssert.equal(self, expected, relations)
@@ -199,11 +199,11 @@ class RelationFactoryTest(unittest.TestCase):
             .build_relations()
 
         expected = [
-            Relation(3, 0),
-            Relation(4, 3),
-            Relation(4, 2),
-            Relation(5, 0),
-            Relation(6, 0),
+           Relation(0, 3),
+           Relation(3, 4),
+           Relation(2, 4),
+           Relation(0, 5),
+           Relation(0, 6),
         ]
 
         RelationAssert.equal(self, expected, relations)

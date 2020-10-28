@@ -93,7 +93,7 @@ class EvaluateLearner:
         labeled_relations = []
         for relation in relations:
             labeled_relations.append(
-                Relation(events[relation.source].label, events[relation.target].label, relation.delay))
+               Relation(events[relation.target].label, events[relation.source].label, relation.delay))
 
         return labeled_relations
 
