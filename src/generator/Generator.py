@@ -107,8 +107,7 @@ class Generator:
         return self.__events[0]
 
     def build_relations(self, include_shadow=True) -> List[Relation]:
-        events = [event for event in self.get_events() if isinstance(event, Function)]
-        return RelationFactory.build_relations(events, include_shadow)
+        return RelationFactory.build_relations(self.get_events(), include_shadow)
 
     def plot_relations(self, fig_size=(4, 3), node_size=20):
         RelationPlot.show(self.get_events(), self.build_relations(), fig_size, node_size * 100)

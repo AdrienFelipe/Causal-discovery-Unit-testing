@@ -3,6 +3,7 @@ import re
 from typing import List
 
 from generator.History import History
+from generator.events.EventInterface import EventInterface
 from generator.events.Function import Function
 from generator.relation.Relation import Relation
 
@@ -17,17 +18,64 @@ class RelationFactory:
     __DEFAULT_ARG_TIME = __ARG_DELAY
 
     @staticmethod
-    def build_relations(events: List[Function], include_shadow=True):
+    def build_relations(events: List[EventInterface], include_shadow=True):
         factory = RelationFactory()
         relations = []
-        for event in events:
+
+        # Extract Function events.
+        functions = [event for event in events if isinstance(event, Function)]
+        for event in functions:
             relations += factory.__build_relation(event)
 
         # Exclude shadows events and link relations.
+        if not include_shadow:
+            relations = RelationFactory._remove_shadow_events(relations, events)
+
+        return relations
+
+    @staticmethod
+    def _remove_shadow_events(relations: List[Relation], events: List[EventInterface]):
+        """ Rebuild relations after removing shadow events """
+        # List all sources and targets into separate lists.
+        sources, targets = zip(*((relation.source, relation.target) for relation in relations))
+        # Remove targets from sources to keep only root sources.
+        paths = [[[root] for root in set(sources) - set(targets)]]
+        final_paths = []
+
+        # Build paths.
+        depth = 1
+        while depth > 0:
+            paths.append([])
+            for path in paths[depth - 1]:
+                is_final = True
+                for relation in relations:
+                    if path[-1] == relation.source:
+                        paths[depth].append([*path, relation.target])
+                        is_final = False
+
+                if is_final:
+                    final_paths.append(path)
+
+            depth = depth + 1 if len(paths[depth]) else -1
+
+        # Remove shadow events.
+        for path in final_paths:
+            for item in path.copy():
+                if events[item].shadow:
+                    path.remove(item)
+
+        # Rebuild relations.
+        relations = []
+        for path in final_paths:
+            for key in range(len(path) - 1):
+                source = path[key]
+                target = path[key + 1]
+                relations.append(Relation(source, target))
 
         return relations
 
     def __build_relation(self, event: Function) -> list:
+        """ Extract relations from events source code """
         function_string = inspect.getsource(event.function)
 
         if re.search(rf'.*\.{self.__FUNC_METHOD}\(', function_string):

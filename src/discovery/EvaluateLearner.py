@@ -33,14 +33,16 @@ class EvaluateLearner:
             dataset.get_data(force_rebuild)
             for script in scripts:
                 generator = dataset.get_generator()
+                events = generator.get_events(include_shadow=False)
+                relations = generator.build_relations(include_shadow=False)
 
                 # Measure algorithm execution time.
                 time = datetime.datetime.now()
                 ori_learned = script.predict(dataset)
                 time = (datetime.datetime.now() - time).total_seconds()
-                learned = EvaluateLearner.relations_to_label(ori_learned, generator.get_events(include_shadow=False))
 
-                real = EvaluateLearner.relations_to_label(generator.build_relations(), generator.get_events())
+                learned = EvaluateLearner.relations_to_label(ori_learned, events)
+                real = EvaluateLearner.relations_to_label(relations, generator.get_events())
 
                 missing, added, inverted = EvaluateLearner.compare_relations(real, learned)
                 found = 1 - (len(missing) + len(inverted) + len(added)) / (len(real) + len(added))
@@ -74,10 +76,8 @@ class EvaluateLearner:
                     print(f'{dataset.get_label()} → {script.algorithm} ({script.library}): {found_print}')
 
                     fig, ax = plt.subplots(1, 2, figsize=(15, 5))
-                    RelationPlot.draw_plot(generator.get_events(), generator.build_relations(), ax=ax[0],
-                                           title='Original graph')
-                    RelationPlot.draw_plot(generator.get_events(include_shadow=False), ori_learned, ax=ax[1],
-                                           title='Learned graph')
+                    RelationPlot.draw_plot(generator.get_events(), relations, ax=ax[0], title='Original graph')
+                    RelationPlot.draw_plot(events, ori_learned, ax=ax[1], title='Learned graph')
 
                     plt.show()
 
@@ -93,7 +93,10 @@ class EvaluateLearner:
         labeled_relations = []
         for relation in relations:
             labeled_relations.append(
-               Relation(events[relation.target].label, events[relation.source].label, relation.delay))
+                Relation(events[relation.target].label, events[relation.source].label, relation.delay))
+
+        # Sort relations.
+        labeled_relations.sort(key=lambda item: item.source)
 
         return labeled_relations
 
