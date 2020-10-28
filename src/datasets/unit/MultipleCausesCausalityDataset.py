@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import math
 from random import gauss
 from typing import Callable
 
 from datasets.DatasetInterface import DatasetInterface
 from generator.Generator import Generator
+from generator.History import History
+from generator.events.Discrete import Discrete
 
 
 class MultipleCausesCausalityDataset(DatasetInterface):
@@ -17,10 +20,32 @@ class MultipleCausesCausalityDataset(DatasetInterface):
 
     def get_generator(self) -> Generator:
         return Generator() \
-            .add_uniform(10, 100) \
-            .add_constant(8) \
-            .add_constant(80) \
+            .add_discrete(5) \
+            .add_discrete(20) \
+            .add_discrete(5) \
+            .add_discrete(3) \
             .add_function(self.__function)
+
+    @staticmethod
+    def discrete(*args, **kwargs) -> MultipleCausesCausalityDataset:
+        def function(h: History):
+            sharpness = 15
+
+            # Place value in a [-sharpness; sharpness] range, from a [0, 5] input range.
+            value1 = (h.e(1) - 0) / (5 - 0) * (sharpness * 2) - sharpness
+            # Apply a sigmoid probability distribution.
+            probability1 = 1 / (1 + math.exp(-value1))
+
+            # Place value in a [-sharpness; sharpness] range, from a [0, 20] input range.
+            value2 = (h.e(3) - 0) / (5 - 0) * (sharpness * 2) - sharpness
+            # Apply a sigmoid probability distribution.
+            probability2 = 1 / (1 + math.exp(-value2))
+
+            probability = 1 / 2 * (probability1 + probability2)
+            weights = (1 - probability, probability)
+            return Discrete(weights=weights).generate()
+
+        return MultipleCausesCausalityDataset('Discrete', function, *args, **kwargs)
 
     @staticmethod
     def linear(*args, **kwargs) -> MultipleCausesCausalityDataset:
