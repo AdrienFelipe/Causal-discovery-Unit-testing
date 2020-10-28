@@ -9,8 +9,8 @@ from generator.History import History
 from generator.events.Categorical import Categorical
 from generator.events.Constant import Constant
 from generator.events.Discrete import Discrete
-from generator.events.Function import Function
 from generator.events.EventInterface import EventInterface
+from generator.events.Function import Function
 from generator.events.Gaussian import Gaussian
 from generator.events.Linear import Linear
 from generator.events.Time import Time
@@ -85,8 +85,8 @@ class Generator:
     def add_gaussian(self, mu: float = 0, sigma: float = 1, **kwargs) -> Generator:
         return self.__add_event(Gaussian(mu, sigma, **kwargs))
 
-    def add_discrete(self, weight: float = 0.5, **kwargs) -> Generator:
-        return self.__add_event(Discrete(weight, **kwargs))
+    def add_discrete(self, samples: int = 2, weights: tuple = None, **kwargs) -> Generator:
+        return self.__add_event(Discrete(samples, weights, **kwargs))
 
     def add_linear(self, start: float = 0, step: float = 1, **kwargs) -> Generator:
         return self.__add_event(Linear(start, step, **kwargs))

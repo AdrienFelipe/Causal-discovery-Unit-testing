@@ -5,11 +5,13 @@ from generator.events.EventInterface import EventInterface
 
 class Discrete(EventInterface):
 
-    def __init__(self, weight: float, **kwargs):
+    def __init__(self, samples: int = 2, weights: tuple = None, **kwargs):
         super().__init__(**kwargs)
-        self.weight = weight
+        self.samples = samples
+        self.weights = weights
 
     def generate(self) -> int:
-        population = [0, 1]
-        weights = [1 - self.weight, self.weight]
-        return choices(population, weights)[0]
+        if self.weights is None:
+            self.weights = (1,) * self.samples
+
+        return choices(range(self.samples), self.weights)[0]

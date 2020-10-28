@@ -134,18 +134,18 @@ class GeneratorTest(unittest.TestCase):
             history.get_event(1) + history.get_event(2) + history.get_event(3)
 
         dataset = Generator() \
-            .add_discrete(0.3) \
-            .add_discrete(0.5) \
-            .add_discrete(0.9) \
+            .add_discrete(weights=(0.7, 0.3)) \
+            .add_discrete(5) \
+            .add_discrete(samples=3, weights=(0.1, 0.7, 0.2)) \
             .add_function(effect_function) \
             .add_discrete() \
             .generate()
 
         expected = pd.DataFrame({
             EventInterface.LABEL_EVENT + '1': [0, 0, 1],
-            EventInterface.LABEL_EVENT + '2': [1, 1, 0],
-            EventInterface.LABEL_EVENT + '3': [1, 1, 1],
-            EventInterface.LABEL_EVENT + '4': [2, 2, 2],
+            EventInterface.LABEL_EVENT + '2': [2, 3, 2],
+            EventInterface.LABEL_EVENT + '3': [1, 2, 1],
+            EventInterface.LABEL_EVENT + '4': [3, 5, 4],
             EventInterface.LABEL_EVENT + '5': [1, 1, 1],
         })
         pd.testing.assert_frame_equal(expected, dataset, check_dtype=False)
