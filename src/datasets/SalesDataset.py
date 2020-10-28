@@ -19,7 +19,7 @@ class SalesDataset(DatasetInterface):
 
     @staticmethod
     def basic(*args, **kwargs) -> SalesDataset:
-        case = 'Marketing campaigns'
+        case = 'Basic'
         generator = Generator() \
             .set_time('2020-02-20', step='1d') \
             .add_constant(300, shadow=True) \

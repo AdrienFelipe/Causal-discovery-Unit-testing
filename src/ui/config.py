@@ -22,9 +22,15 @@ datasets2 = [
 
 datasets = [
     SalesDataset.basic(100),
+    SalesDataset.marketing_campaigns(100),
+    MultipleCausesCausalityDataset.discrete(100),
+    DirectCausalityDataset.discrete(100),
+    MultipleEffectsCausalityDataset.discrete(100),
 ]
 
 final = [
+    SalesDataset.basic(100),
+    SalesDataset.marketing_campaigns(100),
     MultipleCausesCausalityDataset.discrete(100),
     DirectCausalityDataset.discrete(100),
     MultipleEffectsCausalityDataset.discrete(100),

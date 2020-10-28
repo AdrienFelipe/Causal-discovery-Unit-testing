@@ -66,10 +66,15 @@ class RelationFactory:
 
         # Rebuild relations.
         relations = []
+        hashes = []
         for path in final_paths:
             for key in range(len(path) - 1):
                 source = path[key]
                 target = path[key + 1]
+                relation_hash = f'{source}-{target}'
+                if relation_hash in hashes:
+                    continue
+                hashes.append(relation_hash)
                 relations.append(Relation(source, target))
 
         return relations
