@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datasets.unit.CategoricalCausalityDataset import CategoricalCausalityDataset
 from datasets.unit.ChainedCausalityDataset import ChainedCausalityDataset
 from datasets.unit.DirectCausalityDataset import DirectCausalityDataset
 from datasets.unit.MultipleCausesCausalityDataset import MultipleCausesCausalityDataset
@@ -7,7 +8,7 @@ from datasets.unit.MultipleEffectsCausalityDataset import MultipleEffectsCausali
 from discovery.scripts.PgmpyScript import PgmpyScript
 from discovery.scripts.PyAgrumScript import PyAgrumScript
 
-datasets = [
+datasets2 = [
     DirectCausalityDataset.linear(100),
     DirectCausalityDataset.square_root(100),
     DirectCausalityDataset.power(100),
@@ -17,6 +18,11 @@ datasets = [
     MultipleEffectsCausalityDataset.linear(100),
     MultipleEffectsCausalityDataset.power(100),
     ChainedCausalityDataset.linear(100)
+]
+
+datasets = [
+    DirectCausalityDataset.discrete(100),
+    #DirectCausalityDataset.linear(300),
 ]
 
 # http://www-desir.lip6.fr/~phw/aGrUM/docs/last/notebooks/11-structuralLearning.ipynb.html

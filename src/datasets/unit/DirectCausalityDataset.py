@@ -6,6 +6,8 @@ from typing import Callable
 
 from datasets.DatasetInterface import DatasetInterface
 from generator.Generator import Generator
+from generator.History import History
+from generator.events.Discrete import Discrete
 
 
 class DirectCausalityDataset(DatasetInterface):
@@ -18,11 +20,23 @@ class DirectCausalityDataset(DatasetInterface):
 
     def get_generator(self) -> Generator:
         return Generator() \
-            .add_uniform() \
-            .add_discrete() \
-            .add_gaussian() \
-            .add_function(self.__function, round=2) \
-            .add_constant()
+            .add_discrete(10) \
+            .add_discrete(10) \
+            .add_discrete(10) \
+            .add_discrete(10) \
+            .add_function(self.__function)
+
+    @staticmethod
+    def discrete(*args, **kwargs) -> DirectCausalityDataset:
+        def function(h: History):
+            # Place value in a [-10; 10] range, from a [0, 9] input range.
+            value = (h.e(4) - 0) / (9 - 0) * 20 - 10
+            # Apply a sigmoid probability distribution.
+            probability = 1 / (1 + math.exp(-value))
+            weights = (1 - probability, probability)
+            return Discrete(weights=weights).generate()
+
+        return DirectCausalityDataset('Discrete', function, *args, **kwargs)
 
     @staticmethod
     def linear(*args, **kwargs) -> DirectCausalityDataset:

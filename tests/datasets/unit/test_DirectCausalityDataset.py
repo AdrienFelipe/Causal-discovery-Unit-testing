@@ -19,22 +19,22 @@ class DirectCausalityDatasetTest(unittest.TestCase):
         self.assertEqual(expected_path, dataset.get_filepath())
         # Test dataset value.
         data = dataset.get_generator().generate()
-        self.assertEqual(93.7, data['E4'][0])
+        self.assertEqual(4, data['E4'][0])
 
     def test_square_root(self):
         dataset = DirectCausalityDataset.square_root()
         data = dataset.get_generator().generate()
-        self.assertEqual(55.22, data['E4'][0])
+        self.assertEqual(4, data['E4'][0])
 
     def test_power(self):
         dataset = DirectCausalityDataset.power()
         data = dataset.get_generator().generate()
-        self.assertEqual(363.35, data['E4'][0])
+        self.assertEqual(4, data['E4'][0])
 
     def test_exponential(self):
         dataset = DirectCausalityDataset.exponential()
         data = dataset.get_generator().generate()
-        self.assertEqual(40.04, data['E4'][0])
+        self.assertEqual(4, data['E4'][0])
 
 
 if __name__ == '__main__':
