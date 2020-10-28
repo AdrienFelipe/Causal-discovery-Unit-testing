@@ -17,11 +17,13 @@ class RelationFactory:
     __DEFAULT_ARG_TIME = __ARG_DELAY
 
     @staticmethod
-    def build_relations(events: List[Function]):
+    def build_relations(events: List[Function], include_shadow=True):
         factory = RelationFactory()
         relations = []
         for event in events:
             relations += factory.__build_relation(event)
+
+        # Exclude shadows events and link relations.
 
         return relations
 

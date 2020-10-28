@@ -187,6 +187,27 @@ class RelationFactoryTest(unittest.TestCase):
 
         RelationAssert.equal(self, expected, relations)
 
+    def test_jump_shadows(self):
+        relations = Generator() \
+            .set_time('2020-02-20', step='1d') \
+            .add_uniform(label='1') \
+            .add_uniform(label='2') \
+            .add_function(lambda h: h.e(0), shadow=True, label='3') \
+            .add_function(lambda h: h.e(3) + h.e(2), shadow=True, label='4') \
+            .add_function(lambda h: h.e(0), shadow=True, label='5') \
+            .add_function(lambda h: h.e(0), shadow=True, label='6') \
+            .build_relations()
+
+        expected = [
+            Relation(3, 0),
+            Relation(4, 3),
+            Relation(4, 2),
+            Relation(5, 0),
+            Relation(6, 0),
+        ]
+
+        RelationAssert.equal(self, expected, relations)
+
 
 if __name__ == '__main__':
     unittest.main()

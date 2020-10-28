@@ -15,8 +15,8 @@ class DirectCausalityDataset(DatasetInterface):
     noise = 0.5
 
     def __init__(self, case: str, function: Callable, *args, **kwargs):
-        self.__function = function
         super().__init__(self.name, case, *args, **kwargs)
+        self.__function = function
 
     def get_generator(self) -> Generator:
         return Generator() \

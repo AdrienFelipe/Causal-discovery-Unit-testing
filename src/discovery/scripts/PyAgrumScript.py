@@ -5,24 +5,22 @@ from typing import List
 import pyAgrum as gum
 
 from datasets.DatasetInterface import DatasetInterface
-from generator.relation.Relation import Relation
 from discovery.scripts.ScriptException import ScriptException
 from discovery.scripts.ScriptInterface import ScriptInterface
+from generator.relation.Relation import Relation
 
 
 class PyAgrumScript(ScriptInterface):
-    library = 'pyAgrum'
-
     LEARNER_GREEDY = 'greedy'
     LEARNER_LOCAL_SEARCH = 'local search'
 
-    DEFAULT_DELAY = 0
-    DEFAULT_ALGORITHM = LEARNER_GREEDY
-
-    def __init__(self, algorithm: str = DEFAULT_ALGORITHM):
-        self.algorithm = algorithm
+    def __init__(self, algorithm: str = LEARNER_GREEDY):
+        super().__init__('pyAgrum', algorithm)
 
     def predict(self, dataset: DatasetInterface) -> List[Relation]:
+        # Load from file as can't be used directly from a DataFrame.
+        learner = gum.BNLearner(str(dataset.get_filepath()))
+
         if self.algorithm == self.LEARNER_GREEDY:
             return self.greedy_hill_climbing(dataset)
 
@@ -44,9 +42,10 @@ class PyAgrumScript(ScriptInterface):
 
         return self.__build_relations(learner.learnBN())
 
-    def __build_relations(self, bn_tree: gum.BayesNet) -> List[Relation]:
+    @staticmethod
+    def __build_relations(bn_tree: gum.BayesNet) -> List[Relation]:
         relations = []
         for arc in bn_tree.arcs():
-            relations.append(Relation(arc[0], arc[1], self.DEFAULT_DELAY))
+            relations.append(Relation(arc[0], arc[1]))
 
         return relations

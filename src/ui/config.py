@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datasets.SalesDataset import SalesDataset
 from datasets.unit.ChainedCausalityDataset import ChainedCausalityDataset
 from datasets.unit.DirectCausalityDataset import DirectCausalityDataset
 from datasets.unit.MultipleCausesCausalityDataset import MultipleCausesCausalityDataset
@@ -20,8 +21,13 @@ datasets2 = [
 ]
 
 datasets = [
+    SalesDataset.basic(100),
+]
+
+final = [
     MultipleCausesCausalityDataset.discrete(100),
-    #DirectCausalityDataset.discrete(100),
+    DirectCausalityDataset.discrete(100),
+    MultipleEffectsCausalityDataset.discrete(100),
 ]
 
 # http://www-desir.lip6.fr/~phw/aGrUM/docs/last/notebooks/11-structuralLearning.ipynb.html
