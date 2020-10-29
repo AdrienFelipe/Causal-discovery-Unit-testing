@@ -105,8 +105,24 @@ class RelationFactoryTest(unittest.TestCase):
 
         RelationAssert.equal(self, expected, relations)
 
+    def test_circular_relations(self):
+        relations = Generator() \
+            .add_function(lambda h: round(h.e(2, delay=0))) \
+            .add_function(lambda h: round(h.e(3, delay=1))) \
+            .add_function(lambda h: round(h.e(4, delay=2))) \
+            .add_function(lambda h: round(h.e(1, delay=3))) \
+            .build_relations()
+
+        expected = [
+            Relation(2, 1, 0),
+            Relation(3, 2, 1),
+            Relation(4, 3, 2),
+            Relation(1, 4, 3),
+        ]
+
+        RelationAssert.equal(self, expected, relations)
+
     def test_with_time(self):
-        self.skipTest('infinite loop?')
         function1: Callable[[History], float] = lambda history: \
             1 if history.get_datetime() == 1 else history.get_event()
 
@@ -119,8 +135,10 @@ class RelationFactoryTest(unittest.TestCase):
             .build_relations()
 
         expected = [
-            Relation(0, History.DEFAULT_POSITION, History.DEFAULT_DELAY),
-            Relation(History.DEFAULT_POSITION, History.DEFAULT_POSITION + 1, History.DEFAULT_DELAY),
+            Relation(0, 1, 0),
+            Relation(1, 1, 0),
+            Relation(0, 2, 0),
+            Relation(0, 3, 2),
         ]
 
         RelationAssert.equal(self, expected, relations)

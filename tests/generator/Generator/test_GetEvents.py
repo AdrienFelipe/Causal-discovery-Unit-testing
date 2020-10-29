@@ -1,7 +1,6 @@
 import unittest
 
 from generator.Generator import Generator
-from generator.events.EventInterface import EventInterface
 
 
 class GetEventsTest(unittest.TestCase):

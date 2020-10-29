@@ -26,7 +26,7 @@ class DirectCausalityDataset(DatasetInterface):
             .add_discrete(10) \
             .add_discrete(10) \
             .add_discrete(10, label='Cause') \
-            .add_function(self.__function, label='Effect')
+            .add_function(self.__function, label='Effect', round=0)
 
     @staticmethod
     def discrete(*args, **kwargs) -> DirectCausalityDataset:
