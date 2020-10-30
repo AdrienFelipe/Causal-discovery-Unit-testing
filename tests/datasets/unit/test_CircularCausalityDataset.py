@@ -13,7 +13,7 @@ class CircularCausalityDatasetTest(unittest.TestCase):
         dataset = CircularCausalityDataset.discrete()
         data = dataset.get_generator().generate(20)
 
-        expected_first_row = [0, 1, 1, 0, 2]
+        expected_first_row = [0, 0, 0, 0, 9]
         self.assertEqual(expected_first_row, list(data.iloc[0]))
 
 

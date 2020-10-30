@@ -39,11 +39,14 @@ class RelationFactory:
         Rebuild relations after removing shadow events
         TODO for now this removes the time delay from relations
         """
+        final_paths = []
         # List all sources and targets into separate lists.
         sources, targets = zip(*((relation.source, relation.target) for relation in relations))
         # Remove targets from sources to keep only root sources.
         paths = [[[root] for root in set(sources) - set(targets)]]
-        final_paths = []
+        # No root left means a circular relation. Use any source then.
+        if len(paths[0]) == 0:
+            paths[0].append([sources[0]])
 
         # Build paths.
         depth = 1
@@ -52,7 +55,8 @@ class RelationFactory:
             for path in paths[depth - 1]:
                 is_final = True
                 for relation in relations:
-                    if path[-1] == relation.source:
+                    # Stop at circular loops.
+                    if path[-1] == relation.source and path[-1] not in path[:-1]:
                         paths[depth].append([*path, relation.target])
                         is_final = False
 

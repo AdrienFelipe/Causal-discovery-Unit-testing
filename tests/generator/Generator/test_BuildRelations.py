@@ -122,6 +122,30 @@ class RelationFactoryTest(unittest.TestCase):
 
         RelationAssert.equal(self, expected, relations)
 
+    def test_circular_relations_excluding_shadows(self):
+        functions = [
+            lambda h: round((h.e(2, delay=0) or 0), 0),
+            lambda h: round((h.e(3, delay=1) or 0), 0),
+            lambda h: round((h.e(4, delay=2) or 0), 0),
+            lambda h: round((h.e(1, delay=3) or 0), 0),
+        ]
+
+        relations = Generator() \
+            .add_function(functions[0]) \
+            .add_function(functions[1]) \
+            .add_function(functions[2], shadow=True) \
+            .add_function(functions[3]) \
+            .add_discrete(3) \
+            .build_relations(include_shadow=False)
+
+        expected = [
+            Relation(2, 1, 0),
+            Relation(1, 4, 0),
+            Relation(4, 2, 0),
+        ]
+
+        RelationAssert.equal(self, expected, relations)
+
     def test_with_time(self):
         function1: Callable[[History], float] = lambda history: \
             1 if history.get_datetime() == 1 else history.get_event()

@@ -45,7 +45,8 @@ class EvaluateLearner:
                 real = EvaluateLearner.relations_to_label(relations, generator.get_events())
 
                 missing, added, inverted = EvaluateLearner.compare_relations(real, learned)
-                found = 1 - (len(missing) + len(inverted) + len(added)) / (len(real) + len(added))
+                found = 1 - (len(missing) + len(inverted) + len(added)) / (len(real) + len(added)) \
+                    if len(real) + len(added) > 0 else 0
 
                 # Validate threshold.
                 if found < threshold / 100:
