@@ -59,6 +59,10 @@ class Generator:
             if not all(value is None for value in list(sample.values())[1:]):
                 data = data.append(sample, ignore_index=True)
 
+        # Convert columns to specified data type.
+        for event in events:
+            data[event.label] = data[event.label].astype(event.data_type)
+
         # Remove shadow causes from generator.
         columns = [event.label for event in events if event.shadow]
         data = data.drop(columns, axis=1)
@@ -85,8 +89,8 @@ class Generator:
     def add_gaussian(self, mu: float = 0, sigma: float = 1, **kwargs) -> Generator:
         return self.__add_event(Gaussian(mu, sigma, **kwargs))
 
-    def add_discrete(self, samples: int = 2, weights: tuple = None, **kwargs) -> Generator:
-        return self.__add_event(Discrete(samples, weights, **kwargs))
+    def add_discrete(self, samples: int = 2, weights: tuple = None, data_type=pd.Int64Dtype(), **kwargs) -> Generator:
+        return self.__add_event(Discrete(samples, weights, data_type=data_type, **kwargs))
 
     def add_linear(self, start: float = 0, step: float = 1, **kwargs) -> Generator:
         return self.__add_event(Linear(start, step, **kwargs))
@@ -94,8 +98,8 @@ class Generator:
     def add_constant(self, value: float = 1, **kwargs) -> Generator:
         return self.__add_event(Constant(value, **kwargs))
 
-    def add_categorical(self, values: tuple = (0, 1), weights: tuple = None, **kwargs) -> Generator:
-        return self.__add_event(Categorical(values, weights, **kwargs))
+    def add_categorical(self, values: tuple = (0, 1), weights: tuple = None, data_type=str, **kwargs) -> Generator:
+        return self.__add_event(Categorical(values, weights, data_type=data_type, **kwargs))
 
     def set_time(self, start_date: str = None, step: str = '1m', precision: str = None, **kwargs) -> Generator:
         event = Time(start_date, step, precision, **kwargs)

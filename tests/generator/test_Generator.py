@@ -161,8 +161,8 @@ class GeneratorTest(unittest.TestCase):
             .add_discrete(shadow=False) \
             .add_discrete(shadow=True) \
             .add_uniform(shadow=True) \
-            .add_uniform() \
-            .generate().round(0)
+            .add_uniform(round=0) \
+            .generate()
 
         expected = pd.DataFrame({
             EventInterface.LABEL_EVENT + '1': [1, 1, 1],

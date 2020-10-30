@@ -20,10 +20,11 @@ class EventInterface:
     type = TYPE_EVENT
     position = 0
 
-    def __init__(self, probability: float = 1, shadow: bool = False, label=None, **kwargs):
+    def __init__(self, probability: float = 1, shadow: bool = False, label: str = None, data_type=float, **kwargs):
         self.probability = probability
         self.shadow = shadow
         self.label = label
+        self.data_type = data_type
 
     def setup(self, events: List[EventInterface]):
         self.position = len(events)
