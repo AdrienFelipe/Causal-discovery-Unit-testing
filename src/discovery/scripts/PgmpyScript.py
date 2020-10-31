@@ -13,23 +13,24 @@ from generator.relation.Relation import Relation
 
 class PgmpyScript(ScriptInterface):
     ESTIMATOR_PC = 'PC'
-    ESTIMATOR_LOCAL_SEARCH = 'Local search'
-    ESTIMATOR_EXHAUSTIVE_SEARCH = 'Exhaustive search'
+    ESTIMATOR_GES = 'GES'
+    ESTIMATOR_MMHC = 'MMHC'
 
     def __init__(self, algorithm: str):
-        super().__init__('pgmpy', algorithm)
+        super().__init__('Pgmpy', algorithm)
 
     def predict(self, dataset: DatasetInterface) -> List[Relation]:
         data = dataset.get_data()
 
         if self.algorithm == self.ESTIMATOR_PC:
             estimator = PC(data)
-        elif self.algorithm == self.ESTIMATOR_EXHAUSTIVE_SEARCH:
-            estimator = ExhaustiveSearch(data)
+            graph = estimator.estimate(show_progress=False)
+        elif self.algorithm == self.ESTIMATOR_MMHC:
+            estimator = ExhaustiveSearch(data, show_progress=False)
+            graph = estimator.estimate()
         else:
             estimator = HillClimbSearch(data)
-
-        graph = estimator.estimate(show_progress=False)
+            graph = estimator.estimate(show_progress=False)
 
         return PgmpyScript.__build_relations(graph, data)
 
@@ -44,13 +45,13 @@ class PgmpyScript(ScriptInterface):
         return relations
 
     @staticmethod
-    def pc() -> PgmpyScript:
+    def PC() -> PgmpyScript:
         return PgmpyScript(PgmpyScript.ESTIMATOR_PC)
 
     @staticmethod
-    def local_search() -> PgmpyScript:
-        return PgmpyScript(PgmpyScript.ESTIMATOR_LOCAL_SEARCH)
+    def GES() -> PgmpyScript:
+        return PgmpyScript(PgmpyScript.ESTIMATOR_GES)
 
     @staticmethod
-    def exhaustive_search() -> PgmpyScript:
-        return PgmpyScript(PgmpyScript.ESTIMATOR_EXHAUSTIVE_SEARCH)
+    def MMHC() -> PgmpyScript:
+        return PgmpyScript(PgmpyScript.ESTIMATOR_MMHC)

@@ -5,7 +5,6 @@ from typing import List
 import pyAgrum as gum
 
 from datasets.DatasetInterface import DatasetInterface
-from discovery.scripts.ScriptException import ScriptException
 from discovery.scripts.ScriptInterface import ScriptInterface
 from generator.relation.Relation import Relation
 
@@ -22,25 +21,21 @@ class PyAgrumScript(ScriptInterface):
         learner = gum.BNLearner(str(dataset.get_filepath()))
 
         if self.algorithm == self.LEARNER_GREEDY:
-            return self.greedy_hill_climbing(dataset)
+            self.__greedy_hill_climbing(learner)
 
-        if self.algorithm == self.LEARNER_LOCAL_SEARCH:
-            return self.local_search_with_tabu_list(dataset)
+        else:
+            self.__local_search_with_tabu_list(learner)
 
-        raise ScriptException('Undefined algorithm')
+        return self.__build_relations(learner.learnBN())
 
-    def greedy_hill_climbing(self, dataset: DatasetInterface) -> List[Relation]:
-        learner = gum.BNLearner(str(dataset.get_filepath()))
+    @staticmethod
+    def __greedy_hill_climbing(learner: gum.BNLearner) -> None:
         learner.useGreedyHillClimbing()
         learner.setMaxIndegree(1)
 
-        return self.__build_relations(learner.learnBN())
-
-    def local_search_with_tabu_list(self, dataset: DatasetInterface) -> List[Relation]:
-        learner = gum.BNLearner(str(dataset.get_filepath()))
+    @staticmethod
+    def __local_search_with_tabu_list(learner: gum.BNLearner) -> None:
         learner.useLocalSearchWithTabuList()
-
-        return self.__build_relations(learner.learnBN())
 
     @staticmethod
     def __build_relations(bn_tree: gum.BayesNet) -> List[Relation]:

@@ -45,9 +45,8 @@ final = [
 # algorithm.useGreedyHillClimbing()
 
 scripts = [
-    #PgmpyScript.pc(),
-    #PgmpyScript.local_search(),
-    #PgmpyScript.exhaustive_search(),
+    PgmpyScript.PC(),
+    PgmpyScript.GES(),
     PyAgrumScript(PyAgrumScript.LEARNER_GREEDY),
     PyAgrumScript(PyAgrumScript.LEARNER_LOCAL_SEARCH),
     # DowhyScript(),
