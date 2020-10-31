@@ -10,32 +10,35 @@ from generator.relation.Relation import Relation
 
 
 class PyAgrumScript(ScriptInterface):
-    LEARNER_GREEDY = 'greedy'
-    LEARNER_LOCAL_SEARCH = 'local search'
+    # Greedy Search by hill climbing.
+    LEARNER_GES = 'GES'
+    # Local search with tabu list.
+    LEARNER_TS = 'TS'
 
-    def __init__(self, algorithm: str = LEARNER_GREEDY):
+    def __init__(self, algorithm: str = LEARNER_GES):
         super().__init__('pyAgrum', algorithm)
 
     def predict(self, dataset: DatasetInterface) -> List[Relation]:
         # Load from file as can't be used directly from a DataFrame.
         learner = gum.BNLearner(str(dataset.get_filepath()))
 
-        if self.algorithm == self.LEARNER_GREEDY:
-            self.__greedy_hill_climbing(learner)
+        # Greedy Search.
+        if self.algorithm == self.LEARNER_GES:
+            learner.useGreedyHillClimbing()
 
+        # Tabu search.
         else:
-            self.__local_search_with_tabu_list(learner)
+            learner.useLocalSearchWithTabuList()
 
         return self.__build_relations(learner.learnBN())
 
     @staticmethod
-    def __greedy_hill_climbing(learner: gum.BNLearner) -> None:
-        learner.useGreedyHillClimbing()
-        learner.setMaxIndegree(1)
+    def GES() -> PyAgrumScript:
+        return PyAgrumScript(PyAgrumScript.LEARNER_GES)
 
     @staticmethod
-    def __local_search_with_tabu_list(learner: gum.BNLearner) -> None:
-        learner.useLocalSearchWithTabuList()
+    def TS() -> PyAgrumScript:
+        return PyAgrumScript(PyAgrumScript.LEARNER_TS)
 
     @staticmethod
     def __build_relations(bn_tree: gum.BayesNet) -> List[Relation]:

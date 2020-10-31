@@ -45,10 +45,10 @@ final = [
 # algorithm.useGreedyHillClimbing()
 
 scripts = [
-    PgmpyScript.PC(),
-    PgmpyScript.GES(),
-    PyAgrumScript(PyAgrumScript.LEARNER_GREEDY),
-    PyAgrumScript(PyAgrumScript.LEARNER_LOCAL_SEARCH),
+    #PgmpyScript.PC(),
+    #PgmpyScript.GES(),
+    PyAgrumScript.GES(),
+    PyAgrumScript.TS(),
     # DowhyScript(),
     # MeDILExampleScript(),
     # MeDILScript(),
