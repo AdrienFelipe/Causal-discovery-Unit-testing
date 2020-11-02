@@ -5,7 +5,7 @@ from typing import List
 import pyAgrum as gum
 
 from datasets.DatasetInterface import DatasetInterface
-from discovery.scripts.ScriptInterface import ScriptInterface
+from discovery.ScriptInterface import ScriptInterface
 from generator.relation.Relation import Relation
 
 

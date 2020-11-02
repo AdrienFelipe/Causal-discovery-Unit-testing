@@ -7,7 +7,7 @@ from pgmpy.base import PDAG
 from pgmpy.estimators import PC, HillClimbSearch, ExhaustiveSearch
 
 from datasets.DatasetInterface import DatasetInterface
-from discovery.scripts.ScriptInterface import ScriptInterface
+from discovery.ScriptInterface import ScriptInterface
 from generator.relation.Relation import Relation
 
 

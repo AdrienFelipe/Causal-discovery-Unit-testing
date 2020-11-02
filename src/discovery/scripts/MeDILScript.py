@@ -10,7 +10,7 @@ from medil.independence_testing import hypothesis_test
 from pytorch_lightning import Trainer
 
 from datasets.DatasetInterface import DatasetInterface
-from discovery.scripts.ScriptInterface import ScriptInterface
+from discovery.ScriptInterface import ScriptInterface
 
 
 class MeDILScript(ScriptInterface):

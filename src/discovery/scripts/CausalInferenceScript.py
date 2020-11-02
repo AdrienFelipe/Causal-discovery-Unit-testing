@@ -3,7 +3,7 @@ from causalinference import CausalModel
 from causalinference.utils import random_data
 
 from datasets.DatasetInterface import DatasetInterface
-from discovery.scripts.ScriptInterface import ScriptInterface
+from discovery.ScriptInterface import ScriptInterface
 
 
 class CausalInferenceScript(ScriptInterface):
