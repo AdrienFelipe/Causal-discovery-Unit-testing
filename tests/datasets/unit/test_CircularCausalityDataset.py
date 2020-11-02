@@ -1,7 +1,7 @@
 import random
 import unittest
 
-from datasets.unit.CircularCausalityDataset import CircularCausalityDataset
+from datasets.causality.CircularCausalityDataset import CircularCausalityDataset
 
 
 class CircularCausalityDatasetTest(unittest.TestCase):

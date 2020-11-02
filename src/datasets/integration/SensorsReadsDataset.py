@@ -19,9 +19,3 @@ class SensorsReadsDataset(DatasetInterface):
             .add_uniform(round=0) \
             .add_uniform(round=0) \
             .add_function(event_function, round=0)
-
-    def get_causes(self) -> list:
-        return ['E1', 'E2']
-
-    def get_outcome(self) -> str:
-        return 'E3'

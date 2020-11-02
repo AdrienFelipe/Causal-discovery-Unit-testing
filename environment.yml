@@ -1,4 +1,4 @@
-name: tester
+name: cdut
 channels:
   - defaults
   - conda-forge
@@ -9,12 +9,9 @@ dependencies:
   - notebook
   - pandas
   - matplotlib
-  - dowhy
-  - causalimpact
-  - causalinference
-  - medil[all]        # MeDILL
-  - seaborn           # MeDILL
-  - pytorch_lightning # MeDILL
+  - networkx
   - pyagrum
-  - pgmpy
-  - prettytable
+  - tabulate
+  - termcolor
+  - pip:
+      - pgmpy

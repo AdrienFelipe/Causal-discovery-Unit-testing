@@ -7,20 +7,13 @@ from generator.Generator import Generator
 from generator.History import History
 
 
-class LinearActionDataset(DatasetInterface):
-    name = 'linear-action'
+class DelayedEffectDataset(DatasetInterface):
+    name = 'delayed-effect'
 
     def get_generator(self) -> Generator:
         event_function: Callable[[History], float] = lambda history: \
-            2 * history.get_event() + 10
+            2 * history.get_event(delay=2, null_value=0)
 
         return Generator() \
-            .add_discrete() \
-            .add_discrete() \
-            .add_function(event_function)
-
-    def get_causes(self) -> list:
-        return ['E1', 'E2']
-
-    def get_outcome(self) -> str:
-        return 'E3'
+            .add_uniform(1, 3, round=0) \
+            .add_function(event_function, round=0)

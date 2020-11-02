@@ -15,12 +15,6 @@ class LogsDataset(DatasetInterface):
     def get_generator(self) -> Generator:
         return self.basic()
 
-    def get_causes(self) -> list:
-        return ['E1', 'E3']
-
-    def get_outcome(self) -> str:
-        return 'E2'
-
     def basic(self) -> Generator:
         event_function: Callable[[History], float] = lambda history: \
             1 if history.get_event() == 1 else None

@@ -9,7 +9,6 @@ from generator.History import History
 
 class ShadowCauseDataset(DatasetInterface):
     name = 'shadow-cause'
-    samples = 100
 
     def get_generator(self) -> Generator:
         event_function: Callable[[History], float] = lambda history: \
@@ -19,9 +18,3 @@ class ShadowCauseDataset(DatasetInterface):
             .add_uniform(shadow=True) \
             .add_uniform() \
             .add_function(event_function)
-
-    def get_causes(self) -> list:
-        return ['E2']
-
-    def get_outcome(self) -> str:
-        return 'E3'

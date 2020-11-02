@@ -21,12 +21,6 @@ class SinusoidalSeriesDataset(DatasetInterface):
             .set_time('2010-01-02 20:10', step='5m') \
             .add_function(event_function, round=0)
 
-    def get_causes(self) -> list:
-        return ['T']
-
-    def get_outcome(self) -> str:
-        return 'E1'
-
     def with_noise(self) -> Generator:
         event_function: Callable[[History], float] = lambda history: \
             np.sin(history.get_timestamp() / 60 / 60 * np.pi / 2)

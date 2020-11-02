@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from datasets.unit.ChainedCausalityDataset import ChainedCausalityDataset
-from datasets.unit.DirectCausalityDataset import DirectCausalityDataset
-from datasets.unit.MultipleCausesCausalityDataset import MultipleCausesCausalityDataset
-from datasets.unit.MultipleEffectsCausalityDataset import MultipleEffectsCausalityDataset
-from datasets.unit.RelationalCausalityDataset import RelationalCausalityDataset
+from datasets.causality.ChainedCausalityDataset import ChainedCausalityDataset
+from datasets.causality.DirectCausalityDataset import DirectCausalityDataset
+from datasets.causality.MultipleCausesCausalityDataset import MultipleCausesCausalityDataset
+from datasets.causality.MultipleEffectsCausalityDataset import MultipleEffectsCausalityDataset
+from datasets.causality.RelationalCausalityDataset import RelationalCausalityDataset
 from discovery.scripts.PgmpyScript import PgmpyScript
 from discovery.scripts.PyAgrumScript import PyAgrumScript
 

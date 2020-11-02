@@ -1,7 +1,7 @@
 import random
 import unittest
 
-from datasets.unit.DirectCausalityDataset import DirectCausalityDataset
+from datasets.causality.DirectCausalityDataset import DirectCausalityDataset
 from utils import ProjectRoot
 
 

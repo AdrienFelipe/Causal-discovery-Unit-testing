@@ -1,7 +1,8 @@
 ###> Project ###
-res/*
+res/datasets/*
 .bash_history
 __pycache__
+.pytest_cache
 ###< Project ###
 
 ###> Environment ###
