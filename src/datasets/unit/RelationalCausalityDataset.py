@@ -10,7 +10,7 @@ from generator.relation.RelationPlot import RelationPlot
 
 class RelationalCausalityDataset(DatasetInterface):
     name = 'Relational Causality'
-    node_size = RelationPlot.BIG_NODE_SIZE
+    node_size = RelationPlot.NODE_SIZE_BIG
 
     def __init__(self, case: str, functions: List[Callable], *args, **kwargs):
         super().__init__(self.name, case, *args, **kwargs)

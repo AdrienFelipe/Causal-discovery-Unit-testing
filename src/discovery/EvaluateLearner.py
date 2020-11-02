@@ -23,7 +23,7 @@ class EvaluateLearner:
 
     @staticmethod
     def run(scripts: List[ScriptInterface], datasets: List[DatasetInterface], threshold=90, output=TABLE_OUTPUT,
-            force_rebuild=False):
+            force_rebuild=False, dpi=None):
         # Whether all explorations met the threshold.
         exit_status = EvaluateLearner.EXIT_CODE_SUCCESS
 
@@ -64,7 +64,7 @@ class EvaluateLearner:
                     results.setdefault('dataset', []).append(dataset.get_label())
                     results.setdefault('samples', []).append(dataset.samples)
                     results.setdefault('library', []).append(script.library)
-                    results.setdefault('algorithm', []).append(script.algorithm)
+                    results.setdefault('algorithm', []).append(colored(script.algorithm, 'cyan'))
                     results.setdefault('found', []).append(found_print)
                     results.setdefault('erroneous', []).append(erroneous_print)
                     results.setdefault('inverted', []).append(inverted_print)
@@ -76,7 +76,7 @@ class EvaluateLearner:
                     print('\n\n')
                     print(f'{dataset.get_label()} → {script.algorithm} ({script.library}): {found_print}')
 
-                    fig, ax = plt.subplots(1, 2, figsize=(17, 5))
+                    fig, ax = plt.subplots(1, 2, figsize=(17, 5), dpi=dpi)
                     RelationPlot.draw_plot(generator.get_events(), relations, ax=ax[0], title='Original graph',
                                            node_size=dataset.node_size)
                     RelationPlot.draw_plot(events, ori_learned, ax=ax[1], title='Learned graph',

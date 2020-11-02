@@ -10,7 +10,7 @@ from generator.relation.RelationPlot import RelationPlot
 
 class ChainedCausalityDataset(DatasetInterface):
     name = 'Chained Causality'
-    node_size = RelationPlot.BIG_NODE_SIZE
+    node_size = RelationPlot.NODE_SIZE_BIG
     noise = 0.5
 
     def __init__(self, case: str, functions: List[Callable], *args, **kwargs):

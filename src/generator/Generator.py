@@ -89,7 +89,7 @@ class Generator:
     def add_gaussian(self, mu: float = 0, sigma: float = 1, **kwargs) -> Generator:
         return self.__add_event(Gaussian(mu, sigma, **kwargs))
 
-    def add_discrete(self, samples: int = 2, weights: tuple = None, data_type=pd.Int64Dtype(), **kwargs) -> Generator:
+    def add_discrete(self, samples: int = 2, weights: tuple = None, data_type=int, **kwargs) -> Generator:
         return self.__add_event(Discrete(samples, weights, data_type=data_type, **kwargs))
 
     def add_linear(self, start: float = 0, step: float = 1, **kwargs) -> Generator:
@@ -113,5 +113,5 @@ class Generator:
     def build_relations(self, include_shadow=True) -> List[Relation]:
         return RelationFactory.build_relations(self.get_events(), include_shadow)
 
-    def plot_relations(self, fig_size=(4, 3), node_size=20):
-        RelationPlot.show(self.get_events(), self.build_relations(), fig_size, node_size * 100)
+    def plot_relations(self, fig_size=(4, 3), node_size=20, dpi=None):
+        RelationPlot.show(self.get_events(), self.build_relations(), fig_size, node_size * 100, dpi=dpi)

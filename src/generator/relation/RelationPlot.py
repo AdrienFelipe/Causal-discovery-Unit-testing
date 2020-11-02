@@ -8,19 +8,22 @@ from generator.relation.Relation import Relation
 
 
 class RelationPlot:
-    DEFAULT_NODE_SIZE = 2000
-    BIG_NODE_SIZE = 4000
+    NODE_SIZE_SMALL = 2000
+    NODE_SIZE_MEDIUM = 3000
+    NODE_SIZE_BIG = 4000
+    NODE_SIZE_DEFAULT = NODE_SIZE_SMALL
 
     @staticmethod
-    def show(events: List[EventInterface], relations: List[Relation], figsize: tuple = (5, 3), node_size=None):
-        fig = plt.figure(figsize=figsize)
+    def show(events: List[EventInterface], relations: List[Relation], figsize: tuple = (5, 3), node_size=None,
+             dpi=None):
+        plt.figure(figsize=figsize, dpi=dpi)
         RelationPlot.draw_plot(events, relations, node_size)
         plt.show()
 
     @staticmethod
     def draw_plot(events: List[EventInterface], relations: List[Relation], node_size=None, ax=None, title=None):
         if node_size is None:
-            node_size = RelationPlot.DEFAULT_NODE_SIZE
+            node_size = RelationPlot.NODE_SIZE_DEFAULT
 
         graph = nx.DiGraph()
 
@@ -48,5 +51,6 @@ class RelationPlot:
             ax.set_title(title, fontsize=12)
             plt.setp(ax.spines.values(), color='#CCCCCC')
 
-        nx.draw_networkx(graph, node_size=node_size, node_color=colors, edgecolors=borders, pos=nx.circular_layout(graph))
+        nx.draw_networkx(graph, node_size=node_size, node_color=colors, edgecolors=borders,
+                         pos=nx.circular_layout(graph))
         plt.margins(0.25)

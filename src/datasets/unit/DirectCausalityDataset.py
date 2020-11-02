@@ -13,8 +13,8 @@ from generator.relation.RelationPlot import RelationPlot
 
 class DirectCausalityDataset(DatasetInterface):
     name = 'Direct Causality'
-    node_size = RelationPlot.BIG_NODE_SIZE
-    noise = 0.5
+    node_size = RelationPlot.NODE_SIZE_BIG
+    noise = 5
 
     def __init__(self, case: str, function: Callable, *args, **kwargs):
         super().__init__(self.name, case, *args, **kwargs)
@@ -22,10 +22,10 @@ class DirectCausalityDataset(DatasetInterface):
 
     def get_generator(self) -> Generator:
         return Generator() \
-            .add_discrete(10) \
-            .add_discrete(10) \
-            .add_discrete(10) \
             .add_discrete(10, label='Cause') \
+            .add_discrete(10) \
+            .add_discrete(10) \
+            .add_discrete(10) \
             .add_function(self.__function, label='Effect', round=0)
 
     @staticmethod
@@ -42,24 +42,24 @@ class DirectCausalityDataset(DatasetInterface):
 
     @staticmethod
     def linear(*args, **kwargs) -> DirectCausalityDataset:
-        function = lambda h: 20 * h.e(4) + 10 + gauss(0, DirectCausalityDataset.noise)
+        function = lambda h: 10 * h.e(1) + 5 + gauss(0, DirectCausalityDataset.noise)
 
         return DirectCausalityDataset('Linear', function, *args, **kwargs)
 
     @staticmethod
     def square_root(*args, **kwargs) -> DirectCausalityDataset:
-        function = lambda h: 20 * math.sqrt(h.e(4) + 1) + 10 + gauss(0, DirectCausalityDataset.noise)
+        function = lambda h: 20 * math.sqrt(h.e(1) + 1) + 10 + gauss(0, DirectCausalityDataset.noise)
 
         return DirectCausalityDataset('Square root', function, *args, **kwargs)
 
     @staticmethod
     def power(*args, **kwargs) -> DirectCausalityDataset:
-        function = lambda h: 20 * h.e(4) ** 2 + 10 + gauss(0, DirectCausalityDataset.noise)
+        function = lambda h: 20 * h.e(1) ** 2 + 10 + gauss(0, DirectCausalityDataset.noise)
 
         return DirectCausalityDataset('Power', function, *args, **kwargs)
 
     @staticmethod
     def exponential(*args, **kwargs) -> DirectCausalityDataset:
-        function = lambda h: 20 * math.exp(h.e(4) / 10) + 10 + gauss(0, DirectCausalityDataset.noise)
+        function = lambda h: 20 * math.exp(h.e(1) / 10) + 10 + gauss(0, DirectCausalityDataset.noise)
 
         return DirectCausalityDataset('Exponential', function, *args, **kwargs)

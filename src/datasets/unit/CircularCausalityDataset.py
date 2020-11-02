@@ -10,7 +10,7 @@ from generator.relation.RelationPlot import RelationPlot
 
 class CircularCausalityDataset(DatasetInterface):
     name = 'Circular Causality'
-    node_size = RelationPlot.BIG_NODE_SIZE
+    node_size = RelationPlot.NODE_SIZE_BIG
 
     def __init__(self, case: str, functions: List[Callable], *args, **kwargs):
         super().__init__(self.name, case, *args, **kwargs)
@@ -27,10 +27,10 @@ class CircularCausalityDataset(DatasetInterface):
     @staticmethod
     def discrete(*args, **kwargs) -> CircularCausalityDataset:
         functions = [
-            lambda h: (h.e(4, delay=4) or 0) + 0.5 + gauss(0, 1),
+            lambda h: (h.e(4, delay=1) or 0) + 0.5 + gauss(0, 1),
             lambda h: (h.e(1, delay=1) or 0) + 0.5 + gauss(0, 1),
-            lambda h: (h.e(2, delay=2) or 0) + 0.5 + gauss(0, 1),
-            lambda h: (h.e(3, delay=3) or 0) + 0.5 + gauss(0, 1),
+            lambda h: (h.e(2, delay=1) or 0) + 0.5 + gauss(0, 1),
+            lambda h: (h.e(3, delay=1) or 0) + 0.5 + gauss(0, 1),
         ]
 
         return CircularCausalityDataset('Discrete', functions, *args, **kwargs)

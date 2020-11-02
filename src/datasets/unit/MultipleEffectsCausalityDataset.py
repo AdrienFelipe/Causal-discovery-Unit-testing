@@ -10,7 +10,7 @@ from generator.relation.RelationPlot import RelationPlot
 
 class MultipleEffectsCausalityDataset(DatasetInterface):
     name = 'Multiple Effects'
-    node_size = RelationPlot.BIG_NODE_SIZE
+    node_size = RelationPlot.NODE_SIZE_BIG
     noise = 5
 
     def __init__(self, case: str, functions: List[Callable], *args, **kwargs):
@@ -19,10 +19,14 @@ class MultipleEffectsCausalityDataset(DatasetInterface):
 
     def get_generator(self) -> Generator:
         return Generator() \
-            .add_discrete(6, label='Cause') \
+            .add_discrete(100, label='Cause') \
             .add_function(self.__functions[0], label='Effect 1') \
             .add_function(self.__functions[1], label='Effect 2') \
-            .add_function(self.__functions[2], label='Effect 3')
+            .add_function(self.__functions[2], label='Effect 3') \
+            .add_discrete(10) \
+            .add_discrete(10) \
+            .add_discrete(10) \
+            .add_discrete(10)
 
     @staticmethod
     def discrete(*args, **kwargs) -> MultipleEffectsCausalityDataset:

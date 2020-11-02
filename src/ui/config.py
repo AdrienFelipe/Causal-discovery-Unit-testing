@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-from datasets.SalesDataset import SalesDataset
 from datasets.unit.ChainedCausalityDataset import ChainedCausalityDataset
-from datasets.unit.CircularCausalityDataset import CircularCausalityDataset
 from datasets.unit.DirectCausalityDataset import DirectCausalityDataset
 from datasets.unit.MultipleCausesCausalityDataset import MultipleCausesCausalityDataset
 from datasets.unit.MultipleEffectsCausalityDataset import MultipleEffectsCausalityDataset
@@ -23,7 +21,13 @@ datasets2 = [
 ]
 
 datasets = [
-    CircularCausalityDataset.discrete(100),
+    MultipleCausesCausalityDataset.discrete(1000),
+    DirectCausalityDataset.linear(1000),
+]
+
+success = [
+    MultipleCausesCausalityDataset.discrete(1000),
+    DirectCausalityDataset.linear(1000),
 ]
 
 final = [
@@ -40,18 +44,9 @@ final = [
     ChainedCausalityDataset.linear(100),
 ]
 
-# http://www-desir.lip6.fr/~phw/aGrUM/docs/last/notebooks/11-structuralLearning.ipynb.html
-# algorithm.useLocalSearchWithTabuList()
-# algorithm.useGreedyHillClimbing()
-
 scripts = [
-    #PgmpyScript.PC(),
-    #PgmpyScript.GES(),
+    PgmpyScript.PC(),
+    PgmpyScript.GES(),
     PyAgrumScript.GES(),
     PyAgrumScript.TS(),
-    # DowhyScript(),
-    # MeDILExampleScript(),
-    # MeDILScript(),
-    # CausalInferenceExampleScript(),
-    # CausalInferenceScript(),
 ]

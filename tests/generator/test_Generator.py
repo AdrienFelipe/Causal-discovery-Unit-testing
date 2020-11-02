@@ -49,8 +49,8 @@ class GeneratorTest(unittest.TestCase):
             1 if history.get_event(2) == 1 else None
 
         dataset = Generator(sequential=True) \
-            .add_discrete(weight=0.5) \
-            .add_discrete(weight=0.5) \
+            .add_discrete(weight=0.5, data_type=pd.Int64Dtype()) \
+            .add_discrete(weight=0.5, data_type=pd.Int64Dtype()) \
             .add_function(effect_function) \
             .generate(4)
 
