@@ -40,8 +40,8 @@ class RelationPlot:
         colors = []
         borders = []
         for event in graph_events:
-            colors.append('#FFFFFF' if event.shadow else '#F8F8F8')
-            borders.append('#EDEDED' if event.shadow else '#DEDEDE')
+            colors.append('#FFDDDD' if event.shadow else '#F8F8F8')
+            borders.append('#CDCDCD' if event.shadow else '#DEDEDE')
 
         # This needs to be last as events are transformed to strings.
         nx.relabel_nodes(graph, lambda event: event.label, copy=False)

@@ -113,5 +113,6 @@ class Generator:
     def build_relations(self, include_shadow=True) -> List[Relation]:
         return RelationFactory.build_relations(self.get_events(), include_shadow)
 
-    def plot_relations(self, fig_size=(4, 3), node_size=20, dpi=None):
-        RelationPlot.show(self.get_events(), self.build_relations(), fig_size, node_size * 100, dpi=dpi)
+    def plot_relations(self, fig_size=(4, 3), node_size=20, include_shadow=True, dpi=None):
+        RelationPlot.show(self.get_events(), self.build_relations(include_shadow), fig_size,
+                          node_size * 100, dpi=dpi)

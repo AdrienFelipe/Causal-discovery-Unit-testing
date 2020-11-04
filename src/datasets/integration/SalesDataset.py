@@ -5,6 +5,7 @@ from random import random
 from datasets.DatasetInterface import DatasetInterface
 from generator.Generator import Generator
 from generator.History import History
+from generator.events.Uniform import Uniform
 
 
 class SalesDataset(DatasetInterface):
@@ -48,13 +49,13 @@ class SalesDataset(DatasetInterface):
         case = 'Marketing campaigns'
         generator = Generator() \
             .set_time('2020-02-20', step='1d', label='Date') \
-            .add_uniform(250, 300, shadow=True, label='Base\nsales') \
+            .add_uniform(250, 300, shadow=True, label='Base\nsales', data_type=int) \
             .add_function(SalesDataset.week_day, shadow=True, label='Week\nday') \
             .add_function(SalesDataset.year_week, shadow=True, label='Year\nweek') \
-            .add_categorical(('None', 'Shipping', 'Discount'), weights=(0.85, 0.10, 0.05), label='Promo\nlaunch') \
-            .add_function(SalesDataset.promo, shadow=True, label='Promo\ndelay') \
-            .add_function(lambda h: h.get_event(1) * h.get_event(2) * h.get_event(3) + h.get_event(5),
-                          round=0, label='Sales')
+            .add_categorical((None, 'Shipping', 'Discount'), weights=(0.85, 0.10, 0.05), label='Promo\nlaunch') \
+            .add_function(SalesDataset.promo_delay, shadow=True, label='Promo\ndelay', data_type=int) \
+            .add_uniform(min=1000, max=5000) \
+            .add_function(lambda h: h.get_event(1) * h.get_event(2) * h.get_event(3) + h.get_event(5), label='Sales', data_type=int)
 
         return SalesDataset(case, generator, *args, **kwargs)
 
@@ -75,13 +76,13 @@ class SalesDataset(DatasetInterface):
         return 1 + ratio / 5
 
     @staticmethod
-    def promo(history: History) -> float:
+    def promo_delay(history: History) -> float:
         value = 0
-        if history.get_event(4, delay=1):
-            value = random.normal(500, 100, 1)
-        if history.get_event(4, delay=2):
-            value = 400 + random.uniform(-100, 100)
-        if history.get_event(4, delay=3):
-            value = 200 + random.uniform(-50, 50)
+        if history.get_event(4):
+            value = Uniform(40, 80).generate()
+        elif history.get_event(4, delay=1):
+            value = Uniform(30, 50).generate()
+        elif history.get_event(4, delay=2):
+            value = Uniform(0, 20).generate()
 
         return value

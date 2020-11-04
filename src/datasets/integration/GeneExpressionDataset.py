@@ -9,7 +9,7 @@ class GeneExpressionDataset(DatasetInterface):
     name = 'gene-expression'
 
     def get_generator(self) -> Generator:
-        return self.simple()
+        return self.complex()
 
     def simple(self) -> Generator:
         return Generator() \
